@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Your Roast Results — RoastMyIdea 🔥</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{--pf:#ff7852;--pd:#ff734c;--surf:#0e0e0e;--surf0:#000000;--sc:#1a1919;--sb:#2c2c2c;--shh:#262626;--os:#e4e2e1;--osv:#adaaaa;--ov:rgba(255,255,255,.10);--fd:'Space Grotesk',sans-serif;--fb:'Inter',sans-serif;--fl:'Plus Jakarta Sans',sans-serif;--tr:.2s ease-out;--gs:0px 20px 40px rgba(255,115,76,.08)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--surf0);color:var(--os);font-family:var(--fb);padding-top:60px}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--pf)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:60px;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--ov)}
+.nlogo{font-family:var(--fd);font-weight:700;font-size:18px;color:var(--os);text-decoration:none;letter-spacing:-.02em}
+.nlogo .fl{color:var(--pf)}
+.nlinks{display:flex;gap:4px;list-style:none}
+.nlinks a{color:var(--osv);text-decoration:none;font-family:var(--fl);font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:6px 14px;border-radius:8px;transition:color var(--tr)}
+.nlinks a:hover{color:var(--os)}.nlinks a.active{color:var(--pf)}
+.btn-nav{padding:8px 20px;background:transparent;border:1px solid var(--pf);color:var(--pf);font-family:var(--fl);font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border-radius:8px;cursor:pointer;transition:all var(--tr);text-decoration:none}
+.btn-nav:hover{background:var(--pf);color:#000}
+.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.hbg span{width:22px;height:2px;background:var(--os);border-radius:2px}
+
+/* VERDICT BAR */
+.vbar{text-align:center;padding:14px;border-bottom:1px solid var(--ov);background:var(--surf0)}
+.vpill{display:inline-block;padding:5px 18px;border-radius:100px;border:1px solid var(--pf);font-family:var(--fl);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pf)}
+
+/* SCORE HERO */
+.score-hero{text-align:center;padding:60px 40px 40px;background:var(--surf0);position:relative;overflow:hidden}
+.score-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 50% 50%,rgba(255,120,82,.07) 0%,transparent 70%);pointer-events:none}
+.score-wrap{width:180px;height:180px;margin:0 auto 32px;position:relative}
+.score-svg{width:180px;height:180px;transform:rotate(-90deg)}
+.sc-bg{fill:none;stroke:var(--shh);stroke-width:7}
+.sc-fill{fill:none;stroke:var(--pf);stroke-width:7;stroke-linecap:round;stroke-dasharray:503;stroke-dashoffset:503;transition:stroke-dashoffset 2s cubic-bezier(.4,0,.2,1);filter:drop-shadow(0 0 6px var(--pf))}
+.score-txt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.score-num{font-family:var(--fd);font-size:60px;font-weight:700;line-height:1;color:var(--os)}
+.score-lbl{font-family:var(--fl);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--pf);margin-top:2px}
+.result-title{font-family:var(--fd);font-size:clamp(32px,5vw,56px);font-weight:700;letter-spacing:-.01em;text-transform:uppercase;margin-bottom:8px}
+.result-em{color:var(--pf);font-style:italic}
+.result-sub{color:var(--osv);font-size:16px;max-width:480px;margin:0 auto}
+
+/* RESULT GRID */
+.rgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:960px;margin:48px auto;padding:0 40px}
+.rcard{background:var(--sc);border-radius:12px;padding:28px;animation:scIn .5s ease both}
+.rcard:nth-child(2){animation-delay:.1s}.rcard:nth-child(3){animation-delay:.2s}.rcard:nth-child(4){animation-delay:.3s}
+@keyframes scIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.rcard-hd{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.rcard-ico{font-size:18px}
+.rcard-ttl{font-family:var(--fl);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--osv)}
+.roast-card{border-left:2px solid var(--pf)}
+.roast-txt{font-size:15px;color:var(--os);line-height:1.7;margin-bottom:14px}
+.roast-pull{background:var(--shh);border-radius:8px;padding:12px 14px;font-family:'Space Grotesk',monospace;font-size:13px;font-style:italic;color:var(--pf)}
+.rlist{display:flex;flex-direction:column;gap:10px}
+.ritem{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--osv);line-height:1.5}
+.rnum{width:22px;height:22px;border-radius:50%;background:var(--pf);color:#000;display:flex;align-items:center;justify-content:center;font-family:var(--fl);font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px}
+.bad-card .rnum{background:#ef4444;color:#fff}
+.fix-card .rnum{background:#10b981;color:#fff}
+
+/* EVOLUTION */
+.evo-sec{max-width:960px;margin:0 auto;padding:0 40px 40px}
+.evo-hd{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:16px}
+.evo-ttl{font-family:var(--fd);font-size:17px;font-weight:700}
+.evo-lbl{font-size:13px;color:var(--osv)}
+.evo-chg{font-family:var(--fd);font-size:24px;font-weight:700;color:#10b981}
+.evo-bars{display:flex;gap:8px;align-items:flex-end;height:80px}
+.ebo{flex:1;border-radius:4px 4px 0 0;background:var(--shh);transition:height 1s ease;min-height:6px}
+.ebo.cur{background:var(--pf)}
+
+/* ACTIONS */
+.acts{display:flex;justify-content:center;gap:12px;padding:0 40px 40px;max-width:960px;margin:0 auto;flex-wrap:wrap}
+.btn-p{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--pf);color:#000;font-family:var(--fl);font-size:14px;font-weight:700;border-radius:8px;border:none;cursor:pointer;transition:all var(--tr);text-decoration:none}
+.btn-p:hover{background:#ff9070;transform:translateY(-1px)}
+.ico-btn{width:48px;height:48px;border-radius:10px;border:1px solid var(--ov);background:var(--sc);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--tr);color:var(--os)}
+.ico-btn:hover{border-color:var(--pf);background:rgba(255,120,82,.08)}
+
+/* AD */
+.ad-blk{max-width:960px;margin:0 auto;padding:0 40px 40px}
+.ad{background:var(--sc);border-radius:12px;height:80px;display:flex;align-items:center;justify-content:center;font-family:var(--fl);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--osv)}
+
+/* CERTIFICATE */
+.cert-sec{max-width:960px;margin:0 auto;padding:0 40px 80px}
+.cert-lbl{text-align:center;font-family:var(--fl);font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--osv);margin-bottom:20px}
+.cert-outer{border:1px dashed rgba(255,120,82,.3);border-radius:16px;padding:24px}
+.cert{background:#fff;color:#0a0a0a;border-radius:12px;padding:40px;text-align:center;border:3px solid #0a0a0a;filter:blur(3px);transition:filter .3s}
+.cert-logo{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;font-style:italic;margin-bottom:8px}
+.cert-div{width:50px;height:2px;background:#0a0a0a;margin:14px auto}
+.cert-sub{font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#555;margin-bottom:8px}
+.cert-verified{font-family:'Space Grotesk',sans-serif;font-size:52px;font-weight:700;color:#ff7852;letter-spacing:2px;text-transform:uppercase;line-height:1;margin:8px 0}
+.cert-ft{display:flex;justify-content:space-between;margin-top:28px;font-size:12px;color:#555}
+.cert-ft strong{display:block;font-size:15px;color:#0a0a0a;margin-top:4px}
+.prem-note{text-align:center;font-family:var(--fl);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--osv);margin-top:14px}
+.prem-note a{color:var(--pf)}
+
+/* FOOTER */
+footer{background:var(--surf0);border-top:1px solid var(--ov);padding:32px 40px}
+.ft-logo{font-family:var(--fl);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pf);text-align:center;margin-bottom:16px}
+.ft-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:12px}
+.ft-links a{font-size:13px;color:var(--osv);text-decoration:none;transition:color var(--tr)}
+.ft-links a:hover{color:var(--os)}
+.ft-copy{text-align:center;font-size:12px;color:var(--osv);opacity:.5}
+
+@media(max-width:768px){
+  nav{padding:0 16px}.nlinks{display:none}.hbg{display:flex}
+  .nlinks.open{display:flex;flex-direction:column;position:fixed;inset:60px 0 0 0;background:rgba(0,0,0,.97);padding:20px;z-index:999;gap:4px}
+  .nlinks.open a{padding:14px;font-size:16px}
+  .rgrid{grid-template-columns:1fr;padding:0 16px}
+  .score-hero{padding:40px 16px 32px}
+  .evo-sec,.cert-sec,.acts,.ad-blk{padding-left:16px;padding-right:16px}
+  .cert{padding:28px 20px}
+  .cert-verified{font-size:36px}
+  footer{padding:28px 16px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nlogo">RoastMyIdea <span class="fl">🔥</span></a>
+  <ul class="nlinks" id="nl">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="roast.html" class="active">Roast</a></li>
+    <li><a href="shark.html">Shark Mode</a></li>
+    <li><a href="course.html">Course</a></li>
+    <li><a href="prompts.html">Prompts</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:10px">
+    <a href="#" class="btn-nav">Sign In with Google</a>
+    <div class="hbg" id="hbg"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div class="vbar"><span class="vpill" id="vpill">Verdict: Loading...</span></div>
+
+<div class="score-hero">
+  <div class="score-wrap">
+    <svg class="score-svg" viewBox="0 0 180 180">
+      <circle class="sc-bg" cx="90" cy="90" r="80"/>
+      <circle class="sc-fill" id="scFill" cx="90" cy="90" r="80"/>
+    </svg>
+    <div class="score-txt">
+      <div class="score-num" id="scNum">0</div>
+      <div class="score-lbl">Idea Heat</div>
+    </div>
+  </div>
+  <h1 class="result-title" id="rtitle">YOUR IDEA IS <em class="result-em" id="rem">LOADING...</em></h1>
+  <p class="result-sub" id="rsub">Processing your roast...</p>
+</div>
+
+<div class="rgrid">
+  <div class="rcard roast-card">
+    <div class="rcard-hd"><span class="rcard-ico">🔥</span><span class="rcard-ttl">The Roast</span></div>
+    <p class="roast-txt" id="roastTxt">Loading...</p>
+    <div class="roast-pull" id="roastPull">"Processing..."</div>
+  </div>
+  <div class="rcard">
+    <div class="rcard-hd"><span class="rcard-ico">⚡</span><span class="rcard-ttl">What Works</span></div>
+    <div class="rlist" id="goodList"></div>
+  </div>
+  <div class="rcard bad-card">
+    <div class="rcard-hd"><span class="rcard-ico">💀</span><span class="rcard-ttl">What Will Kill It</span></div>
+    <div class="rlist" id="badList"></div>
+  </div>
+  <div class="rcard fix-card">
+    <div class="rcard-hd"><span class="rcard-ico">🛠️</span><span class="rcard-ttl">How To Fix It</span></div>
+    <div class="rlist" id="fixList"></div>
+  </div>
+</div>
+
+<div class="evo-sec">
+  <div class="evo-hd">
+    <div><div class="evo-lbl">Idea Evolution</div><div class="evo-ttl">How your heat score changed over roasts.</div></div>
+    <div class="evo-chg" id="evoChg">+0%</div>
+  </div>
+  <div class="evo-bars" id="evoBars"></div>
+</div>
+
+<div class="acts">
+  <a href="roast.html" class="btn-p">Improve My Idea 🔥</a>
+  <button class="ico-btn" onclick="shareLinkedIn()" title="Share on LinkedIn">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+  </button>
+  <button class="ico-btn" onclick="copyLink()" title="Copy Link" id="copyBtn">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+  </button>
+</div>
+
+<div class="ad-blk"><div class="ad">Advertisement Space • Optimized by Indian Founders Guild</div></div>
+
+<div class="cert-sec">
+  <p class="cert-lbl">Official Certification</p>
+  <div class="cert-outer">
+    <div class="cert" id="certEl">
+      <div class="cert-logo">RoastMyIdea</div>
+      <div class="cert-div"></div>
+      <div class="cert-sub">Certificate of Survival</div>
+      <p style="color:#777;font-size:13px;margin-bottom:6px">This idea has been burned, battered, and verified as</p>
+      <div class="cert-verified" id="certV">LOADING</div>
+      <div class="cert-ft">
+        <div><span>Score</span><strong id="certS">--/100</strong></div>
+        <div style="text-align:right"><span>Verified On</span><strong id="certD">--</strong></div>
+      </div>
+    </div>
+  </div>
+  <p class="prem-note">Preview Only • <a href="#">Unlock Full Certificate →</a></p>
+</div>
+
+<footer>
+  <div class="ft-logo">ROASTMYIDEA 🔥</div>
+  <div class="ft-links">
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+    <a href="cookie-policy.html">Cookie Policy</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="#">About</a>
+  </div>
+  <p class="ft-copy">Made with 🔥 in India. © 2024 RoastMyIdea</p>
+</footer>
+
+<script>
+document.getElementById('hbg').onclick=function(){document.getElementById('nl').classList.toggle('open');};
+
+function label(s){
+  if(s>=90)return{t:"YOUR IDEA IS ACTUALLY",em:"SMOKIN' HOT.",sub:"We've put your concept through the incinerator. Here's why you might actually survive the Indian market."};
+  if(s>=75)return{t:"YOUR IDEA IS ACTUALLY",em:"SOLID.",sub:"Strong foundation. A few fixes and you could be investor-ready."};
+  if(s>=60)return{t:"YOUR IDEA HAS",em:"POTENTIAL.",sub:"You're on to something real, but the execution plan needs serious work."};
+  if(s>=40)return{t:"YOUR IDEA IS",em:"LUKEWARM.",sub:"Back to the drawing board. The problem is real but your solution isn't there yet."};
+  return{t:"YOUR IDEA IS A",em:"DUMPSTER FIRE.",sub:"But every great startup started somewhere. Let's rebuild from the ground up."};
+}
+
+function mkList(id,items,cls){
+  document.getElementById(id).innerHTML=items.map((it,i)=>`<div class="ritem"><div class="rnum">${String(i+1).padStart(2,'0')}</div><div>${it}</div></div>`).join('');
+}
+
+function animScore(target){
+  const fill=document.getElementById('scFill'),num=document.getElementById('scNum');
+  const circ=2*Math.PI*80;fill.style.strokeDasharray=circ;fill.style.strokeDashoffset=circ;
+  const s=Date.now(),d=1800,tick=()=>{const p=Math.min((Date.now()-s)/d,1),e=1-Math.pow(1-p,3);num.textContent=Math.floor(e*target);fill.style.strokeDashoffset=circ-(circ*(e*target/100));if(p<1)requestAnimationFrame(tick);};
+  setTimeout(()=>requestAnimationFrame(tick),400);
+}
+
+function renderEvo(score){
+  const hist=JSON.parse(localStorage.getItem('scoreHist')||'[]');
+  hist.push(score);if(hist.length>6)hist.shift();
+  localStorage.setItem('scoreHist',JSON.stringify(hist));
+  const bars=document.getElementById('evoBars'),mx=Math.max(...hist,1);
+  hist.forEach((s,i)=>{const b=document.createElement('div');b.className='ebo'+(i===hist.length-1?' cur':'');b.style.height=Math.round((s/mx)*70)+'px';bars.appendChild(b);});
+  if(hist.length>1){const chg=hist[hist.length-1]-hist[0];const el=document.getElementById('evoChg');el.textContent=(chg>=0?'+':'')+chg+'%';el.style.color=chg>=0?'#10b981':'#ef4444';}
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  const p=new URLSearchParams(window.location.search);
+  const sc=parseInt(p.get('score'))||67;
+  const stored=JSON.parse(localStorage.getItem('roastResult')||'null');
+  const res=stored||{score:sc,roast:"You're essentially trying to sell logistics to people who value tradition over convenience. Your pricing model assumes a tier-1 lifestyle for a tier-3 problem.",good:["The retention hook is surprisingly solid","Zero CAC acquisition through community channels is a hidden goldmine"],bad:["UPI transaction friction at this price point will kill conversion","Your reliance on third-party APIs makes you hostage to their pricing"],fix:["Pivot to B2B — stop chasing individual users","Gamify the onboarding — add social proof in first 60 seconds"],verdict:"Pursue",message:"The idea has fire. The plan needs fuel."};
+  const lb=label(res.score);
+  document.getElementById('rtitle').innerHTML=`${lb.t} <em class="result-em">${lb.em}</em>`;
+  document.getElementById('rsub').textContent=lb.sub;
+  document.getElementById('vpill').textContent=`Verdict: ${res.verdict||'Pursue'}`;
+  document.getElementById('roastTxt').textContent=res.roast;
+  document.getElementById('roastPull').textContent=`"${res.roast?.split('.')[0]||res.roast}."`;
+  document.getElementById('certV').textContent=lb.em.replace('.','');
+  document.getElementById('certS').textContent=`${res.score}/100`;
+  document.getElementById('certD').textContent=new Date().toISOString().split('T')[0].replace(/-/g,'.').toUpperCase();
+  mkList('goodList',res.good||[]);
+  mkList('badList',res.bad||[]);
+  mkList('fixList',res.fix||[]);
+  animScore(res.score);
+  renderEvo(res.score);
+});
+
+function shareLinkedIn(){
+  const s=document.getElementById('scNum').textContent;
+  const t=encodeURIComponent(`I just got my startup idea brutally roasted. Score: ${s}/100. Think yours can survive? → roastmyidea.vercel.app`);
+  window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(location.href)}&summary=${t}`,'_blank');
+}
+function copyLink(){
+  navigator.clipboard.writeText(location.href);
+  const b=document.getElementById('copyBtn');
+  b.innerHTML='✓';setTimeout(()=>b.innerHTML=`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,2000);
+}
+</script>
+</body>
+</html>

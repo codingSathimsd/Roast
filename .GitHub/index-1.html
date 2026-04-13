@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>RoastMyIdea 🔥 — India's Hardest Startup Reality Check</title>
+<meta name="description" content="Let Vikram brutally roast your startup idea. AI-powered feedback. Free."/>
+<meta name="google-site-verification" content="YOUR_SEARCH_CONSOLE_CODE"/>
+<script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_GA4_ID"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','YOUR_GA4_ID');</script>
+<link rel="manifest" href="manifest.json"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{--primary:#ff8f70;--pf:#ff7852;--pd:#ff734c;--surf:#0e0e0e;--surf0:#000000;--sc:#1a1919;--sb:#2c2c2c;--sh:#222222;--shh:#262626;--os:#e4e2e1;--osv:#adaaaa;--ov:rgba(255,255,255,0.10);--fd:'Space Grotesk',sans-serif;--fb:'Inter',sans-serif;--fl:'Plus Jakarta Sans',sans-serif;--r8:8px;--r12:12px;--r20:20px;--gs:0px 20px 40px rgba(255,115,76,0.08);--tr:0.2s ease-out}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--surf);color:var(--os);font-family:var(--fb);font-size:16px;line-height:1.6;overflow-x:hidden}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--surf0)}::-webkit-scrollbar-thumb{background:var(--pf);border-radius:2px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:60px;background:rgba(14,14,14,0.80);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--ov)}
+.nlogo{font-family:var(--fd);font-weight:700;font-size:18px;color:var(--os);text-decoration:none;display:flex;align-items:center;gap:6px;letter-spacing:-.02em}
+.nlogo .fl{color:var(--pf)}
+.nlinks{display:flex;gap:4px;list-style:none}
+.nlinks a{color:var(--osv);text-decoration:none;font-family:var(--fl);font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:6px 14px;border-radius:var(--r8);transition:color var(--tr)}
+.nlinks a:hover{color:var(--os)}.nlinks a.active{color:var(--pf)}
+.btn-nav{padding:8px 20px;background:transparent;border:1px solid var(--pf);color:var(--pf);font-family:var(--fl);font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border-radius:var(--r8);cursor:pointer;transition:all var(--tr);text-decoration:none;white-space:nowrap}
+.btn-nav:hover{background:var(--pf);color:#000;box-shadow:0 0 20px rgba(255,120,82,.3)}
+.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hbg span{width:22px;height:2px;background:var(--os);border-radius:2px;transition:var(--tr)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 40px 60px;position:relative;background:var(--surf0);overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 50% 40%,rgba(255,120,82,.15) 0%,transparent 65%);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;padding:5px 14px;border:1px solid var(--ov);border-radius:100px;font-family:var(--fl);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--osv);margin-bottom:32px;animation:fadeUp .7s ease both}
+.h1{font-family:var(--fd);font-size:clamp(52px,9vw,100px);font-weight:700;line-height:1.0;letter-spacing:-.02em;color:var(--os);animation:fadeUp .7s .1s ease both}
+.h1i{font-family:var(--fd);font-size:clamp(52px,9vw,100px);font-weight:700;font-style:italic;line-height:1.0;letter-spacing:-.02em;color:var(--pf);margin-bottom:24px;animation:fadeUp .7s .15s ease both}
+.hero-sub{font-size:17px;color:var(--osv);max-width:480px;line-height:1.7;margin-bottom:40px;animation:fadeUp .7s .2s ease both}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;animation:fadeUp .7s .25s ease both}
+.btn-p{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--pf);color:#000;font-family:var(--fl);font-size:14px;font-weight:700;border-radius:var(--r8);border:none;cursor:pointer;transition:all var(--tr);text-decoration:none}
+.btn-p:hover{background:var(--primary);box-shadow:0 0 0 4px rgba(255,120,82,.2),var(--gs);transform:translateY(-1px)}
+.btn-g{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:rgba(38,38,38,.40);backdrop-filter:blur(8px);color:var(--os);font-family:var(--fl);font-size:14px;font-weight:600;border-radius:var(--r8);border:1px solid var(--ov);cursor:pointer;transition:all var(--tr);text-decoration:none}
+.btn-g:hover{background:rgba(44,44,44,.60);border-color:rgba(255,255,255,.2)}
+
+/* AD */
+.ad{background:var(--sc);border-radius:var(--r12);height:90px;display:flex;align-items:center;justify-content:center;font-family:var(--fl);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--osv);margin:0 40px}
+
+/* SUVICHAR */
+.suvich{background:var(--surf0);padding:80px 40px}
+.suvich-in{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1.5fr;gap:64px;align-items:center}
+.suvich-l h2{font-family:var(--fd);font-size:32px;font-weight:700;letter-spacing:-.02em;color:var(--os);margin-bottom:12px}
+.suvich-l h2 span{color:var(--pf)}
+.suvich-l p{font-size:15px;color:var(--osv);line-height:1.7}
+.suvich-card{background:var(--sc);border-radius:var(--r20);padding:40px;position:relative;overflow:hidden;box-shadow:var(--gs)}
+.suvich-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--pf),transparent 70%)}
+.qmark{font-size:52px;line-height:1;color:var(--pf);font-family:Georgia,serif;margin-bottom:16px;display:block}
+.suvich-txt{font-family:var(--fd);font-size:18px;font-weight:500;line-height:1.6;color:var(--os);margin-bottom:24px}
+.suvich-ft{display:flex;justify-content:space-between;align-items:center}
+.suvich-auth{font-family:var(--fl);font-size:12px;font-weight:600;letter-spacing:.05em;color:var(--osv)}
+.shr-btn{display:flex;align-items:center;gap:6px;background:none;border:none;color:var(--pf);font-family:var(--fl);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:opacity var(--tr)}
+.shr-btn:hover{opacity:.7}
+
+/* WALL OF WINS */
+.wow{background:var(--surf);padding:80px 40px}
+.wow-in{max-width:1200px;margin:0 auto}
+.wow-hd{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px;flex-wrap:wrap;gap:16px}
+.wow-tsub{font-size:14px;color:var(--osv);margin-bottom:8px}
+.wow-t{font-family:var(--fd);font-size:clamp(40px,6vw,64px);font-weight:700;letter-spacing:-.02em;color:var(--os)}
+.wow-t span{color:var(--pf)}
+.wow-cnt-w{text-align:right}
+.wow-cnt{font-family:var(--fd);font-size:48px;font-weight:700;color:var(--pf);line-height:1}
+.wow-cnt-l{font-family:var(--fl);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--osv)}
+.wow-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.wcard{background:var(--sc);border-radius:var(--r12);padding:24px;transition:transform var(--tr),box-shadow var(--tr)}
+.wcard:hover{transform:translateY(-3px);box-shadow:var(--gs)}
+.wur{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.wav{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex-shrink:0}
+.wn{font-family:var(--fd);font-size:15px;font-weight:600;color:var(--os)}
+.wr{font-family:var(--fl);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pf)}
+.wq{font-size:14px;font-style:italic;color:var(--osv);line-height:1.6;margin-bottom:20px}
+.wscs{display:flex;align-items:center;gap:20px}
+.wsi label{font-family:var(--fl);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--osv);display:block;margin-bottom:4px}
+.wsv{font-family:var(--fd);font-size:28px;font-weight:700;color:var(--osv);line-height:1}
+.wsv.hot{color:var(--pf)}
+.warr{color:var(--osv);font-size:16px}
+.wcta{background:var(--shh);border-radius:var(--r12);padding:24px;display:flex;flex-direction:column;justify-content:space-between}
+.wcta h3{font-family:var(--fd);font-size:20px;font-weight:700;color:var(--os);margin-bottom:10px}
+.wcta p{font-size:14px;color:var(--osv);line-height:1.6;margin-bottom:24px}
+
+/* FEATURES */
+.feats{background:var(--surf0);padding:80px 40px}
+.feats-in{max-width:1200px;margin:0 auto}
+.feats-hd{text-align:center;margin-bottom:60px}
+.feats-t{font-family:var(--fd);font-size:clamp(36px,6vw,64px);font-weight:700;letter-spacing:-.02em;color:var(--os);margin-bottom:12px}
+.feats-t span{color:var(--pf)}
+.feats-s{font-size:16px;color:var(--osv);max-width:480px;margin:0 auto;line-height:1.7}
+.feats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.fcard{background:var(--sc);border-radius:var(--r12);padding:28px;transition:transform var(--tr),box-shadow var(--tr)}
+.fcard:hover{transform:translateY(-3px);box-shadow:var(--gs)}
+.ficon{width:44px;height:44px;background:rgba(255,120,82,.1);border-radius:var(--r8);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:20px}
+.fcard h3{font-family:var(--fd);font-size:17px;font-weight:700;color:var(--os);margin-bottom:10px}
+.fcard p{font-size:14px;color:var(--osv);line-height:1.6;margin-bottom:16px}
+.ftag{font-family:var(--fl);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pf)}
+
+/* FOOTER */
+footer{background:var(--surf0);border-top:1px solid var(--ov);padding:48px 40px 32px}
+.ft-in{max-width:1200px;margin:0 auto}
+.ft-logo{font-family:var(--fl);font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pf);margin-bottom:32px;text-align:center}
+.ft-links{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:20px}
+.ft-links a{font-size:13px;color:var(--osv);text-decoration:none;transition:color var(--tr)}
+.ft-links a:hover{color:var(--os)}
+.ft-copy{text-align:center;font-size:12px;color:var(--osv);opacity:.6}
+
+/* COOKIE */
+.ck-ban{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(120px);z-index:9999;background:var(--sc);border:1px solid var(--ov);border-radius:var(--r12);padding:20px 24px;display:flex;justify-content:space-between;align-items:center;gap:20px;width:calc(100% - 40px);max-width:860px;opacity:0;transition:all .5s cubic-bezier(.4,0,.2,1);box-shadow:0 8px 40px rgba(0,0,0,.5)}
+.ck-ban.show{transform:translateX(-50%) translateY(0);opacity:1}
+.ck-ban p{font-size:14px;color:var(--osv)}
+.ck-ban a{color:var(--pf)}
+.ck-btns{display:flex;gap:10px;flex-shrink:0}
+.ck-acc{padding:8px 18px;background:var(--pf);color:#000;font-family:var(--fl);font-size:12px;font-weight:700;border:none;border-radius:var(--r8);cursor:pointer;transition:var(--tr)}
+.ck-dec{padding:8px 18px;background:transparent;color:var(--osv);font-family:var(--fl);font-size:12px;font-weight:600;border:1px solid var(--ov);border-radius:var(--r8);cursor:pointer;transition:var(--tr)}
+
+/* ANIMATE */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes floatP{0%{transform:translateY(0) scale(1);opacity:.5}100%{transform:translateY(-100vh) scale(0);opacity:0}}
+.ai{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.ai.v{opacity:1;transform:translateY(0)}
+.pt{position:absolute;border-radius:50%;background:var(--pf);pointer-events:none;animation:floatP linear infinite}
+
+/* RESPONSIVE */
+@media(max-width:1024px){.feats-grid{grid-template-columns:1fr 1fr}.wow-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){
+  nav{padding:0 20px}.nlinks{display:none}.hbg{display:flex}
+  .nlinks.open{display:flex;flex-direction:column;position:fixed;inset:60px 0 0 0;background:rgba(0,0,0,.97);padding:24px 20px;z-index:999;gap:4px}
+  .nlinks.open a{padding:14px 16px;font-size:16px}
+  .hero{padding:90px 20px 60px}
+  .suvich,.wow,.feats{padding:60px 20px}
+  .suvich-in{grid-template-columns:1fr;gap:32px}
+  .wow-grid{grid-template-columns:1fr}
+  .feats-grid{grid-template-columns:1fr}
+  .ad{margin:0 20px}
+  footer{padding:40px 20px 24px}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index.html" class="nlogo">RoastMyIdea <span class="fl">🔥</span></a>
+  <ul class="nlinks" id="nl">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="roast.html">Roast</a></li>
+    <li><a href="shark.html">Shark Mode</a></li>
+    <li><a href="course.html">Course</a></li>
+    <li><a href="prompts.html">Prompts</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:12px">
+    <a href="roast.html" class="btn-nav">Sign In with Google</a>
+    <div class="hbg" id="hbg"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div id="pc" style="position:absolute;inset:0;overflow:hidden;pointer-events:none"></div>
+  <div class="hero-badge">India's Hardest Startup Reality Check</div>
+  <h1 class="h1">Think Your Startup</h1>
+  <h1 class="h1i">Idea Is Genius?</h1>
+  <p class="hero-sub">Let Vikram brutally roast it. For free. Stop building things nobody wants and get the burn your idea deserves.</p>
+  <div class="hero-btns">
+    <a href="roast.html" class="btn-p" id="heroCTA">Roast My Idea 🔥</a>
+    <a href="#wins" class="btn-g">Watch Roasts</a>
+  </div>
+</section>
+
+<div class="ad">Advertisement Space</div>
+
+<section class="suvich">
+  <div class="suvich-in ai">
+    <div class="suvich-l">
+      <h2>Daily Business <span>Suvichar</span></h2>
+      <p>Wisdom forged in the fires of failure. Every morning, one brutal truth to keep you focused.</p>
+    </div>
+    <div class="suvich-card">
+      <span class="qmark">"</span>
+      <p class="suvich-txt" id="sqt">If you are not embarrassed by the first version of your product, you've launched too late. But if you're not embarrassed by your pitch, you're delusional.</p>
+      <div class="suvich-ft">
+        <span class="suvich-auth" id="sau">— Vikram's Burn #42</span>
+        <button class="shr-btn" onclick="shareQ()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          Share The Burn
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wow" id="wins">
+  <div class="wow-in">
+    <div class="wow-hd ai">
+      <div>
+        <p class="wow-tsub">From "Dumpster Fire" to "Venture Ready".</p>
+        <h2 class="wow-t">Wall Of <span>Wins</span></h2>
+      </div>
+      <div class="wow-cnt-w">
+        <div class="wow-cnt"><span id="wc">0</span>+</div>
+        <div class="wow-cnt-l">Ideas Brutally Fixed</div>
+      </div>
+    </div>
+    <div class="wow-grid">
+      <div class="wcard ai">
+        <div class="wur"><div class="wav" style="background:var(--pf);color:#000">R</div><div><div class="wn">Rohan Mehta</div><div class="wr">Fintech Disruptor</div></div></div>
+        <p class="wq">"Vikram told me my initial idea was a 'fancy excel sheet for broke people'. He was right. We pivoted and just closed seed."</p>
+        <div class="wscs"><div class="wsi"><label>Initial Score</label><div class="wsv">12%</div></div><div class="warr">→</div><div class="wsi"><label>Post Roast Score</label><div class="wsv hot">89%</div></div></div>
+      </div>
+      <div class="wcard ai" style="transition-delay:.1s">
+        <div class="wur"><div class="wav" style="background:#7C3AED;color:#fff">A</div><div><div class="wn">Ananya Iyer</div><div class="wr">EdTech Founder</div></div></div>
+        <p class="wq">"The Shark Mode feedback was more intense than my actual investor meetings. It prepared me for the real world."</p>
+        <div class="wscs"><div class="wsi"><label>Initial Score</label><div class="wsv">24%</div></div><div class="warr">→</div><div class="wsi"><label>Post Roast Score</label><div class="wsv hot">92%</div></div></div>
+      </div>
+      <div class="wcta ai" style="transition-delay:.2s">
+        <div><h3>Are you next?</h3><p>Stop hiding your idea in a pitch deck. Let us destroy it so you can build something unbreakable.</p></div>
+        <a href="roast.html" class="btn-p" style="justify-content:center;width:100%">Submit Idea</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="feats">
+  <div class="feats-in">
+    <div class="feats-hd ai">
+      <h2 class="feats-t">Weaponize <span>Your Vision</span></h2>
+      <p class="feats-s">Our AI-driven furnace processes your idea through four stages of intense refinement.</p>
+    </div>
+    <div class="feats-grid">
+      <div class="fcard ai"><div class="ficon">🔥</div><h3>AI Roasting</h3><p>Our proprietary model identifies every logical fallacy and market blindspot in your pitch.</p><div class="ftag">Brutal Logic</div></div>
+      <div class="fcard ai" style="transition-delay:.1s"><div class="ficon">🦈</div><h3>Shark Mode</h3><p>Simulate high-pressure investor grilling. We ask the questions that make founders sweat.</p><div class="ftag">Pressure Test</div></div>
+      <div class="fcard ai" style="transition-delay:.2s"><div class="ficon">📊</div><h3>Score Tracking</h3><p>Real-time data on your idea's viability, scalability, and "founder-market fit" score.</p><div class="ftag">Data Driven</div></div>
+      <div class="fcard ai" style="transition-delay:.3s"><div class="ficon">🚀</div><h3>Marketing Course</h3><p>Once your idea is roasted and ready, learn how to sell it to the masses without shame.</p><div class="ftag">Growth Engine</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="ad" style="max-width:1200px;margin:0 auto 80px">Advertisement Space • Sponsored by Indian Founders Guild</div>
+
+<footer>
+  <div class="ft-in">
+    <div class="ft-logo">RoastMyIdea 🔥</div>
+    <div class="ft-links">
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="cookie-policy.html">Cookie Policy</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="#">About</a>
+    </div>
+    <p class="ft-copy">Made with 🔥 in India. © 2024 RoastMyIdea.</p>
+  </div>
+</footer>
+
+<div class="ck-ban" id="ckb">
+  <p>We use cookies. <a href="cookie-policy.html">Cookie Policy</a> & <a href="privacy-policy.html">Privacy Policy</a>.</p>
+  <div class="ck-btns">
+    <button class="ck-dec" id="ckd">Decline</button>
+    <button class="ck-acc" id="cka">Accept All</button>
+  </div>
+</div>
+
+<script>
+// Nav scroll
+window.addEventListener('scroll',()=>{ document.getElementById('nav').style.background=window.scrollY>10?'rgba(0,0,0,.92)':'rgba(14,14,14,.80)'; });
+
+// Hamburger
+document.getElementById('hbg').onclick=function(){
+  const nl=document.getElementById('nl');nl.classList.toggle('open');
+  const s=this.querySelectorAll('span');
+  if(nl.classList.contains('open')){s[0].style.transform='rotate(45deg) translate(5px,5px)';s[1].style.opacity='0';s[2].style.transform='rotate(-45deg) translate(5px,-5px)';}
+  else{s[0].style.transform='';s[1].style.opacity='';s[2].style.transform='';}
+};
+
+// Observe animations
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('v');}),{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.ai').forEach(el=>obs.observe(el));
+
+// Counter
+function cnt(el,t){const s=Date.now(),d=2000,tick=()=>{const p=Math.min((Date.now()-s)/d,1),e=1-Math.pow(1-p,3);el.textContent=Math.floor(e*t).toLocaleString();if(p<1)requestAnimationFrame(tick);};requestAnimationFrame(tick);}
+new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)cnt(document.getElementById('wc'),1402);}),{threshold:.5}).observe(document.getElementById('wc'));
+
+// Particles
+const pc=document.getElementById('pc');
+for(let i=0;i<18;i++){const p=document.createElement('div');p.className='pt';const z=2+Math.random()*3;p.style.cssText=`width:${z}px;height:${z}px;left:${Math.random()*100}%;bottom:${Math.random()*30}%;animation-duration:${4+Math.random()*6}s;animation-delay:${Math.random()*4}s;opacity:${.2+Math.random()*.4}`;pc.appendChild(p);}
+
+// Suvichar
+const sv=[{t:"If you are not embarrassed by the first version of your product, you've launched too late. But if you're not embarrassed by your pitch, you're delusional.",a:"Vikram's Burn #42"},{t:"The market doesn't care about your passion. It only responds to your solution. Build what people pay for, not what you love to build.",a:"Vikram's Burn #17"},{t:"Jio didn't win because of better technology. They won because they understood that free today creates a billion paying customers tomorrow.",a:"Vikram's Burn #89"},{t:"Your idea is not your baby. It's your hypothesis. Kill it fast, iterate faster, and never fall in love with the version that doesn't work.",a:"Vikram's Burn #63"},{t:"The graveyard of startups is full of founders who built exactly what they planned. The successful ones built what the customer revealed.",a:"Vikram's Burn #31"}];
+const sd=sv[new Date().getDate()%sv.length];
+document.getElementById('sqt').textContent=sd.t;
+document.getElementById('sau').textContent='— '+sd.a;
+function shareQ(){const t=`"${document.getElementById('sqt').textContent}" — RoastMyIdea`;if(navigator.share){navigator.share({title:'Daily Business Suvichar',text:t});}else{navigator.clipboard.writeText(t);alert('Quote copied!');}}
+
+// Cookie
+const cb=document.getElementById('ckb');
+if(!localStorage.getItem('cookieAccepted'))setTimeout(()=>cb.classList.add('show'),1800);
+document.getElementById('cka').onclick=()=>{localStorage.setItem('cookieAccepted','true');cb.classList.remove('show');};
+document.getElementById('ckd').onclick=()=>{localStorage.setItem('cookieAccepted','false');cb.classList.remove('show');};
+
+// GA4
+document.getElementById('heroCTA')?.addEventListener('click',()=>{if(typeof gtag!='undefined')gtag('event','cta_click',{event_category:'engagement',event_label:'hero_roast_btn'});});
+</script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Furnace — RoastMyIdea 🔥</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{--pf:#ff7852;--pd:#ff734c;--surf:#0e0e0e;--surf0:#000000;--sc:#1a1919;--sb:#2c2c2c;--shh:#262626;--os:#e4e2e1;--osv:#adaaaa;--ov:rgba(255,255,255,.10);--fd:'Space Grotesk',sans-serif;--fb:'Inter',sans-serif;--fl:'Plus Jakarta Sans',sans-serif;--tr:.2s ease-out;--gs:0px 20px 40px rgba(255,115,76,.08)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--surf0);color:var(--os);font-family:var(--fb);overflow:hidden;height:100vh}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:60px;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--ov)}
+.nlogo{font-family:var(--fd);font-weight:700;font-size:18px;color:var(--os);text-decoration:none;letter-spacing:-.02em}
+.nlogo .fl{color:var(--pf)}
+.nlinks{display:flex;gap:4px;list-style:none}
+.nlinks a{color:var(--osv);text-decoration:none;font-family:var(--fl);font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:6px 14px;border-radius:8px;transition:color var(--tr)}
+.nlinks a:hover{color:var(--os)}.nlinks a.active{color:var(--pf)}
+.btn-nav{padding:8px 20px;background:transparent;border:1px solid var(--pf);color:var(--pf);font-family:var(--fl);font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border-radius:8px;cursor:pointer;transition:all var(--tr);text-decoration:none}
+.btn-nav:hover{background:var(--pf);color:#000}
+.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.hbg span{width:22px;height:2px;background:var(--os);border-radius:2px}
+
+/* LAYOUT */
+.layout{display:grid;grid-template-columns:240px 1fr;height:100vh;padding-top:60px}
+
+/* SIDEBAR */
+.sidebar{background:var(--surf0);border-right:1px solid var(--ov);padding:28px 20px;display:flex;flex-direction:column;gap:20px;overflow-y:auto}
+.vikram-img{width:100%;border-radius:12px;overflow:hidden;background:linear-gradient(160deg,#1a1a1a,#0a0805);aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:72px;position:relative;border:1px solid var(--ov)}
+.live-badge{position:absolute;bottom:10px;left:10px;background:var(--pf);color:#000;font-family:var(--fl);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:4px;display:flex;align-items:center;gap:5px}
+.live-dot{width:5px;height:5px;border-radius:50%;background:#000;animation:blink 1s ease infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.vname{font-family:var(--fd);font-size:22px;font-weight:700;letter-spacing:-.02em}
+.vtitle{font-family:var(--fl);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--pf);margin-bottom:12px}
+.vquote{background:var(--sc);border-left:2px solid var(--pf);padding:14px 16px;border-radius:0 8px 8px 0;font-size:13px;font-style:italic;color:var(--osv);line-height:1.6}
+.vstats{display:flex;flex-direction:column;gap:10px}
+.vstat{display:flex;justify-content:space-between;align-items:center}
+.vstat-l{font-family:var(--fl);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--osv)}
+.vstat-v{font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--pf);font-size:14px}
+
+/* MAIN */
+.main{display:flex;flex-direction:column;overflow:hidden}
+.main-hd{padding:16px 28px;border-bottom:1px solid var(--ov);display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.main-hd h1{font-family:var(--fl);font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--os)}
+.step-info{font-family:'Space Grotesk',monospace;font-size:13px;color:var(--osv)}
+.step-info strong{color:var(--pf)}
+.prog-bar{height:2px;background:var(--shh);flex-shrink:0;margin:0}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--pd),var(--pf));transition:width .8s cubic-bezier(.4,0,.2,1);box-shadow:2px 0 8px var(--pf);width:20%}
+
+/* CHAT */
+.chat{flex:1;overflow-y:auto;padding:28px;display:flex;flex-direction:column;gap:16px}
+.chat::-webkit-scrollbar{width:3px}
+.chat::-webkit-scrollbar-thumb{background:var(--shh)}
+
+/* BUBBLES */
+.bubble-row{display:flex;gap:10px;align-items:flex-start;animation:slideL .4s ease}
+.bubble-row.user{flex-direction:row-reverse;animation:slideR .4s ease}
+@keyframes slideL{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideR{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+.bav{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;background:var(--pf)}
+.bav.u{background:var(--shh)}
+.bubble{background:var(--shh);border-radius:16px 16px 16px 4px;padding:14px 18px;max-width:68%;font-size:15px;line-height:1.6;color:var(--os)}
+.bubble .hl{color:var(--pf);font-weight:600}
+.bubble-row.user .bubble{background:linear-gradient(135deg,var(--pd),var(--pf));color:#000;font-weight:500;border-radius:16px 16px 4px 16px}
+.typing-bubble{background:var(--shh);border-radius:16px 16px 16px 4px;padding:14px 18px;display:flex;align-items:center;gap:6px;font-size:14px;color:var(--osv)}
+.td{width:6px;height:6px;border-radius:50%;background:var(--pf);animation:tp 1.4s ease infinite}
+.td:nth-child(2){animation-delay:.2s}.td:nth-child(3){animation-delay:.4s}
+@keyframes tp{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.7)}}
+
+/* OPTIONS */
+.opts-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:580px;animation:fadeU .4s ease}
+@keyframes fadeU{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.opt-btn{background:var(--sc);border:1px solid var(--ov);border-radius:12px;padding:14px 18px;cursor:pointer;transition:all var(--tr);text-align:left;color:var(--os);font-family:var(--fb)}
+.opt-lbl{font-family:var(--fl);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--osv);margin-bottom:5px}
+.opt-txt{font-size:14px;line-height:1.4;color:var(--os)}
+.opt-btn:hover{border-color:var(--pf);background:rgba(255,120,82,.08);transform:translateY(-2px)}
+
+/* INPUT BAR */
+.input-bar{padding:16px 28px;border-top:1px solid var(--ov);background:var(--surf0);flex-shrink:0}
+.input-row{display:flex;gap:10px;align-items:flex-end}
+.chat-inp{flex:1;background:var(--sc);border:1px solid var(--ov);border-radius:12px;padding:13px 18px;color:var(--os);font-family:var(--fb);font-size:15px;resize:none;outline:none;transition:border-color var(--tr);min-height:48px;max-height:100px}
+.chat-inp:focus{border-color:var(--pf)}
+.chat-inp::placeholder{color:var(--osv)}
+.send-btn{width:48px;height:48px;background:var(--pf);border:none;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--tr);flex-shrink:0}
+.send-btn:hover{background:#ff9070;transform:scale(1.05)}
+.inp-hint{text-align:center;font-family:var(--fl);font-size:11px;color:var(--osv);opacity:.6;margin-top:8px;letter-spacing:.03em}
+.inp-hint strong{color:var(--osv);opacity:.9}
+
+/* FOOTER */
+.page-footer{background:var(--surf0);border-top:1px solid var(--ov);padding:24px 40px;text-align:center}
+.page-footer p{font-family:var(--fl);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--pf);margin-bottom:12px}
+.page-footer-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
+.page-footer-links a{font-size:13px;color:var(--osv);text-decoration:none;transition:color var(--tr)}
+.page-footer-links a:hover{color:var(--os)}
+.page-footer-copy{margin-top:12px;font-size:12px;color:var(--osv);opacity:.5}
+
+@media(max-width:768px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .chat{padding:16px}
+  .input-bar{padding:12px 16px}
+  .main-hd{padding:12px 16px}
+  .opts-grid{grid-template-columns:1fr}
+  .bubble{max-width:85%}
+  nav{padding:0 16px}.nlinks{display:none}.hbg{display:flex}
+  .nlinks.open{display:flex;flex-direction:column;position:fixed;inset:60px 0 0 0;background:rgba(0,0,0,.97);padding:20px;z-index:999;gap:4px}
+  .nlinks.open a{padding:14px;font-size:16px}
+  body{overflow:auto}
+  .layout{height:auto;min-height:100vh}
+  .main{height:calc(100vh - 60px)}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nlogo">RoastMyIdea <span class="fl">🔥</span></a>
+  <ul class="nlinks" id="nl">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="roast.html" class="active">Roast</a></li>
+    <li><a href="shark.html">Shark Mode</a></li>
+    <li><a href="course.html">Course</a></li>
+    <li><a href="prompts.html">Prompts</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:10px">
+    <a href="#" class="btn-nav">Sign In with Google</a>
+    <div class="hbg" id="hbg"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div class="layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="vikram-img">
+      <span>🧠</span>
+      <div class="live-badge"><div class="live-dot"></div>Live Roast</div>
+    </div>
+    <div>
+      <div class="vname">Vikram Seth</div>
+      <div class="vtitle">Idea Execution Architect</div>
+      <div class="vquote">"Your idea isn't special. Your execution is what keeps me awake. Let's see if this has legs or if it's just another hallucination."</div>
+    </div>
+    <div class="vstats">
+      <div class="vstat"><span class="vstat-l">Ego Bruised</span><span class="vstat-v" id="egoCnt">0</span></div>
+      <div class="vstat"><span class="vstat-l">Startups Saved</span><span class="vstat-v" id="savedCnt">0</span></div>
+    </div>
+  </aside>
+
+  <!-- MAIN CHAT -->
+  <div class="main">
+    <div class="main-hd">
+      <h1>The Furnace</h1>
+      <div class="step-info">Step <strong id="stepNum">01</strong> / 05</div>
+    </div>
+    <div class="prog-bar"><div class="prog-fill" id="pf"></div></div>
+    <div class="chat" id="chat"></div>
+    <div class="input-bar">
+      <div class="input-row">
+        <textarea class="chat-inp" id="inp" placeholder="Type your defense here..." rows="1"></textarea>
+        <button class="send-btn" onclick="send()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+      <p class="inp-hint">Press <strong>ENTER</strong> to submit your idea to the flames</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── HAMBURGER ──
+document.getElementById('hbg').onclick=function(){
+  const nl=document.getElementById('nl');nl.classList.toggle('open');
+};
+
+// ── COUNTER ANIMATE ──
+function cnt(el,t){const s=Date.now(),d=1500,tk=()=>{const p=Math.min((Date.now()-s)/d,1),e=1-Math.pow(1-p,3);el.textContent=Math.floor(e*t).toLocaleString();if(p<1)requestAnimationFrame(tk);};requestAnimationFrame(tk);}
+setTimeout(()=>{cnt(document.getElementById('egoCnt'),1204);cnt(document.getElementById('savedCnt'),88);},600);
+
+// ── QUIZ DATA ──
+const Qs=[
+  {step:1,msg:"Alright, let's skip the pleasantries. I've seen a thousand \"Uber for X\" ideas this week. Tell me, what's the <span class='hl'>problem</span> you're solving that actually makes people want to throw money at you?",opts:[{l:"Consumer Pain",t:"It's a daily annoyance for millions."},{l:"B2B Efficiency",t:"Businesses are losing 20% revenue here."},{l:"New Market",t:"A completely untapped niche."},{l:"Other",t:"Let me explain it in my own words..."}]},
+  {step:2,msg:"Interesting. Now tell me — <span class='hl'>who exactly</span> is losing sleep over this problem? Don't say 'everyone'. That answer kills startups.",opts:[{l:"B2C",t:"Individual consumers aged 18-35."},{l:"B2B",t:"Small and medium businesses."},{l:"Enterprise",t:"Large corporations with big budgets."},{l:"Niche",t:"A very specific underserved group."}]},
+  {step:3,msg:"Good. Now the part everyone gets wrong — <span class='hl'>how do you make money?</span> Don't say 'we'll figure it out with scale'.",opts:[{l:"Subscription",t:"Monthly recurring revenue."},{l:"Marketplace",t:"Commission on each transaction."},{l:"Freemium",t:"Free base, paid premium features."},{l:"B2B SaaS",t:"Per seat licensing to businesses."}]},
+  {step:4,msg:"Let's talk <span class='hl'>competitors</span>. Every idea has them. Who are they, and why haven't they eaten your lunch already?",opts:[{l:"No Direct",t:"No direct competitor exists yet."},{l:"Indirect",t:"People use manual / offline methods."},{l:"Big Players",t:"Big players exist but miss our niche."},{l:"Saturated",t:"Crowded market but I have an edge."}]},
+  {step:5,msg:"Final question. The most important one. <span class='hl'>Why YOU?</span> Why are you the right person to build this?",opts:[{l:"Domain Expert",t:"I've worked in this industry for years."},{l:"Personal Pain",t:"I faced this problem myself."},{l:"Tech Edge",t:"I built proprietary tech for this."},{l:"Team",t:"We have the perfect founding team."}]}
+];
+
+let step=0,answers={},history=[],busy=false;
+const chat=document.getElementById('chat');
+
+function scrollBot(){chat.scrollTop=chat.scrollHeight;}
+
+function addVikram(html,delay=0){
+  return new Promise(res=>{
+    setTimeout(()=>{
+      const tr=document.createElement('div');tr.className='bubble-row';
+      tr.innerHTML=`<div class="bav">🔥</div><div class="typing-bubble"><div class="td"></div><div class="td"></div><div class="td"></div><span style="margin-left:4px;font-size:13px">Vikram is thinking...</span></div>`;
+      chat.appendChild(tr);scrollBot();
+      setTimeout(()=>{
+        tr.remove();
+        const br=document.createElement('div');br.className='bubble-row';
+        br.innerHTML=`<div class="bav">🔥</div><div class="bubble">${html}</div>`;
+        chat.appendChild(br);scrollBot();res();
+      },1100);
+    },delay);
+  });
+}
+
+function addUser(text){
+  const br=document.createElement('div');br.className='bubble-row user';
+  br.innerHTML=`<div class="bav u">👤</div><div class="bubble">${text}</div>`;
+  chat.appendChild(br);scrollBot();
+}
+
+function showOpts(opts){
+  return new Promise(res=>{
+    setTimeout(()=>{
+      const g=document.createElement('div');g.className='opts-grid';g.id='og';
+      opts.forEach(o=>{
+        const b=document.createElement('button');b.className='opt-btn';
+        b.innerHTML=`<div class="opt-lbl">${o.l}</div><div class="opt-txt">${o.t}</div>`;
+        b.onclick=()=>{g.remove();res(o.t);};
+        g.appendChild(b);
+      });
+      chat.appendChild(g);scrollBot();
+    },2200);
+  });
+}
+
+function updateProg(){
+  document.getElementById('pf').style.width=(((step)/5)*100)+'%';
+  document.getElementById('stepNum').textContent=String(Math.min(step+1,5)).padStart(2,'0');
+}
+
+async function nextQ(){
+  const q=Qs[step];
+  await addVikram(q.msg);
+  const ans=await showOpts(q.opts);
+  addUser(ans);
+  answers['s'+(step+1)]=ans;
+  history.push({role:'user',content:ans});
+  step++;updateProg();
+  if(step<Qs.length)await nextQ();
+  else await doRoast();
+}
+
+async function doRoast(){
+  busy=true;
+  await addVikram("Alright. I've heard enough. Let me run this through the furnace... 🔥",400);
+  try{
+    const r=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'roast',answers})});
+    const d=await r.json();
+    const res=typeof d.result==='string'?JSON.parse(d.result):d.result;
+    localStorage.setItem('roastResult',JSON.stringify({...res,answers}));
+    await addVikram(res.message||"Your results are ready.",800);
+    setTimeout(()=>window.location.href=`result.html?score=${res.score}`,2000);
+  }catch{
+    const fb={score:67,roast:"Your idea has real bones but the execution plan reads like a college assignment.",good:["Solid problem-market fit","Revenue model is clear"],bad:["No customer acquisition plan","Competition ignored"],fix:["Talk to 50 customers before writing code","Define your 90-day metric now"],verdict:"Pursue — But Pivot The Strategy",message:"The idea has fire. The plan needs fuel. Let's see your score."};
+    localStorage.setItem('roastResult',JSON.stringify({...fb,answers}));
+    await addVikram(fb.message,800);
+    setTimeout(()=>window.location.href='result.html?score=67',2000);
+  }
+  busy=false;
+}
+
+async function iterateRoast(msg){
+  busy=true;
+  history.push({role:'user',content:msg});
+  await addVikram("Let me reassess with this new information...",200);
+  try{
+    const r=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'iterate',history,userMessage:msg})});
+    const d=await r.json();
+    const res=typeof d.result==='string'?JSON.parse(d.result):d.result;
+    await addVikram(res.message||"Interesting pivot. Head to your results to see the updated score.");
+    history.push({role:'assistant',content:res.message});
+    localStorage.setItem('roastResult',JSON.stringify(res));
+  }catch{
+    await addVikram("Interesting pivot. Your score has been updated. Check your results page.");
+  }
+  busy=false;
+}
+
+function send(){
+  const inp=document.getElementById('inp');
+  const txt=inp.value.trim();
+  if(!txt||busy)return;
+  inp.value='';inp.style.height='auto';
+  document.getElementById('og')?.remove();
+  addUser(txt);
+  if(step<Qs.length){answers['s'+(step+1)]=txt;history.push({role:'user',content:txt});step++;updateProg();if(step<Qs.length)nextQ();else doRoast();}
+  else iterateRoast(txt);
+}
+
+// Enter key
+document.getElementById('inp').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}});
+document.getElementById('inp').addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,100)+'px';});
+
+// Start
+setTimeout(()=>nextQ(),600);
+</script>
+</body>
+</html>
