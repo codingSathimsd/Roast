@@ -1,0 +1,27 @@
+name: Deploy & Keep Alive
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '*/9 * * * *'   # Keep Vercel warm every 9 mins
+
+jobs:
+  deploy:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
+          exclude_assets: '.github,api,node_modules'
+
+  keepalive:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping API warm
+        run: curl -s -X OPTIONS ${{ secrets.VERCEL_URL }}/api/generate || true
