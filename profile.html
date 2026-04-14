@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Profile — RoastMyIdea 🔥</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet"/>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="config.js"></script><script src="js/auth.js"></script>
+<style>
+:root{--pf:#ff7852;--surf0:#000;--sc:#1a1919;--shh:#262626;--os:#e4e2e1;--osv:#adaaaa;--ov:rgba(255,255,255,.10);--fd:'Space Grotesk',sans-serif;--fb:'Inter',sans-serif;--fl:'Plus Jakarta Sans',sans-serif;--tr:.2s ease-out}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--surf0);color:var(--os);font-family:var(--fb);padding-top:60px;min-height:100vh}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:60px;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--ov)}
+.nlogo{font-family:var(--fd);font-weight:700;font-size:18px;color:var(--os);text-decoration:none;letter-spacing:-.02em}.nlogo span{color:var(--pf)}
+.nlinks{display:flex;gap:4px;list-style:none}.nlinks a{color:var(--osv);text-decoration:none;font-family:var(--fl);font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:6px 14px;border-radius:8px;transition:color var(--tr)}.nlinks a:hover{color:var(--os)}.nlinks a.active{color:var(--pf)}
+.btn-nav{padding:8px 20px;background:transparent;border:1px solid var(--pf);color:var(--pf);font-family:var(--fl);font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border-radius:8px;cursor:pointer;transition:all var(--tr);text-decoration:none;display:flex;align-items:center;gap:8px}.btn-nav:hover{background:var(--pf);color:#000}
+.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer}.hbg span{width:22px;height:2px;background:var(--os);border-radius:2px}
+.wrap{max-width:1000px;margin:0 auto;padding:60px 40px 80px}
+.profile-top{display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;margin-bottom:40px;background:var(--sc);border-radius:16px;padding:28px}
+.pav{width:80px;height:80px;border-radius:50%;background:var(--pf);display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:700;color:#000;position:relative;flex-shrink:0}
+.plvl{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);background:var(--shh);color:var(--pf);font-family:var(--fl);font-size:9px;font-weight:700;padding:2px 8px;border-radius:100px;white-space:nowrap}
+.pname{font-family:var(--fd);font-size:28px;font-weight:700;letter-spacing:-.02em}
+.prole{font-family:var(--fl);font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--osv);margin-bottom:12px}
+.pxp{font-size:13px;color:var(--osv)}
+.pxp span{color:var(--pf)}
+.btn-p{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:var(--pf);color:#000;font-family:var(--fl);font-size:13px;font-weight:700;border-radius:8px;border:none;cursor:pointer;transition:all var(--tr);text-decoration:none}.btn-p:hover{background:#ff9070}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px}
+.stat-card{background:var(--sc);border-radius:12px;padding:24px}
+.stat-lbl{font-family:var(--fl);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--osv);margin-bottom:8px}
+.stat-val{font-family:var(--fd);font-size:48px;font-weight:700;line-height:1}
+.stat-sub{font-size:12px;color:var(--pf);margin-top:4px}
+.section-title{font-family:var(--fd);font-size:22px;font-weight:700;letter-spacing:-.01em;margin-bottom:20px;display:flex;align-items:center;gap:12px}
+.section-title::before{content:'';width:3px;height:20px;background:var(--pf);border-radius:2px}
+.idea-card{background:var(--sc);border-radius:12px;padding:20px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;transition:transform var(--tr)}.idea-card:hover{transform:translateX(4px)}
+.idea-title{font-family:var(--fd);font-size:16px;font-weight:700;margin-bottom:6px}
+.idea-quote{font-size:13px;color:var(--osv);font-style:italic;line-height:1.5;margin-bottom:8px}
+.idea-meta{font-family:var(--fl);font-size:10px;color:var(--osv);letter-spacing:.05em}
+.idea-score{font-family:var(--fd);font-size:28px;font-weight:700;color:var(--pf);flex-shrink:0;text-align:right}
+.idea-score span{display:block;font-family:var(--fl);font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--osv);text-align:right}
+.not-logged{text-align:center;padding:80px 40px}
+.not-logged h2{font-family:var(--fd);font-size:32px;margin-bottom:12px}
+.not-logged p{color:var(--osv);margin-bottom:32px;font-size:16px}
+footer{background:var(--surf0);border-top:1px solid var(--ov);padding:32px 40px;text-align:center}
+.ft-logo{font-family:var(--fl);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pf);margin-bottom:16px}
+.ft-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:12px}.ft-links a{font-size:13px;color:var(--osv);text-decoration:none}.ft-links a:hover{color:var(--os)}
+.ft-copy{font-size:12px;color:var(--osv);opacity:.5}
+@media(max-width:768px){nav{padding:0 16px}.nlinks{display:none}.hbg{display:flex}.nlinks.open{display:flex;flex-direction:column;position:fixed;inset:60px 0 0 0;background:rgba(0,0,0,.97);padding:20px;z-index:999;gap:4px}.nlinks.open a{padding:14px;font-size:16px}.wrap{padding:40px 20px 60px}.profile-top{grid-template-columns:1fr;text-align:center}.stats-row{grid-template-columns:1fr}footer{padding:28px 20px}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nlogo">RoastMyIdea <span>🔥</span></a>
+  <ul class="nlinks" id="nl">
+    <li><a href="index.html">Home</a></li><li><a href="roast.html">Roast</a></li>
+    <li><a href="shark.html">Shark Mode</a></li><li><a href="course.html">Course</a></li>
+    <li><a href="prompts.html">Prompts</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:10px">
+    <a href="#" class="btn-nav" id="authBtn">Sign In with Google</a>
+    <div class="hbg" id="hbg"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div class="wrap" id="content">
+  <div class="not-logged" id="notLogged">
+    <h2>Sign In To View Your Profile</h2>
+    <p>Your roast history, scores, and badges are waiting.</p>
+    <a href="#" class="btn-p" onclick="google.accounts.id.prompt()">Sign In with Google 🔥</a>
+  </div>
+  <div id="profileContent" style="display:none">
+    <div class="profile-top">
+      <div class="pav" id="userAv">?<div class="plvl">LVL 1</div></div>
+      <div>
+        <div class="pname" id="userName">Loading...</div>
+        <div class="prole">Founder In Training</div>
+        <div class="pxp">720 / 1000 XP to next level</div>
+      </div>
+      <a href="roast.html" class="btn-p">Continue Improving →</a>
+    </div>
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-lbl">Current Streak</div>
+        <div class="stat-val" id="streakVal">1</div>
+        <div class="stat-sub">🔥 Keep it going!</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-lbl">Ideas Roasted</div>
+        <div class="stat-val" id="ideasVal">0</div>
+        <div class="stat-sub">Total submissions</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-lbl">Best Heat Score</div>
+        <div class="stat-val" id="bestVal">--</div>
+        <div class="stat-sub">Personal best</div>
+      </div>
+    </div>
+    <div class="section-title">Idea History</div>
+    <div id="ideaHistory"><p style="color:var(--osv);font-size:15px">No ideas roasted yet. <a href="roast.html" style="color:var(--pf)">Start your first roast →</a></p></div>
+  </div>
+</div>
+
+<footer>
+  <div class="ft-logo">ROASTMYIDEA 🔥</div>
+  <div class="ft-links"><a href="privacy-policy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a><a href="contact.html">Contact Us</a></div>
+  <p class="ft-copy">Made with 🔥 in India. © 2024 RoastMyIdea</p>
+</footer>
+
+<script>
+document.getElementById('hbg').onclick=function(){document.getElementById('nl').classList.toggle('open');};
+
+function loadProfile(){
+  const user=getUser();
+  if(!user){document.getElementById('notLogged').style.display='block';document.getElementById('profileContent').style.display='none';return;}
+  document.getElementById('notLogged').style.display='none';
+  document.getElementById('profileContent').style.display='block';
+  const name=localStorage.getItem('rmi_raw_name')||'Founder';
+  const pic=localStorage.getItem('rmi_raw_pic');
+  document.getElementById('userName').textContent=name;
+  if(pic){const av=document.getElementById('userAv');av.innerHTML=`<img src="${pic}" style="width:100%;height:100%;border-radius:50%;object-fit:cover"/><div class="plvl">LVL 1</div>`;}
+
+  // Load history from localStorage
+  const hist=JSON.parse(localStorage.getItem('scoreHist')||'[]');
+  const results=JSON.parse(localStorage.getItem('roastResult')||'null');
+  document.getElementById('ideasVal').textContent=hist.length||0;
+  if(hist.length>0){document.getElementById('bestVal').textContent=Math.max(...hist);}
+  if(results){
+    const hc=document.getElementById('ideaHistory');
+    hc.innerHTML=`<div class="idea-card"><div><div class="idea-title">${results.idea||'Unnamed Idea'}</div><div class="idea-quote">"${(results.roast||'').substring(0,80)}..."</div><div class="idea-meta">${new Date().toLocaleDateString('en-IN')}</div></div><div class="idea-score">${results.score||'--'}/100<span>Heat Score</span></div></div>`;
+  }
+}
+
+window.addEventListener('userLoggedIn',loadProfile);
+window.addEventListener('load',loadProfile);
+</script>
+</body>
+</html>
