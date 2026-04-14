@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Prompts — RoastMyIdea 🔥</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet"/>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="config.js"></script><script src="js/auth.js"></script>
+<style>
+:root{--pf:#ff7852;--surf0:#000;--sc:#1a1919;--shh:#262626;--os:#e4e2e1;--osv:#adaaaa;--ov:rgba(255,255,255,.10);--fd:'Space Grotesk',sans-serif;--fb:'Inter',sans-serif;--fl:'Plus Jakarta Sans',sans-serif;--tr:.2s ease-out}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--surf0);color:var(--os);font-family:var(--fb);padding-top:60px}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:60px;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--ov)}
+.nlogo{font-family:var(--fd);font-weight:700;font-size:18px;color:var(--os);text-decoration:none;letter-spacing:-.02em}.nlogo span{color:var(--pf)}
+.nlinks{display:flex;gap:4px;list-style:none}.nlinks a{color:var(--osv);text-decoration:none;font-family:var(--fl);font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:6px 14px;border-radius:8px;transition:color var(--tr)}.nlinks a:hover{color:var(--os)}.nlinks a.active{color:var(--pf)}
+.btn-nav{padding:8px 20px;background:transparent;border:1px solid var(--pf);color:var(--pf);font-family:var(--fl);font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border-radius:8px;cursor:pointer;transition:all var(--tr);text-decoration:none;display:flex;align-items:center;gap:8px}.btn-nav:hover{background:var(--pf);color:#000}
+.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer}.hbg span{width:22px;height:2px;background:var(--os);border-radius:2px}
+.hero{display:grid;grid-template-columns:1fr 1.2fr;gap:60px;align-items:center;padding:60px 40px;max-width:1200px;margin:0 auto}
+.hero-l h1{font-family:var(--fd);font-size:clamp(52px,7vw,88px);line-height:.9;letter-spacing:-.02em;text-transform:uppercase;margin-bottom:20px}
+.hero-l h1 em{color:var(--pf);font-style:italic;display:block}
+.hero-l p{color:var(--osv);font-size:16px;line-height:1.7}
+.inp-card{background:var(--sc);border-radius:16px;padding:28px}
+.inp-lbl{font-family:var(--fl);font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--pf);margin-bottom:12px}
+.startup-inp{width:100%;background:#111;border:1px solid var(--ov);border-radius:12px;padding:16px 18px;color:var(--os);font-family:var(--fb);font-size:15px;resize:none;outline:none;min-height:110px;transition:border-color var(--tr)}.startup-inp:focus{border-color:var(--pf)}.startup-inp::placeholder{color:var(--osv)}
+.btn-p{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 28px;background:var(--pf);color:#000;font-family:var(--fl);font-size:14px;font-weight:700;border-radius:8px;border:none;cursor:pointer;transition:all var(--tr);width:100%;margin-top:14px}.btn-p:hover{background:#ff9070;transform:translateY(-1px)}
+.output{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:0 40px 80px;max-width:1200px;margin:0 auto}
+.pcard{background:var(--sc);border-radius:12px;overflow:hidden;transition:transform var(--tr)}.pcard:hover{transform:translateY(-2px)}
+.pcard-hd{padding:18px 20px 14px;border-bottom:1px solid var(--ov);display:flex;justify-content:space-between;align-items:center}
+.pcard-meta{font-family:var(--fl);font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--osv);margin-bottom:4px}
+.pcard-title{font-family:var(--fd);font-size:20px;font-weight:700}
+.pcard-ico{width:36px;height:36px;border-radius:8px;background:rgba(255,120,82,.1);border:1px solid rgba(255,120,82,.2);display:flex;align-items:center;justify-content:center;font-size:16px}
+.pcard-body{padding:18px 20px;min-height:140px}
+.ptxt{color:var(--osv);font-size:14px;line-height:1.7;font-style:italic}
+.psec{margin-bottom:12px}.psec-lbl{font-family:var(--fl);font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--pf);margin-bottom:5px}
+.pload{display:flex;align-items:center;gap:10px;color:var(--osv);font-size:14px}
+.spin{width:16px;height:16px;border:2px solid var(--shh);border-top-color:var(--pf);border-radius:50%;animation:sp .8s linear infinite;flex-shrink:0}
+@keyframes sp{to{transform:rotate(360deg)}}
+.pcard-ft{padding:14px 20px;border-top:1px solid var(--ov);display:flex;gap:8px}
+.copy-btn{flex:1;padding:9px;background:var(--shh);border:1px solid var(--ov);border-radius:8px;color:var(--os);font-family:var(--fl);font-size:12px;font-weight:700;cursor:pointer;transition:all var(--tr);display:flex;align-items:center;justify-content:center;gap:6px}.copy-btn:hover{border-color:var(--pf);color:var(--pf)}
+.regen-btn{width:36px;height:36px;background:var(--shh);border:1px solid var(--ov);border-radius:8px;color:var(--osv);cursor:pointer;transition:all var(--tr);display:flex;align-items:center;justify-content:center}.regen-btn:hover{border-color:var(--pf);color:var(--pf)}
+footer{background:var(--surf0);border-top:1px solid var(--ov);padding:32px 40px;text-align:center}
+.ft-logo{font-family:var(--fl);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pf);margin-bottom:16px}
+.ft-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:12px}.ft-links a{font-size:13px;color:var(--osv);text-decoration:none;transition:color var(--tr)}.ft-links a:hover{color:var(--os)}
+.ft-copy{font-size:12px;color:var(--osv);opacity:.5}
+@media(max-width:1024px){.output{grid-template-columns:1fr}}
+@media(max-width:768px){nav{padding:0 16px}.nlinks{display:none}.hbg{display:flex}.nlinks.open{display:flex;flex-direction:column;position:fixed;inset:60px 0 0 0;background:rgba(0,0,0,.97);padding:20px;z-index:999;gap:4px}.nlinks.open a{padding:14px;font-size:16px}.hero{grid-template-columns:1fr;padding:40px 20px}.output{padding:0 20px 60px}footer{padding:28px 20px}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nlogo">RoastMyIdea <span>🔥</span></a>
+  <ul class="nlinks" id="nl">
+    <li><a href="index.html">Home</a></li><li><a href="roast.html">Roast</a></li>
+    <li><a href="shark.html">Shark Mode</a></li><li><a href="course.html">Course</a></li>
+    <li><a href="prompts.html" class="active">Prompts</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:10px">
+    <a href="#" class="btn-nav" id="authBtn">Sign In with Google</a>
+    <div class="hbg" id="hbg"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-l">
+    <h1>Feed The <em>Furnace.</em></h1>
+    <p>Describe your startup and let the furnace forge high-conversion marketing hooks that don't suck.</p>
+  </div>
+  <div class="inp-card">
+    <div class="inp-lbl">Describe Your Startup</div>
+    <textarea class="startup-inp" id="ideaInp" placeholder="e.g., A SaaS platform that uses AI to automate legal document reviews for freelance designers in India..."></textarea>
+    <button class="btn-p" onclick="generate()">Generate Prompts ⚡</button>
+  </div>
+</div>
+
+<div class="output">
+  <div class="pcard">
+    <div class="pcard-hd"><div><div class="pcard-meta">Social Media</div><div class="pcard-title">Instagram Post</div></div><div class="pcard-ico">📸</div></div>
+    <div class="pcard-body" id="igBody"><p class="ptxt">Enter your startup idea above and click Generate Prompts.</p></div>
+    <div class="pcard-ft"><button class="copy-btn" onclick="copyEl('igBody')">📋 Copy</button><button class="regen-btn" onclick="generate()">↻</button></div>
+  </div>
+  <div class="pcard">
+    <div class="pcard-hd"><div><div class="pcard-meta">Short Form Video</div><div class="pcard-title">Reels Script</div></div><div class="pcard-ico">🎬</div></div>
+    <div class="pcard-body" id="reelsBody"><p class="ptxt">Waiting for input...</p></div>
+    <div class="pcard-ft"><button class="copy-btn" onclick="copyEl('reelsBody')">📋 Copy</button><button class="regen-btn" onclick="generate()">↻</button></div>
+  </div>
+  <div class="pcard">
+    <div class="pcard-hd"><div><div class="pcard-meta">Thought Leadership</div><div class="pcard-title">LinkedIn Thread</div></div><div class="pcard-ico">📄</div></div>
+    <div class="pcard-body" id="liBody"><p class="ptxt">Waiting for input...</p></div>
+    <div class="pcard-ft"><button class="copy-btn" onclick="copyEl('liBody')">📋 Copy</button><button class="regen-btn" onclick="generate()">↻</button></div>
+  </div>
+</div>
+
+<footer>
+  <div class="ft-logo">ROASTMYIDEA 🔥</div>
+  <div class="ft-links"><a href="privacy-policy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a><a href="cookie-policy.html">Cookie Policy</a><a href="contact.html">Contact Us</a></div>
+  <p class="ft-copy">Made with 🔥 in India. © 2024 RoastMyIdea</p>
+</footer>
+
+<script>
+document.getElementById('hbg').onclick=function(){document.getElementById('nl').classList.toggle('open');};
+const API=(window.API_URL||'')+'/api/generate';
+
+function loading(){
+  ['igBody','reelsBody','liBody'].forEach(id=>{
+    document.getElementById(id).innerHTML=`<div class="pload"><div class="spin"></div>Generating...</div>`;
+  });
+}
+
+async function generate(){
+  const idea=document.getElementById('ideaInp').value.trim();
+  if(!idea){alert('Please describe your startup first!');return;}
+  loading();
+  try{
+    const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'prompts',idea})});
+    const d=await r.json();
+    const res=typeof d.result==='string'?JSON.parse(d.result):d.result;
+    document.getElementById('igBody').innerHTML=`<p class="ptxt">${res.instagram}</p>`;
+    document.getElementById('reelsBody').innerHTML=`<div class="psec"><div class="psec-lbl">Hook:</div><p class="ptxt">${res.reels?.hook}</p></div><div class="psec"><div class="psec-lbl">Action:</div><p class="ptxt">${res.reels?.action}</p></div><div class="psec"><div class="psec-lbl">CTA:</div><p class="ptxt">${res.reels?.cta}</p></div>`;
+    document.getElementById('liBody').innerHTML=`<p class="ptxt">${res.linkedin}</p>`;
+  }catch{
+    document.getElementById('igBody').innerHTML=`<p class="ptxt">"Your ${idea.split(' ').slice(0,3).join(' ')} isn't a side hustle — it's a revenue engine waiting to happen. We built the AI that makes it real. 🔥 #StartupIndia #Founders"</p>`;
+    document.getElementById('reelsBody').innerHTML=`<div class="psec"><div class="psec-lbl">Hook:</div><p class="ptxt">"POV: You just realized the problem you've been ignoring is costing you 20% revenue."</p></div><div class="psec"><div class="psec-lbl">Action:</div><p class="ptxt">Stop guessing. Start building.</p></div><div class="psec"><div class="psec-lbl">CTA:</div><p class="ptxt">Link in bio — try it free.</p></div>`;
+    document.getElementById('liBody').innerHTML=`<p class="ptxt">1/ "The biggest risk to your startup isn't lack of customers. It's building the wrong thing for 6 months."\n\n2/ "We built an AI that tells you exactly why your idea will fail — before you spend a rupee."</p>`;
+  }
+}
+
+function copyEl(id){
+  const txt=document.getElementById(id).innerText;
+  navigator.clipboard.writeText(txt);
+  event.currentTarget.innerHTML='✓ Copied!';
+  event.currentTarget.style.color='var(--pf)';
+  setTimeout(()=>{event.currentTarget.innerHTML='📋 Copy';event.currentTarget.style.color='';},2000);
+}
+</script>
+</body>
+</html>
