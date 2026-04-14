@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Contact — RoastMyIdea 🔥</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{--pf:#ff7852;--surf0:#000;--sc:#1a1919;--shh:#262626;--os:#e4e2e1;--osv:#adaaaa;--ov:rgba(255,255,255,.10);--fd:'Space Grotesk',sans-serif;--fb:'Inter',sans-serif;--fl:'Plus Jakarta Sans',sans-serif;--tr:.2s ease-out}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--surf0);color:var(--os);font-family:var(--fb);padding-top:60px}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:60px;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--ov)}
+.nlogo{font-family:var(--fd);font-weight:700;font-size:18px;color:var(--os);text-decoration:none;letter-spacing:-.02em}.nlogo span{color:var(--pf)}
+.nlinks{display:flex;gap:4px;list-style:none}.nlinks a{color:var(--osv);text-decoration:none;font-family:var(--fl);font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:6px 14px;border-radius:8px;transition:color var(--tr)}.nlinks a:hover{color:var(--os)}
+.btn-nav{padding:8px 20px;background:var(--pf);color:#000;font-family:var(--fl);font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border-radius:8px;cursor:pointer;transition:all var(--tr);text-decoration:none;border:none}
+.wrap{max-width:900px;margin:0 auto;padding:60px 40px 80px}
+.page-hero{margin-bottom:60px}
+.page-tag{font-family:var(--fl);font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--osv);background:var(--sc);display:inline-block;padding:4px 12px;border-radius:4px;margin-bottom:16px}
+.page-title{font-family:var(--fd);font-size:clamp(40px,6vw,72px);font-weight:700;letter-spacing:-.02em}
+.page-title span{color:var(--pf)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.form-card{background:var(--sc);border-radius:16px;padding:32px}
+.fl-group{margin-bottom:20px}
+.fl-label{font-family:var(--fl);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--osv);display:block;margin-bottom:8px}
+.fl-input{width:100%;background:var(--shh);border:1px solid var(--ov);border-radius:10px;padding:13px 16px;color:var(--os);font-family:var(--fb);font-size:15px;outline:none;transition:border-color var(--tr)}.fl-input:focus{border-color:var(--pf)}.fl-input::placeholder{color:var(--osv)}
+.fl-ta{min-height:120px;resize:none}
+.btn-p{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 28px;background:var(--pf);color:#000;font-family:var(--fl);font-size:14px;font-weight:700;border-radius:8px;border:none;cursor:pointer;transition:all var(--tr);width:100%}.btn-p:hover{background:#ff9070}
+.info-col{display:flex;flex-direction:column;gap:16px}
+.info-card{background:var(--sc);border-radius:12px;padding:24px}
+.info-lbl{font-family:var(--fl);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--osv);margin-bottom:8px}
+.info-val{font-family:var(--fd);font-size:18px;font-weight:700;color:var(--pf)}
+.info-sub{font-size:13px;color:var(--osv);margin-top:4px}
+footer{background:var(--surf0);border-top:1px solid var(--ov);padding:32px 40px;text-align:center}
+.ft-logo{font-family:var(--fl);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pf);margin-bottom:16px}
+.ft-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:12px}.ft-links a{font-size:13px;color:var(--osv);text-decoration:none}.ft-links a:hover{color:var(--os)}
+.ft-copy{font-size:12px;color:var(--osv);opacity:.5}
+@media(max-width:768px){.contact-grid{grid-template-columns:1fr}nav{padding:0 16px}.wrap{padding:40px 20px 60px}footer{padding:28px 20px}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nlogo">RoastMyIdea <span>🔥</span></a>
+  <ul class="nlinks">
+    <li><a href="index.html">Home</a></li><li><a href="roast.html">Roast</a></li>
+    <li><a href="shark.html">Shark Mode</a></li><li><a href="course.html">Course</a></li>
+  </ul>
+  <a href="roast.html" class="btn-nav">Get Roasted</a>
+</nav>
+<div class="wrap">
+  <div class="page-hero">
+    <div class="page-tag">Get In Touch</div>
+    <h1 class="page-title">Throw Some Fuel<br><span>On The Fire.</span></h1>
+  </div>
+  <div class="contact-grid">
+    <div class="form-card">
+      <div class="fl-group"><label class="fl-label">Name</label><input class="fl-input" placeholder="Your name" type="text"/></div>
+      <div class="fl-group"><label class="fl-label">Email</label><input class="fl-input" placeholder="your@email.com" type="email"/></div>
+      <div class="fl-group"><label class="fl-label">Startup Idea (Optional)</label><input class="fl-input" placeholder="Your idea in one line..." type="text"/></div>
+      <div class="fl-group"><label class="fl-label">Message</label><textarea class="fl-input fl-ta" placeholder="Tell us why you're entering the hot seat..."></textarea></div>
+      <button class="btn-p">Send to the Furnace 🔥</button>
+    </div>
+    <div class="info-col">
+      <div class="info-card"><div class="info-lbl">Direct Channel</div><div class="info-val">ignite@roastmyidea.app</div><div class="info-sub">Expect heat, not just an auto-reply.</div></div>
+      <div class="info-card"><div class="info-lbl">Support Hours</div><div class="info-val">24/7</div><div class="info-sub">Vikram never sleeps.</div></div>
+      <div class="info-card"><div class="info-lbl">Location</div><div class="info-val">Forged in India</div><div class="info-sub">Global Heat. Local Wisdom.</div></div>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="ft-logo">ROASTMYIDEA 🔥</div>
+  <div class="ft-links"><a href="privacy-policy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a><a href="cookie-policy.html">Cookie Policy</a></div>
+  <p class="ft-copy">© 2024 RoastMyIdea. Burn bright or burn out.</p>
+</footer>
+</body>
+</html>
