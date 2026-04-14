@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Shark Mode — RoastMyIdea 🦈</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet"/>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="config.js"></script><script src="js/auth.js"></script>
+<style>
+:root{--pf:#ff7852;--pd:#ff734c;--surf0:#000;--sc:#1a1919;--shh:#262626;--os:#e4e2e1;--osv:#adaaaa;--ov:rgba(255,255,255,.10);--fd:'Space Grotesk',sans-serif;--fb:'Inter',sans-serif;--fl:'Plus Jakarta Sans',sans-serif;--tr:.2s ease-out;--gs:0 20px 40px rgba(255,115,76,.08)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--surf0);color:var(--os);font-family:var(--fb);padding-top:60px}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:60px;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--ov)}
+.nlogo{font-family:var(--fd);font-weight:700;font-size:18px;color:var(--os);text-decoration:none;letter-spacing:-.02em}.nlogo span{color:var(--pf)}
+.nlinks{display:flex;gap:4px;list-style:none}.nlinks a{color:var(--osv);text-decoration:none;font-family:var(--fl);font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:6px 14px;border-radius:8px;transition:color var(--tr)}.nlinks a:hover{color:var(--os)}.nlinks a.active{color:var(--pf)}
+.btn-nav{padding:8px 20px;background:transparent;border:1px solid var(--pf);color:var(--pf);font-family:var(--fl);font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border-radius:8px;cursor:pointer;transition:all var(--tr);text-decoration:none;display:flex;align-items:center;gap:8px}.btn-nav:hover{background:var(--pf);color:#000}
+.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer}.hbg span{width:22px;height:2px;background:var(--os);border-radius:2px}
+.hero{padding:60px 40px 40px;max-width:1200px;margin:0 auto}
+.hero-meta{font-family:var(--fl);font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--pf);display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.hero-meta::before{content:'';width:36px;height:1px;background:var(--pf)}
+.hero-title{font-family:var(--fd);font-size:clamp(52px,8vw,88px);font-weight:700;line-height:.9;letter-spacing:-.02em;text-transform:uppercase;margin-bottom:20px}
+.hero-title em{color:var(--pf);font-style:italic;display:block}
+.hero-sub{color:var(--osv);font-size:16px;max-width:420px;line-height:1.7}
+.shark-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;padding:0 40px;max-width:1200px;margin:0 auto 40px}
+.stab{background:var(--sc);border:1px solid var(--ov);border-radius:12px;padding:18px 14px;cursor:pointer;transition:all var(--tr);position:relative;overflow:hidden}
+.stab::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--pf);transform:scaleX(0);transition:transform var(--tr)}
+.stab:hover::before,.stab.active::before{transform:scaleX(1)}
+.stab.active{border-color:var(--pf);background:rgba(255,120,82,.06)}
+.stab-lbl{font-family:var(--fl);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--osv);margin-bottom:6px}
+.stab-name{font-family:var(--fd);font-size:17px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.stab-desc{font-size:12px;color:var(--osv);line-height:1.4}
+.stab-ico{position:absolute;top:14px;right:14px;font-size:16px;opacity:.4}
+.arena{display:grid;grid-template-columns:320px 1fr;gap:28px;padding:0 40px;max-width:1200px;margin:0 auto}
+.portrait{background:var(--sc);border-radius:16px;overflow:hidden;border:1px solid var(--ov)}
+.portrait-img{height:280px;background:linear-gradient(180deg,#1a1a1a,#0a0a0a);display:flex;align-items:center;justify-content:center;font-size:100px}
+.portrait-info{padding:20px}
+.portrait-name{font-family:var(--fd);font-size:20px;font-weight:700;margin-bottom:4px}
+.portrait-spec{font-family:var(--fl);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--pf)}
+.qa{display:flex;flex-direction:column;gap:16px}
+.speaking-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;background:rgba(255,120,82,.1);border:1px solid var(--pf);border-radius:100px;font-family:var(--fl);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--pf);width:fit-content;animation:pb 2s ease infinite}
+@keyframes pb{0%,100%{opacity:1}50%{opacity:.6}}
+.qcard{background:var(--sc);border-radius:12px;padding:28px}
+.qtext{font-family:var(--fd);font-size:20px;font-weight:600;line-height:1.4;font-style:italic;margin-bottom:12px}
+.qctx{color:var(--osv);font-size:14px;line-height:1.6;font-style:italic}
+.ans-wrap{display:flex;flex-direction:column;gap:10px}
+.ans-lbl{font-family:var(--fl);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--osv)}
+.ans-ta{background:var(--sc);border:1px solid var(--ov);border-radius:12px;padding:16px 18px;color:var(--os);font-family:var(--fb);font-size:15px;resize:none;outline:none;min-height:110px;transition:border-color var(--tr);width:100%}
+.ans-ta:focus{border-color:var(--pf)}.ans-ta::placeholder{color:var(--osv)}
+.wcount{text-align:right;font-family:'Space Grotesk',monospace;font-size:12px;color:var(--osv)}
+.btn-p{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 28px;background:var(--pf);color:#000;font-family:var(--fl);font-size:14px;font-weight:700;border-radius:8px;border:none;cursor:pointer;transition:all var(--tr);width:100%}
+.btn-p:hover{background:#ff9070;transform:translateY(-1px)}
+.bottom{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:32px 40px 80px;max-width:1200px;margin:0 auto}
+.score-card{background:var(--sc);border-radius:12px;padding:28px}
+.score-lbl{font-family:var(--fd);font-size:14px;font-weight:600;margin-bottom:12px}
+.score-num{font-family:var(--fd);font-size:64px;font-weight:700;color:var(--pf);line-height:1}
+.conf-row{display:flex;justify-content:space-between;font-family:var(--fl);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--osv);margin:20px 0 8px}
+.prog{height:3px;background:var(--shh);border-radius:2px}
+.prog-f{height:100%;background:linear-gradient(90deg,var(--pd),var(--pf));border-radius:2px;transition:width .8s ease;box-shadow:1px 0 8px var(--pf)}
+.hist-card{background:var(--pf);border-radius:12px;padding:28px;cursor:pointer;transition:transform var(--tr)}.hist-card:hover{transform:translateY(-3px)}
+.hist-ico{font-size:28px;margin-bottom:12px}
+.hist-title{font-family:var(--fd);font-size:22px;font-weight:700;color:#000;margin-bottom:8px}
+.hist-link{font-family:var(--fl);font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#000;display:flex;align-items:center;gap:6px}
+footer{background:var(--surf0);border-top:1px solid var(--ov);padding:32px 40px;text-align:center}
+.ft-logo{font-family:var(--fl);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pf);margin-bottom:16px}
+.ft-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:12px}
+.ft-links a{font-size:13px;color:var(--osv);text-decoration:none;transition:color var(--tr)}.ft-links a:hover{color:var(--os)}
+.ft-copy{font-size:12px;color:var(--osv);opacity:.5}
+@media(max-width:1024px){.shark-tabs{grid-template-columns:repeat(3,1fr)}.arena{grid-template-columns:1fr}.portrait{display:none}}
+@media(max-width:768px){nav{padding:0 16px}.nlinks{display:none}.hbg{display:flex}.nlinks.open{display:flex;flex-direction:column;position:fixed;inset:60px 0 0 0;background:rgba(0,0,0,.97);padding:20px;z-index:999;gap:4px}.nlinks.open a{padding:14px;font-size:16px}.hero,.arena,.bottom{padding-left:20px;padding-right:20px}.shark-tabs{grid-template-columns:1fr 1fr;padding:0 20px}.bottom{grid-template-columns:1fr}footer{padding:28px 20px}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nlogo">RoastMyIdea <span>🔥</span></a>
+  <ul class="nlinks" id="nl">
+    <li><a href="index.html">Home</a></li><li><a href="roast.html">Roast</a></li>
+    <li><a href="shark.html" class="active">Shark Mode</a></li>
+    <li><a href="course.html">Course</a></li><li><a href="prompts.html">Prompts</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:10px">
+    <a href="#" class="btn-nav" id="authBtn">Sign In with Google</a>
+    <div class="hbg" id="hbg"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-meta">Elite Tier Evaluation</div>
+  <h1 class="hero-title">Enter The <em>Shark Tank.</em></h1>
+  <p class="hero-sub">Five industry titans. Five brutal perspectives. One goal: to see if your idea is a unicorn or just fish bait.</p>
+</div>
+
+<div class="shark-tabs" id="sharkTabs"></div>
+
+<div class="arena">
+  <div class="portrait">
+    <div class="portrait-img" id="sharkEmoji">🦈</div>
+    <div class="portrait-info">
+      <div class="portrait-name" id="sharkName">The Accountant</div>
+      <div class="portrait-spec" id="sharkSpec">Specialty: Forensic Finance</div>
+    </div>
+  </div>
+  <div class="qa">
+    <div class="speaking-badge">🔴 Shark Is Speaking...</div>
+    <div class="qcard">
+      <p class="qtext" id="sharkQ">"If you can't tell me your LTV:CAC ratio without looking at a spreadsheet, why should I trust you with a single rupee?"</p>
+      <p class="qctx" id="sharkCtx">Your last deck says you're growing 20% MoM, but your marketing spend tripled. Explain the discrepancy or get out.</p>
+    </div>
+    <div class="ans-wrap">
+      <div class="ans-lbl">Your Defense</div>
+      <textarea class="ans-ta" id="answerBox" placeholder="Write your answer here... Be precise, be brutal." oninput="updateWC(this)"></textarea>
+      <div class="wcount">Word Count: <span id="wc">0</span></div>
+      <button class="btn-p" onclick="submitAnswer()">Submit Answer & Next Shark →</button>
+    </div>
+  </div>
+</div>
+
+<div class="bottom">
+  <div class="score-card">
+    <div class="score-lbl">Investment Readiness Score</div>
+    <div><span class="score-num" id="investScore">--</span><span style="color:var(--osv);font-size:18px"> / 100</span></div>
+    <div class="conf-row"><span>Confidence Level</span><span id="confLbl">--</span></div>
+    <div class="prog"><div class="prog-f" id="confFill" style="width:0%"></div></div>
+  </div>
+  <div class="hist-card" onclick="window.location.href='profile.html'">
+    <div class="hist-ico">🕐</div>
+    <div class="hist-title">View Your Roast History</div>
+    <div class="hist-link">Explore Past Sessions ↗</div>
+  </div>
+</div>
+
+<footer>
+  <div class="ft-logo">ROASTMYIDEA 🔥</div>
+  <div class="ft-links"><a href="privacy-policy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a><a href="cookie-policy.html">Cookie Policy</a><a href="contact.html">Contact Us</a></div>
+  <p class="ft-copy">Made with 🔥 in India. © 2024 RoastMyIdea</p>
+</footer>
+
+<script>
+document.getElementById('hbg').onclick=function(){document.getElementById('nl').classList.toggle('open');};
+const sharks=[
+  {name:"The Accountant",spec:"Specialty: Forensic Finance",emoji:"💼",q:'"If you can\'t tell me your LTV:CAC ratio without a spreadsheet, why should I trust you with a single rupee?"',ctx:"Your deck says 20% MoM growth but marketing spend tripled. Explain or get out."},
+  {name:"The Visionary",spec:"Specialty: Market Architecture",emoji:"🔭",q:'"Your TAM is ₹50,000 Cr. But what\'s your realistic capture in 24 months? Give me your pond, not the ocean."',ctx:"Market sizing without time-bound targets is just storytelling. I need numbers I can defend to my LPs."},
+  {name:"The General",spec:"Specialty: Competitive Warfare",emoji:"🏰",q:'"Google can build your entire product in a 3-day hackathon. What stops them? Don\'t say passion."',ctx:"I've seen 400 startups claim first-mover advantage. 390 were wrong. What's your actual defensible moat?"},
+  {name:"The Stylist",spec:"Specialty: Brand Psychology",emoji:"✨",q:'"Why would someone brag about using your product at a dinner party? If you can\'t answer that, you don\'t have a brand."',ctx:"People don't buy products. They buy identities. What identity does your product give users?"},
+  {name:"The Liquidator",spec:"Specialty: Exit Architecture",emoji:"🚪",q:'"Name three potential acquirers, their last 5 acquisitions, and why you\'re a better fit than competitors."',ctx:"Every VC thinks about exit from day one. If you haven't mapped this, I'm already walking out."}
+];
+let current=0;const scores=[];const answers={};
+
+function buildTabs(){
+  const tc=document.getElementById('sharkTabs');
+  sharks.forEach((s,i)=>{
+    const t=document.createElement('div');t.className='stab'+(i===0?' active':'');
+    t.innerHTML=`<div class="stab-lbl">${s.name}</div><div class="stab-name">${s.name.split(' ')[1]||s.name}</div><div class="stab-desc">${s.spec.replace('Specialty: ','')}</div><div class="stab-ico">${s.emoji}</div>`;
+    t.onclick=()=>selectShark(i,t);tc.appendChild(t);
+  });
+}
+
+function selectShark(i,el){
+  document.querySelectorAll('.stab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');current=i;updateDisplay();
+}
+
+function updateDisplay(){
+  const s=sharks[current];
+  document.getElementById('sharkEmoji').textContent=s.emoji;
+  document.getElementById('sharkName').textContent=s.name;
+  document.getElementById('sharkSpec').textContent=s.spec;
+  document.getElementById('sharkQ').textContent=s.q;
+  document.getElementById('sharkCtx').textContent=s.ctx;
+  document.getElementById('answerBox').value=answers[current]||'';
+  updateWC(document.getElementById('answerBox'));
+}
+
+async function submitAnswer(){
+  const ans=document.getElementById('answerBox').value.trim();
+  if(!ans){alert('Please write your defense!');return;}
+  answers[current]=ans;
+  const score=50+Math.floor(Math.random()*40);
+  scores.push(score);
+  const avg=Math.round(scores.reduce((a,b)=>a+b,0)/scores.length);
+  document.getElementById('investScore').textContent=avg;
+  document.getElementById('confFill').style.width=avg+'%';
+  const lbls=['CRITICAL','LOW','MODERATE','STRONG','EXCEPTIONAL'];
+  document.getElementById('confLbl').textContent=lbls[Math.min(Math.floor(avg/20),4)];
+  if(current<sharks.length-1){
+    current++;
+    document.querySelectorAll('.stab')[current].click();
+    document.getElementById('answerBox').value='';
+    window.scrollTo({top:300,behavior:'smooth'});
+  } else {
+    localStorage.setItem('sharkScore',avg);
+    window.location.href=`result.html?score=${avg}&mode=shark`;
+  }
+}
+
+function updateWC(el){document.getElementById('wc').textContent=el.value.trim().split(/\s+/).filter(Boolean).length;}
+buildTabs();updateDisplay();
+</script>
+</body>
+</html>
