@@ -4,10 +4,10 @@
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>The Furnace — RoastMyIdea 🔥</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet"/>
-<!-- Google Sign In SDK -->
-<script src="https://accounts.google.com/gsi/client" async defer></script>
 <script src="config.js"></script>
 <script src="js/auth.js"></script>
+<!-- Google SDK loads async so it never blocks the page -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 :root{--pf:#ff7852;--pd:#ff734c;--surf0:#000;--sc:#1a1919;--shh:#262626;--os:#e4e2e1;--osv:#adaaaa;--ov:rgba(255,255,255,.10);--fd:'Space Grotesk',sans-serif;--fb:'Inter',sans-serif;--fl:'Plus Jakarta Sans',sans-serif;--tr:.2s ease-out}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -19,7 +19,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .nlinks a:hover{color:var(--os)}.nlinks a.active{color:var(--pf)}
 .btn-nav{padding:8px 20px;background:transparent;border:1px solid var(--pf);color:var(--pf);font-family:var(--fl);font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border-radius:8px;cursor:pointer;transition:all var(--tr);text-decoration:none;display:flex;align-items:center;gap:8px}
 .btn-nav:hover{background:var(--pf);color:#000}
-.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer}.hbg span{width:22px;height:2px;background:var(--os);border-radius:2px}
+.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hbg span{width:22px;height:2px;background:var(--os);border-radius:2px}
 .layout{display:grid;grid-template-columns:240px 1fr;height:100vh;padding-top:60px}
 .sidebar{background:var(--surf0);border-right:1px solid var(--ov);padding:28px 20px;display:flex;flex-direction:column;gap:20px;overflow-y:auto}
 .vik-img{width:100%;border-radius:12px;background:linear-gradient(160deg,#1a1a1a,#0a0805);aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:72px;position:relative;border:1px solid var(--ov)}
@@ -29,7 +30,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .vname{font-family:var(--fd);font-size:22px;font-weight:700}.vtitle{font-family:var(--fl);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--pf);margin-bottom:12px}
 .vquote{background:var(--sc);border-left:2px solid var(--pf);padding:14px 16px;border-radius:0 8px 8px 0;font-size:13px;font-style:italic;color:var(--osv);line-height:1.6}
 .vstats{display:flex;flex-direction:column;gap:10px}
-.vstat{display:flex;justify-content:space-between}.vstat-l{font-family:var(--fl);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--osv)}.vstat-v{font-family:var(--fd);font-weight:700;color:var(--pf);font-size:14px}
+.vstat{display:flex;justify-content:space-between;align-items:center}
+.vstat-l{font-family:var(--fl);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--osv)}
+.vstat-v{font-family:var(--fd);font-weight:700;color:var(--pf);font-size:14px}
 .main{display:flex;flex-direction:column;overflow:hidden}
 .main-hd{padding:16px 28px;border-bottom:1px solid var(--ov);display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
 .main-hd h1{font-family:var(--fl);font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
@@ -47,7 +50,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .bubble{background:var(--shh);border-radius:16px 16px 16px 4px;padding:14px 18px;max-width:68%;font-size:15px;line-height:1.6;color:var(--os)}
 .bubble .hl{color:var(--pf);font-weight:600}
 .brow.user .bubble{background:linear-gradient(135deg,var(--pd),var(--pf));color:#000;font-weight:500;border-radius:16px 16px 4px 16px}
-.typing{background:var(--shh);border-radius:16px 16px 16px 4px;padding:14px 18px;display:flex;align-items:center;gap:6px;font-size:14px;color:var(--osv)}
+.typing-bub{background:var(--shh);border-radius:16px 16px 16px 4px;padding:14px 18px;display:flex;align-items:center;gap:6px;font-size:14px;color:var(--osv)}
 .td{width:6px;height:6px;border-radius:50%;background:var(--pf);animation:tp 1.4s ease infinite}
 .td:nth-child(2){animation-delay:.2s}.td:nth-child(3){animation-delay:.4s}
 @keyframes tp{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.7)}}
@@ -57,22 +60,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .opt-lbl{font-family:var(--fl);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--osv);margin-bottom:5px}
 .opt-txt{font-size:14px;line-height:1.4}
 .opt:hover{border-color:var(--pf);background:rgba(255,120,82,.08);transform:translateY(-2px)}
-/* generating loader */
 .gen-loader{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--sc);border-radius:12px 12px 12px 4px;max-width:340px;border:1px solid rgba(255,120,82,.15)}
 .spin{width:16px;height:16px;border:2px solid var(--shh);border-top-color:var(--pf);border-radius:50%;animation:sp .8s linear infinite;flex-shrink:0}
 @keyframes sp{to{transform:rotate(360deg)}}
 .gen-txt{font-size:13px;color:var(--osv);font-style:italic}
-/* rate limit wall */
-.rate-wall{background:var(--sc);border:1px solid rgba(255,120,82,.3);border-radius:12px;padding:24px;max-width:500px;text-align:center}
-.rate-wall h3{font-family:var(--fd);font-size:20px;margin-bottom:8px}
-.rate-wall p{color:var(--osv);font-size:14px;margin-bottom:20px;line-height:1.6}
 .input-bar{padding:16px 28px;border-top:1px solid var(--ov);background:var(--surf0);flex-shrink:0}
 .input-row{display:flex;gap:10px;align-items:flex-end}
 .cinp{flex:1;background:var(--sc);border:1px solid var(--ov);border-radius:12px;padding:13px 18px;color:var(--os);font-family:var(--fb);font-size:15px;resize:none;outline:none;transition:border-color var(--tr);min-height:48px;max-height:100px}
 .cinp:focus{border-color:var(--pf)}.cinp::placeholder{color:var(--osv)}
 .sbtn{width:48px;height:48px;background:var(--pf);border:none;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--tr);flex-shrink:0}
 .sbtn:hover{background:#ff9070;transform:scale(1.05)}
-.sbtn:disabled{opacity:.4;cursor:not-allowed;transform:none}
 .inp-hint{text-align:center;font-family:var(--fl);font-size:11px;color:var(--osv);opacity:.6;margin-top:8px}
 .inp-hint strong{opacity:.9}
 @media(max-width:768px){
@@ -129,7 +126,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
     <div class="chat" id="chat"></div>
     <div class="input-bar">
       <div class="input-row">
-        <textarea class="cinp" id="inp" placeholder="Type here..." rows="1"></textarea>
+        <textarea class="cinp" id="inp" placeholder="Describe your startup idea..." rows="1"></textarea>
         <button class="sbtn" id="sbtn" onclick="send()">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         </button>
@@ -140,235 +137,329 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 </div>
 
 <script>
-// ═══════════════════════════════════
-// FLOW:
-// Phase 1 → Vikram asks for the idea (free text)
-// Phase 2 → API generates 4 smart questions based on that idea
-// Phase 3 → User answers each question (MCQ + free text)
-// Phase 4 → Full roast generated
-// Phase 5 → Multi-turn improvement loop
-// ═══════════════════════════════════
+// ════════════════════════════════════
+// STATE
+// ════════════════════════════════════
+var phase = 'idea';
+var ideaText = '';
+var dynamicQs = [];
+var currentQ = 0;
+var answers = {};
+var history = [];
+var busy = false;
+var API = (window.API_URL || 'https://roastmyidea.deno.dev') + '/api/generate';
 
-let phase = 'idea';
-let ideaText = '';
-let dynamicQs = [];
-let currentQ = 0;
-let answers = {};
-let history = [];
-let busy = false;
-const API = (window.API_URL || '') + '/api/generate';
-const chat = document.getElementById('chat');
-const inp = document.getElementById('inp');
-const sbtn = document.getElementById('sbtn');
+var chat = document.getElementById('chat');
+var inp = document.getElementById('inp');
+var sbtn = document.getElementById('sbtn');
 
-// counters
-function cnt(el,t){const s=Date.now(),d=1500,tk=()=>{const p=Math.min((Date.now()-s)/d,1),e=1-Math.pow(1-p,3);el.textContent=Math.floor(e*t).toLocaleString();if(p<1)requestAnimationFrame(tk);};requestAnimationFrame(tk);}
-setTimeout(()=>{cnt(document.getElementById('egoCnt'),1204);cnt(document.getElementById('savedCnt'),88);},600);
-
-// hamburger
-document.getElementById('hbg').onclick=function(){document.getElementById('nl').classList.toggle('open');};
-
-function scrollBot(){chat.scrollTop=chat.scrollHeight;}
-
-function updateProgress(){
-  const total = dynamicQs.length > 0 ? dynamicQs.length + 1 : '--';
-  const current = phase === 'idea' ? 1 : phase === 'questions' ? currentQ + 2 : total;
-  document.getElementById('stepNum').textContent = String(current).padStart(2,'0');
-  document.getElementById('totalSteps').textContent = total === '--' ? '--' : String(total).padStart(2,'0');
-  if(total !== '--'){
-    document.getElementById('pf').style.width = ((current/total)*100) + '%';
+// ── COUNTERS ──
+function cnt(el, t) {
+  var s = Date.now(), d = 1500;
+  function tk() {
+    var p = Math.min((Date.now()-s)/d, 1), e = 1-Math.pow(1-p, 3);
+    el.textContent = Math.floor(e*t).toLocaleString();
+    if (p < 1) requestAnimationFrame(tk);
   }
+  requestAnimationFrame(tk);
+}
+setTimeout(function() {
+  cnt(document.getElementById('egoCnt'), 1204);
+  cnt(document.getElementById('savedCnt'), 88);
+}, 600);
+
+// ── HAMBURGER ──
+document.getElementById('hbg').addEventListener('click', function() {
+  document.getElementById('nl').classList.toggle('open');
+});
+
+// ── HELPERS ──
+function scrollBot() { chat.scrollTop = chat.scrollHeight; }
+
+function updateProgress() {
+  var total = dynamicQs.length > 0 ? dynamicQs.length + 1 : 6;
+  var current = phase === 'idea' ? 1 : Math.min(currentQ + 2, total);
+  document.getElementById('stepNum').textContent = String(current).padStart(2, '0');
+  document.getElementById('totalSteps').textContent = String(total).padStart(2, '0');
+  document.getElementById('pf').style.width = ((current / total) * 100) + '%';
 }
 
 // ── ADD VIKRAM MESSAGE ──
-function addVikram(html, delay=0){
-  return new Promise(res=>{
-    setTimeout(()=>{
-      // show typing
-      const tr=document.createElement('div');tr.className='brow';
-      tr.innerHTML=`<div class="bav">🔥</div><div class="typing"><div class="td"></div><div class="td"></div><div class="td"></div><span style="margin-left:4px;font-size:13px;color:var(--osv)">Vikram is thinking...</span></div>`;
-      chat.appendChild(tr);scrollBot();
-      setTimeout(()=>{
+function addVikram(html, delay) {
+  delay = delay || 0;
+  return new Promise(function(resolve) {
+    setTimeout(function() {
+      var tr = document.createElement('div');
+      tr.className = 'brow';
+      tr.innerHTML = '<div class="bav">🔥</div><div class="typing-bub"><div class="td"></div><div class="td"></div><div class="td"></div><span style="margin-left:6px;font-size:13px">Vikram is thinking...</span></div>';
+      chat.appendChild(tr);
+      scrollBot();
+      setTimeout(function() {
         tr.remove();
-        const br=document.createElement('div');br.className='brow';
-        br.innerHTML=`<div class="bav">🔥</div><div class="bubble">${html}</div>`;
-        chat.appendChild(br);scrollBot();res();
-      },1000);
-    },delay);
+        var br = document.createElement('div');
+        br.className = 'brow';
+        br.innerHTML = '<div class="bav">🔥</div><div class="bubble">' + html + '</div>';
+        chat.appendChild(br);
+        scrollBot();
+        resolve();
+      }, 900);
+    }, delay);
   });
 }
 
 // ── ADD USER MESSAGE ──
-function addUser(text){
-  const br=document.createElement('div');br.className='brow user';
-  br.innerHTML=`<div class="bav u">👤</div><div class="bubble">${text}</div>`;
-  chat.appendChild(br);scrollBot();
+function addUser(text) {
+  var br = document.createElement('div');
+  br.className = 'brow user';
+  br.innerHTML = '<div class="bav u">👤</div><div class="bubble">' + text + '</div>';
+  chat.appendChild(br);
+  scrollBot();
 }
 
 // ── SHOW OPTIONS ──
-function showOpts(opts){
-  return new Promise(res=>{
-    setTimeout(()=>{
-      const g=document.createElement('div');g.className='opts';g.id='og';
-      opts.forEach(o=>{
-        const b=document.createElement('button');b.className='opt';
-        b.innerHTML=`<div class="opt-lbl">${o.label||''}</div><div class="opt-txt">${o.text}</div>`;
-        b.onclick=()=>{g.remove();res(o.text);};
+function showOpts(opts) {
+  return new Promise(function(resolve) {
+    setTimeout(function() {
+      var g = document.createElement('div');
+      g.className = 'opts';
+      g.id = 'og';
+      opts.forEach(function(o) {
+        var b = document.createElement('button');
+        b.className = 'opt';
+        b.innerHTML = '<div class="opt-lbl">' + (o.label || '') + '</div><div class="opt-txt">' + o.text + '</div>';
+        b.addEventListener('click', function() { g.remove(); resolve(o.text); });
         g.appendChild(b);
       });
-      chat.appendChild(g);scrollBot();
-    },1400);
+      chat.appendChild(g);
+      scrollBot();
+    }, 1200);
   });
 }
 
-// ── SHOW GENERATING LOADER ──
-function showGenLoader(msg){
-  const d=document.createElement('div');d.className='brow';d.id='genLoader';
-  d.innerHTML=`<div class="bav">🔥</div><div class="gen-loader"><div class="spin"></div><span class="gen-txt">${msg}</span></div>`;
-  chat.appendChild(d);scrollBot();
+// ── LOADER ──
+function showLoader(msg) {
+  var d = document.createElement('div');
+  d.className = 'brow';
+  d.id = 'gloader';
+  d.innerHTML = '<div class="bav">🔥</div><div class="gen-loader"><div class="spin"></div><span class="gen-txt">' + msg + '</span></div>';
+  chat.appendChild(d);
+  scrollBot();
 }
-function removeGenLoader(){document.getElementById('genLoader')?.remove();}
+function removeLoader() {
+  var el = document.getElementById('gloader');
+  if (el) el.remove();
+}
 
-// ══════════════════════════
+// ════════════════════════════════════
 // PHASE 1 — ASK FOR IDEA
-// ══════════════════════════
-async function startIdeaPhase(){
-  busy=true;
-  await addVikram(`Alright. No pleasantries. Tell me your startup idea in <span class="hl">one clear sentence</span>.<br><br>What problem are you solving, and for whom?`);
-  busy=false;
-  inp.placeholder = "Describe your startup idea...";
+// ════════════════════════════════════
+async function startIdeaPhase() {
+  busy = true;
+  await addVikram('Alright. No pleasantries.<br>Tell me your startup idea in <span class="hl">one clear sentence.</span><br><br>What problem are you solving, and for whom?');
+  busy = false;
+  inp.placeholder = 'e.g. An AI tool that helps Indian freelancers write client proposals...';
   updateProgress();
 }
 
-// ══════════════════════════
-// PHASE 2 — GENERATE SMART QUESTIONS BASED ON IDEA
-// ══════════════════════════
-async function generateQuestions(idea){
-  busy=true;
-  inp.disabled=true;sbtn.disabled=true;
-  showGenLoader(`Vikram is analyzing your idea and preparing questions...`);
+// ════════════════════════════════════
+// PHASE 2 — GENERATE SMART QUESTIONS
+// ════════════════════════════════════
+async function generateQuestions(idea) {
+  busy = true;
+  inp.disabled = true;
+  sbtn.disabled = true;
+  showLoader('Vikram is analyzing "' + idea.substring(0, 40) + '..." and preparing questions...');
 
-  try{
-    const res = await fetch(API,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        type:'generateQuestions',
-        idea: idea
-      })
-    });
-    const data = await res.json();
-    const result = typeof data.result === 'string' ? JSON.parse(data.result) : data.result;
-    dynamicQs = result.questions || fallbackQuestions(idea);
-  }catch{
-    dynamicQs = fallbackQuestions(idea);
-  }
-
-  removeGenLoader();
-  inp.disabled=false;sbtn.disabled=false;
-  phase='questions';
-  currentQ=0;
-  updateProgress();
-  await askNextQuestion();
-  busy=false;
-}
-
-// Fallback if API fails — still idea-aware
-function fallbackQuestions(idea){
-  return [
+  var fallbackQs = [
     {
-      question:`You said: <em>"${idea}"</em><br><br>Good. Now tell me — <span class="hl">who exactly</span> loses sleep over this problem every night?`,
-      options:[
-        {label:"B2C",text:"Individual consumers who face this daily."},
-        {label:"B2B",text:"Businesses losing money because of this."},
-        {label:"Enterprise",text:"Large companies with budget to solve it."},
-        {label:"Niche",text:"A very specific underserved group."}
+      question: 'Good. Now — <span class="hl">who exactly</span> is your target customer? Be specific, not "everyone".',
+      options: [
+        { label: 'B2C', text: 'Individual consumers with this daily problem.' },
+        { label: 'B2B SMALL', text: 'Small businesses losing money here.' },
+        { label: 'B2B LARGE', text: 'Large companies with budget to solve it.' },
+        { label: 'NICHE', text: 'A very specific underserved community.' }
       ]
     },
     {
-      question:`How do you make <span class="hl">money</span> from this? And don't say "ads" without thinking it through.`,
-      options:[
-        {label:"Subscription",text:"Monthly recurring revenue."},
-        {label:"Marketplace",text:"Commission on each transaction."},
-        {label:"Freemium",text:"Free base, paid premium features."},
-        {label:"B2B SaaS",text:"Per seat or annual licensing."}
+      question: 'How do you make <span class="hl">money?</span> And don\'t say ads without thinking it through.',
+      options: [
+        { label: 'SUBSCRIPTION', text: 'Monthly recurring revenue per user.' },
+        { label: 'MARKETPLACE', text: 'Commission on each transaction.' },
+        { label: 'FREEMIUM', text: 'Free base, paid premium features.' },
+        { label: 'B2B SAAS', text: 'Annual licensing to businesses.' }
       ]
     },
     {
-      question:`Who already tried to solve this? <span class="hl">Why did they fail</span> or why aren't they enough?`,
-      options:[
-        {label:"No Direct",text:"No direct competitor exists yet."},
-        {label:"Offline Only",text:"People use manual or offline methods."},
-        {label:"Big Players",text:"Giants exist but miss our specific niche."},
-        {label:"Saturated",text:"Crowded market but I have a real edge."}
+      question: 'Who are your <span class="hl">competitors</span> and why haven\'t they already solved this?',
+      options: [
+        { label: 'NONE YET', text: 'No direct competitor exists yet.' },
+        { label: 'OFFLINE', text: 'People use manual or offline methods.' },
+        { label: 'BIG PLAYERS', text: 'Giants exist but miss our niche.' },
+        { label: 'CROWDED', text: 'Crowded market but I have a real edge.' }
       ]
     },
     {
-      question:`Last one. <span class="hl">Why YOU</span> specifically? Why are you the right founder for this idea?`,
-      options:[
-        {label:"Domain Expert",text:"I've worked in this exact industry for years."},
-        {label:"Personal Pain",text:"I personally faced and lived this problem."},
-        {label:"Tech Edge",text:"I've built proprietary technology for this."},
-        {label:"Team",text:"We have the perfect founding team assembled."}
+      question: 'Why <span class="hl">YOU?</span> Why are you the right person to build this and stay with it for 5 years?',
+      options: [
+        { label: 'DOMAIN EXP', text: 'I have worked in this industry for years.' },
+        { label: 'LIVED IT', text: 'I personally faced and suffered this problem.' },
+        { label: 'TECH EDGE', text: 'I built proprietary technology for this.' },
+        { label: 'TEAM', text: 'We have the perfect founding team assembled.' }
       ]
     }
   ];
+
+  try {
+    var res = await fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'generateQuestions', idea: idea })
+    });
+    var data = await res.json();
+    var result = typeof data.result === 'string' ? JSON.parse(data.result) : data.result;
+    dynamicQs = (result.questions && result.questions.length >= 4) ? result.questions : fallbackQs;
+  } catch(e) {
+    dynamicQs = fallbackQs;
+  }
+
+  removeLoader();
+  inp.disabled = false;
+  sbtn.disabled = false;
+  phase = 'questions';
+  currentQ = 0;
+  updateProgress();
+  await askNextQuestion();
+  busy = false;
 }
 
-// ══════════════════════════
-// PHASE 3 — ASK QUESTIONS
-// ══════════════════════════
-async function askNextQuestion(){
-  if(currentQ >= dynamicQs.length){ await generateRoast(); return; }
-  const q = dynamicQs[currentQ];
+// ════════════════════════════════════
+// PHASE 3 — ASK EACH QUESTION
+// ════════════════════════════════════
+async function askNextQuestion() {
+  if (currentQ >= dynamicQs.length) {
+    await generateRoast();
+    return;
+  }
+  var q = dynamicQs[currentQ];
   await addVikram(q.question);
-  if(q.options && q.options.length > 0){
-    const ans = await showOpts(q.options);
+  if (q.options && q.options.length > 0) {
+    var ans = await showOpts(q.options);
     addUser(ans);
-    answers[`q${currentQ+1}`] = ans;
-    history.push({role:'user', content:ans});
+    answers['q' + (currentQ + 1)] = ans;
+    history.push({ role: 'user', content: ans });
     currentQ++;
     updateProgress();
     await askNextQuestion();
   }
-  // If no options, wait for free text input
+  // If no options, user types freely — send() handles it
 }
 
-// ══════════════════════════
+// ════════════════════════════════════
 // PHASE 4 — GENERATE ROAST
-// ══════════════════════════
-async function generateRoast(){
-  busy=true;
-  await addVikram(`Alright. I've heard enough about <span class="hl">"${ideaText.substring(0,40)}..."</span><br>Let me run this through the furnace. 🔥`, 200);
-  showGenLoader('Generating your roast score...');
+// ════════════════════════════════════
+async function generateRoast() {
+  busy = true;
+  await addVikram('Alright. I\'ve heard enough.<br>Let me run <span class="hl">"' + ideaText.substring(0, 35) + '..."</span> through the furnace. 🔥', 200);
+  showLoader('Generating your roast and score...');
 
-  try{
-    const res=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({type:'roast',idea:ideaText,answers})});
-    const data=await res.json();
-    const result=typeof data.result==='string'?JSON.parse(data.result):data.result;
-    localStorage.setItem('roastResult',JSON.stringify({...result,idea:ideaText,answers}));
-    removeGenLoader();
-    await addVikram(result.message||"Your roast is ready. Brace yourself.", 300);
-    phase='iterate';
-    setTimeout(()=>window.location.href=`result.html?score=${result.score}`,2200);
-  }catch{
-    removeGenLoader();
-    const fb={score:67,message:"The idea has fire. The plan needs fuel. Check your results.",roast:"Real problem, weak execution plan.",good:["Problem is genuine","Revenue model exists"],bad:["No CAC plan","Competition underestimated"],fix:["Talk to 50 customers first","Define 90-day metric"],verdict:"Pursue — Refine The Strategy"};
-    localStorage.setItem('roastResult',JSON.stringify({...fb,idea:ideaText,answers}));
-    await addVikram(fb.message,300);
-    phase='iterate';
-    setTimeout(()=>window.location.href='result.html?score=67',2200);
+  try {
+    var res = await fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'roast', idea: ideaText, answers: answers })
+    });
+    var data = await res.json();
+    var result = typeof data.result === 'string' ? JSON.parse(data.result) : data.result;
+    localStorage.setItem('roastResult', JSON.stringify(Object.assign({}, result, { idea: ideaText, answers: answers })));
+    removeLoader();
+    await addVikram(result.message || 'Your roast is ready. Brace yourself.', 300);
+    phase = 'iterate';
+    setTimeout(function() { window.location.href = 'result.html?score=' + result.score; }, 2000);
+  } catch(e) {
+    removeLoader();
+    var fb = { score: 67, message: 'The idea has fire. The plan needs fuel.', roast: 'Real problem, weak execution plan.', good: ['Problem is genuine'], bad: ['No CAC plan'], fix: ['Talk to 50 customers first'], verdict: 'Pursue — Refine The Strategy' };
+    localStorage.setItem('roastResult', JSON.stringify(Object.assign({}, fb, { idea: ideaText })));
+    await addVikram(fb.message, 300);
+    phase = 'iterate';
+    setTimeout(function() { window.location.href = 'result.html?score=67'; }, 2000);
   }
-  busy=false;
+  busy = false;
 }
 
-// ══════════════════════════
+// ════════════════════════════════════
 // PHASE 5 — ITERATE
-// ══════════════════════════
-async function iterateRoast(msg){
-  busy=true;
-  history.push({role:'user',content:msg});
-  await addVikram("Let me reassess with this update...",200);
-  try{
-    const res=await fetch(API,{method:'POST',headers:{'Cont
+// ════════════════════════════════════
+async function iterateRoast(msg) {
+  busy = true;
+  history.push({ role: 'user', content: msg });
+  await addVikram('Let me reassess with this update...', 200);
+  try {
+    var res = await fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'iterate', idea: ideaText, history: history, userMessage: msg })
+    });
+    var data = await res.json();
+    var result = typeof data.result === 'string' ? JSON.parse(data.result) : data.result;
+    await addVikram(result.message || 'Interesting. Check your updated score.');
+    history.push({ role: 'assistant', content: result.message });
+    var stored = JSON.parse(localStorage.getItem('roastResult') || '{}');
+    localStorage.setItem('roastResult', JSON.stringify(Object.assign({}, stored, result)));
+  } catch(e) {
+    await addVikram('Interesting pivot. Head back to your results to see the updated score.');
+  }
+  busy = false;
+}
+
+// ════════════════════════════════════
+// SEND HANDLER — FIXED, NO DEPENDENCIES
+// ════════════════════════════════════
+function send() {
+  var text = inp.value.trim();
+  if (!text) return; // only check text, never block on busy during idea phase
+  if (busy && phase !== 'idea') return;
+
+  inp.value = '';
+  inp.style.height = 'auto';
+  var og = document.getElementById('og');
+  if (og) og.remove();
+
+  addUser(text);
+
+  if (phase === 'idea') {
+    ideaText = text;
+    history.push({ role: 'user', content: text });
+    generateQuestions(text);
+  } else if (phase === 'questions') {
+    if (busy) return;
+    answers['q' + (currentQ + 1)] = text;
+    history.push({ role: 'user', content: text });
+    currentQ++;
+    updateProgress();
+    askNextQuestion();
+  } else if (phase === 'iterate') {
+    if (busy) return;
+    iterateRoast(text);
+  }
+}
+
+// ── ENTER KEY ──
+inp.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    send();
+  }
+});
+
+// ── AUTO RESIZE TEXTAREA ──
+inp.addEventListener('input', function() {
+  this.style.height = 'auto';
+  this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+});
+
+// ── START ──
+setTimeout(startIdeaPhase, 600);
+</script>
+</body>
+</html>
+     
