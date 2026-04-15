@@ -5,9 +5,6 @@
 <title>The Furnace — RoastMyIdea 🔥</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet"/>
 <script src="config.js"></script>
-<script src="js/auth.js"></script>
-<!-- Google SDK loads async so it never blocks the page -->
-<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 :root{--pf:#ff7852;--pd:#ff734c;--surf0:#000;--sc:#1a1919;--shh:#262626;--os:#e4e2e1;--osv:#adaaaa;--ov:rgba(255,255,255,.10);--fd:'Space Grotesk',sans-serif;--fb:'Inter',sans-serif;--fl:'Plus Jakarta Sans',sans-serif;--tr:.2s ease-out}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -50,7 +47,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .bubble{background:var(--shh);border-radius:16px 16px 16px 4px;padding:14px 18px;max-width:68%;font-size:15px;line-height:1.6;color:var(--os)}
 .bubble .hl{color:var(--pf);font-weight:600}
 .brow.user .bubble{background:linear-gradient(135deg,var(--pd),var(--pf));color:#000;font-weight:500;border-radius:16px 16px 4px 16px}
-.typing-bub{background:var(--shh);border-radius:16px 16px 16px 4px;padding:14px 18px;display:flex;align-items:center;gap:6px;font-size:14px;color:var(--osv)}
+.typing-bub{background:var(--shh);border-radius:16px 16px 16px 4px;padding:14px 18px;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--osv)}
 .td{width:6px;height:6px;border-radius:50%;background:var(--pf);animation:tp 1.4s ease infinite}
 .td:nth-child(2){animation-delay:.2s}.td:nth-child(3){animation-delay:.4s}
 @keyframes tp{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.7)}}
@@ -60,7 +57,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .opt-lbl{font-family:var(--fl);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--osv);margin-bottom:5px}
 .opt-txt{font-size:14px;line-height:1.4}
 .opt:hover{border-color:var(--pf);background:rgba(255,120,82,.08);transform:translateY(-2px)}
-.gen-loader{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--sc);border-radius:12px 12px 12px 4px;max-width:340px;border:1px solid rgba(255,120,82,.15)}
+.gen-loader{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--sc);border-radius:12px 12px 12px 4px;max-width:360px;border:1px solid rgba(255,120,82,.15)}
 .spin{width:16px;height:16px;border:2px solid var(--shh);border-top-color:var(--pf);border-radius:50%;animation:sp .8s linear infinite;flex-shrink:0}
 @keyframes sp{to{transform:rotate(360deg)}}
 .gen-txt{font-size:13px;color:var(--osv);font-style:italic}
@@ -72,6 +69,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .sbtn:hover{background:#ff9070;transform:scale(1.05)}
 .inp-hint{text-align:center;font-family:var(--fl);font-size:11px;color:var(--osv);opacity:.6;margin-top:8px}
 .inp-hint strong{opacity:.9}
+/* Google Sign In button styling */
+.google-btn{display:flex;align-items:center;gap:10px;padding:8px 16px;background:#fff;color:#000;font-family:var(--fl);font-size:12px;font-weight:700;border:none;border-radius:8px;cursor:pointer;transition:all var(--tr)}
+.google-btn:hover{background:#f0f0f0;box-shadow:0 2px 12px rgba(255,255,255,.2)}
+.google-btn img{width:18px;height:18px}
 @media(max-width:768px){
   .layout{grid-template-columns:1fr}.sidebar{display:none}
   .chat{padding:16px}.input-bar{padding:12px 16px}.main-hd{padding:12px 16px}
@@ -95,10 +96,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
     <li><a href="prompts.html">Prompts</a></li>
   </ul>
   <div style="display:flex;align-items:center;gap:10px">
-    <a href="#" class="btn-nav" id="authBtn">Sign In with Google</a>
+    <button class="google-btn" id="authBtn" onclick="handleAuthClick()">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G"/>
+      Sign In with Google
+    </button>
     <div class="hbg" id="hbg"><span></span><span></span><span></span></div>
   </div>
 </nav>
+
+<!-- Google Sign In SDK - loads async, never blocks page -->
+<script src="https://accounts.google.com/gsi/client" async defer onload="onGoogleSDKLoad()"></script>
 
 <div class="layout">
   <aside class="sidebar">
@@ -120,7 +127,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
   <div class="main">
     <div class="main-hd">
       <h1>The Furnace</h1>
-      <div class="step-info">Step <strong id="stepNum">01</strong> / <strong id="totalSteps">--</strong></div>
+      <div class="step-info">Step <strong id="stepNum">01</strong> / <strong id="totalSteps">05</strong></div>
     </div>
     <div class="prog-bar"><div class="prog-fill" id="pf"></div></div>
     <div class="chat" id="chat"></div>
@@ -138,308 +145,432 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 
 <script>
 // ════════════════════════════════════
-// STATE
+// GOOGLE AUTH — completely independent
+// ════════════════════════════════════
+var googleReady = false;
+
+function onGoogleSDKLoad() {
+  var clientId = window.GOOGLE_CLIENT_ID || '';
+  if (!clientId || clientId.includes('YOUR_GOOGLE')) {
+    console.warn('Google Client ID not set in config.js');
+    return;
+  }
+  try {
+    google.accounts.id.initialize({
+      client_id: clientId,
+      callback: onGoogleSignIn,
+      auto_select: false,
+    });
+    googleReady = true;
+    updateAuthButton();
+  } catch(e) { console.warn('Google init failed:', e); }
+}
+
+function onGoogleSignIn(response) {
+  try {
+    var parts = response.credential.split('.');
+    var payload = JSON.parse(atob(parts[1].replace(/-/g,'+').replace(/_/g,'/')));
+    localStorage.setItem('rmi_name', payload.name);
+    localStorage.setItem('rmi_pic', payload.picture || '');
+    localStorage.setItem('rmi_id', payload.sub);
+    updateAuthButton();
+  } catch(e) { console.error('Sign in error:', e); }
+}
+
+function handleAuthClick() {
+  var name = localStorage.getItem('rmi_name');
+  if (name) {
+    // Already signed in — sign out
+    localStorage.removeItem('rmi_name');
+    localStorage.removeItem('rmi_pic');
+    localStorage.removeItem('rmi_id');
+    if (googleReady) try { google.accounts.id.disableAutoSelect(); } catch(e) {}
+    updateAuthButton();
+  } else {
+    // Sign in
+    if (googleReady) {
+      google.accounts.id.prompt();
+    } else {
+      alert('Google Sign In is loading. Please wait a moment and try again.');
+    }
+  }
+}
+
+function updateAuthButton() {
+  var btn = document.getElementById('authBtn');
+  var name = localStorage.getItem('rmi_name');
+  var pic = localStorage.getItem('rmi_pic');
+  if (!btn) return;
+  if (name) {
+    btn.innerHTML = (pic ? '<img src="' + pic + '" style="width:22px;height:22px;border-radius:50%;object-fit:cover"/>' : '👤') + ' ' + name.split(' ')[0];
+    btn.style.background = 'rgba(255,255,255,0.1)';
+    btn.style.color = '#fff';
+  } else {
+    btn.innerHTML = '<img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" style="width:18px;height:18px"/> Sign In with Google';
+    btn.style.background = '#fff';
+    btn.style.color = '#000';
+  }
+}
+
+// Init on load
+document.addEventListener('DOMContentLoaded', updateAuthButton);
+
+// ════════════════════════════════════
+// CHAT STATE
 // ════════════════════════════════════
 var phase = 'idea';
 var ideaText = '';
 var dynamicQs = [];
 var currentQ = 0;
 var answers = {};
-var history = [];
-var busy = false;
+var chatHistory = [];
+var processing = false;
+
+// API URL — uses config.js, falls back to direct Deno URL
 var API = (window.API_URL || 'https://roastmyidea.deno.dev') + '/api/generate';
 
 var chat = document.getElementById('chat');
 var inp = document.getElementById('inp');
-var sbtn = document.getElementById('sbtn');
 
 // ── COUNTERS ──
-function cnt(el, t) {
-  var s = Date.now(), d = 1500;
-  function tk() {
-    var p = Math.min((Date.now()-s)/d, 1), e = 1-Math.pow(1-p, 3);
-    el.textContent = Math.floor(e*t).toLocaleString();
-    if (p < 1) requestAnimationFrame(tk);
+function runCounter(el, target) {
+  var start = Date.now(), dur = 1500;
+  function tick() {
+    var p = Math.min((Date.now()-start)/dur, 1);
+    var ease = 1 - Math.pow(1-p, 3);
+    el.textContent = Math.floor(ease * target).toLocaleString();
+    if (p < 1) requestAnimationFrame(tick);
   }
-  requestAnimationFrame(tk);
+  requestAnimationFrame(tick);
 }
 setTimeout(function() {
-  cnt(document.getElementById('egoCnt'), 1204);
-  cnt(document.getElementById('savedCnt'), 88);
-}, 600);
+  runCounter(document.getElementById('egoCnt'), 1204);
+  runCounter(document.getElementById('savedCnt'), 88);
+}, 800);
 
 // ── HAMBURGER ──
 document.getElementById('hbg').addEventListener('click', function() {
   document.getElementById('nl').classList.toggle('open');
 });
 
-// ── HELPERS ──
+// ── SCROLL ──
 function scrollBot() { chat.scrollTop = chat.scrollHeight; }
 
+// ── PROGRESS ──
 function updateProgress() {
-  var total = dynamicQs.length > 0 ? dynamicQs.length + 1 : 6;
-  var current = phase === 'idea' ? 1 : Math.min(currentQ + 2, total);
-  document.getElementById('stepNum').textContent = String(current).padStart(2, '0');
-  document.getElementById('totalSteps').textContent = String(total).padStart(2, '0');
-  document.getElementById('pf').style.width = ((current / total) * 100) + '%';
+  var total = dynamicQs.length > 0 ? dynamicQs.length + 1 : 5;
+  var step = phase === 'idea' ? 1 : Math.min(currentQ + 2, total);
+  document.getElementById('stepNum').textContent = String(step).padStart(2,'0');
+  document.getElementById('totalSteps').textContent = String(total).padStart(2,'0');
+  document.getElementById('pf').style.width = Math.round((step/total)*100) + '%';
 }
 
-// ── ADD VIKRAM MESSAGE ──
-function addVikram(html, delay) {
-  delay = delay || 0;
+// ── VIKRAM MESSAGE (with typing animation) ──
+function vikramSay(html, delayMs) {
+  delayMs = delayMs || 0;
   return new Promise(function(resolve) {
     setTimeout(function() {
-      var tr = document.createElement('div');
-      tr.className = 'brow';
-      tr.innerHTML = '<div class="bav">🔥</div><div class="typing-bub"><div class="td"></div><div class="td"></div><div class="td"></div><span style="margin-left:6px;font-size:13px">Vikram is thinking...</span></div>';
-      chat.appendChild(tr);
+      // Show typing dots
+      var typing = document.createElement('div');
+      typing.className = 'brow';
+      typing.innerHTML = '<div class="bav">🔥</div><div class="typing-bub"><div class="td"></div><div class="td"></div><div class="td"></div><span style="margin-left:4px">Vikram is thinking...</span></div>';
+      chat.appendChild(typing);
       scrollBot();
+
       setTimeout(function() {
-        tr.remove();
-        var br = document.createElement('div');
-        br.className = 'brow';
-        br.innerHTML = '<div class="bav">🔥</div><div class="bubble">' + html + '</div>';
-        chat.appendChild(br);
+        typing.remove();
+        var msg = document.createElement('div');
+        msg.className = 'brow';
+        msg.innerHTML = '<div class="bav">🔥</div><div class="bubble">' + html + '</div>';
+        chat.appendChild(msg);
         scrollBot();
         resolve();
-      }, 900);
-    }, delay);
+      }, 800);
+    }, delayMs);
   });
 }
 
-// ── ADD USER MESSAGE ──
-function addUser(text) {
-  var br = document.createElement('div');
-  br.className = 'brow user';
-  br.innerHTML = '<div class="bav u">👤</div><div class="bubble">' + text + '</div>';
-  chat.appendChild(br);
+// ── USER MESSAGE ──
+function userSay(text) {
+  var msg = document.createElement('div');
+  msg.className = 'brow user';
+  msg.innerHTML = '<div class="bav u">👤</div><div class="bubble">' + text + '</div>';
+  chat.appendChild(msg);
   scrollBot();
 }
 
-// ── SHOW OPTIONS ──
-function showOpts(opts) {
+// ── SHOW OPTION BUTTONS ──
+function showOptions(opts) {
   return new Promise(function(resolve) {
     setTimeout(function() {
-      var g = document.createElement('div');
-      g.className = 'opts';
-      g.id = 'og';
+      var grid = document.createElement('div');
+      grid.className = 'opts';
+      grid.id = 'optGrid';
       opts.forEach(function(o) {
-        var b = document.createElement('button');
-        b.className = 'opt';
-        b.innerHTML = '<div class="opt-lbl">' + (o.label || '') + '</div><div class="opt-txt">' + o.text + '</div>';
-        b.addEventListener('click', function() { g.remove(); resolve(o.text); });
-        g.appendChild(b);
+        var btn = document.createElement('button');
+        btn.className = 'opt';
+        btn.innerHTML = '<div class="opt-lbl">' + (o.label||'') + '</div><div class="opt-txt">' + o.text + '</div>';
+        btn.addEventListener('click', function() {
+          grid.remove();
+          resolve(o.text);
+        });
+        grid.appendChild(btn);
       });
-      chat.appendChild(g);
+      chat.appendChild(grid);
       scrollBot();
-    }, 1200);
+    }, 800);
   });
 }
 
-// ── LOADER ──
-function showLoader(msg) {
+// ── LOADING INDICATOR ──
+function showLoading(msg) {
+  removeLoading();
   var d = document.createElement('div');
-  d.className = 'brow';
-  d.id = 'gloader';
+  d.className = 'brow'; d.id = 'loadingEl';
   d.innerHTML = '<div class="bav">🔥</div><div class="gen-loader"><div class="spin"></div><span class="gen-txt">' + msg + '</span></div>';
   chat.appendChild(d);
   scrollBot();
 }
-function removeLoader() {
-  var el = document.getElementById('gloader');
+function removeLoading() {
+  var el = document.getElementById('loadingEl');
   if (el) el.remove();
 }
 
 // ════════════════════════════════════
-// PHASE 1 — ASK FOR IDEA
+// FALLBACK QUESTIONS (used if API fails)
 // ════════════════════════════════════
-async function startIdeaPhase() {
-  busy = true;
-  await addVikram('Alright. No pleasantries.<br>Tell me your startup idea in <span class="hl">one clear sentence.</span><br><br>What problem are you solving, and for whom?');
-  busy = false;
-  inp.placeholder = 'e.g. An AI tool that helps Indian freelancers write client proposals...';
+function getFallbackQuestions(idea) {
+  var short = idea.length > 40 ? idea.substring(0,40)+'...' : idea;
+  return [
+    {
+      question: 'Got it — <em>"' + short + '"</em><br><br>Now tell me: <span class="hl">who exactly</span> is your target customer? Be specific.',
+      options: [
+        {label:'B2C',text:'Individual consumers with this daily problem.'},
+        {label:'SMALL BIZ',text:'Small businesses losing money because of this.'},
+        {label:'ENTERPRISE',text:'Large companies with budget to solve it.'},
+        {label:'NICHE',text:'A very specific underserved group.'}
+      ]
+    },
+    {
+      question: 'How do you make <span class="hl">money?</span> No vague answers.',
+      options: [
+        {label:'SUBSCRIPTION',text:'Monthly recurring revenue per user.'},
+        {label:'MARKETPLACE',text:'Commission on each transaction.'},
+        {label:'FREEMIUM',text:'Free base, paid premium features.'},
+        {label:'B2B SAAS',text:'Annual licensing to businesses.'}
+      ]
+    },
+    {
+      question: 'Who are your <span class="hl">competitors</span> and why haven\'t they already won?',
+      options: [
+        {label:'NONE YET',text:'No direct competitor exists yet.'},
+        {label:'OFFLINE',text:'People use manual or offline methods.'},
+        {label:'BIG PLAYERS',text:'Giants exist but miss our specific niche.'},
+        {label:'CROWDED',text:'Crowded market but I have a real edge.'}
+      ]
+    },
+    {
+      question: 'Final one. <span class="hl">Why YOU</span> specifically to build this?',
+      options: [
+        {label:'EXPERT',text:'I have worked in this industry for years.'},
+        {label:'LIVED IT',text:'I personally faced and suffered this problem.'},
+        {label:'TECH',text:'I built proprietary technology for this.'},
+        {label:'TEAM',text:'We have the perfect founding team.'}
+      ]
+    }
+  ];
+}
+
+// ════════════════════════════════════
+// PHASE 1 — START: ASK FOR IDEA
+// ════════════════════════════════════
+async function startFlow() {
+  await vikramSay('Alright. No pleasantries.<br>Tell me your startup idea in <span class="hl">one clear sentence.</span><br><br>What problem are you solving, and for whom?');
+  inp.placeholder = 'e.g. An app that helps Indian freelancers find clients faster...';
+  inp.focus();
   updateProgress();
 }
 
 // ════════════════════════════════════
 // PHASE 2 — GENERATE SMART QUESTIONS
 // ════════════════════════════════════
-async function generateQuestions(idea) {
-  busy = true;
+async function runQuestionPhase(idea) {
+  processing = true;
   inp.disabled = true;
-  sbtn.disabled = true;
-  showLoader('Vikram is analyzing "' + idea.substring(0, 40) + '..." and preparing questions...');
-
-  var fallbackQs = [
-    {
-      question: 'Good. Now — <span class="hl">who exactly</span> is your target customer? Be specific, not "everyone".',
-      options: [
-        { label: 'B2C', text: 'Individual consumers with this daily problem.' },
-        { label: 'B2B SMALL', text: 'Small businesses losing money here.' },
-        { label: 'B2B LARGE', text: 'Large companies with budget to solve it.' },
-        { label: 'NICHE', text: 'A very specific underserved community.' }
-      ]
-    },
-    {
-      question: 'How do you make <span class="hl">money?</span> And don\'t say ads without thinking it through.',
-      options: [
-        { label: 'SUBSCRIPTION', text: 'Monthly recurring revenue per user.' },
-        { label: 'MARKETPLACE', text: 'Commission on each transaction.' },
-        { label: 'FREEMIUM', text: 'Free base, paid premium features.' },
-        { label: 'B2B SAAS', text: 'Annual licensing to businesses.' }
-      ]
-    },
-    {
-      question: 'Who are your <span class="hl">competitors</span> and why haven\'t they already solved this?',
-      options: [
-        { label: 'NONE YET', text: 'No direct competitor exists yet.' },
-        { label: 'OFFLINE', text: 'People use manual or offline methods.' },
-        { label: 'BIG PLAYERS', text: 'Giants exist but miss our niche.' },
-        { label: 'CROWDED', text: 'Crowded market but I have a real edge.' }
-      ]
-    },
-    {
-      question: 'Why <span class="hl">YOU?</span> Why are you the right person to build this and stay with it for 5 years?',
-      options: [
-        { label: 'DOMAIN EXP', text: 'I have worked in this industry for years.' },
-        { label: 'LIVED IT', text: 'I personally faced and suffered this problem.' },
-        { label: 'TECH EDGE', text: 'I built proprietary technology for this.' },
-        { label: 'TEAM', text: 'We have the perfect founding team assembled.' }
-      ]
-    }
-  ];
+  showLoading('Vikram is analyzing your idea and preparing smart questions...');
 
   try {
-    var res = await fetch(API, {
+    var response = await fetch(API, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type: 'generateQuestions', idea: idea })
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({type: 'generateQuestions', idea: idea})
     });
-    var data = await res.json();
-    var result = typeof data.result === 'string' ? JSON.parse(data.result) : data.result;
-    dynamicQs = (result.questions && result.questions.length >= 4) ? result.questions : fallbackQs;
-  } catch(e) {
-    dynamicQs = fallbackQs;
+
+    if (!response.ok) throw new Error('API returned ' + response.status);
+
+    var data = await response.json();
+    var result = data.result;
+    if (typeof result === 'string') result = JSON.parse(result);
+
+    if (result && result.questions && result.questions.length >= 3) {
+      dynamicQs = result.questions;
+    } else {
+      throw new Error('Bad questions format');
+    }
+  } catch(err) {
+    console.warn('API failed, using fallback questions:', err.message);
+    dynamicQs = getFallbackQuestions(idea);
   }
 
-  removeLoader();
+  removeLoading();
   inp.disabled = false;
-  sbtn.disabled = false;
+  inp.focus();
   phase = 'questions';
   currentQ = 0;
+  processing = false;
   updateProgress();
-  await askNextQuestion();
-  busy = false;
+
+  // Ask first question
+  await askQuestion();
 }
 
 // ════════════════════════════════════
 // PHASE 3 — ASK EACH QUESTION
 // ════════════════════════════════════
-async function askNextQuestion() {
+async function askQuestion() {
   if (currentQ >= dynamicQs.length) {
-    await generateRoast();
+    await runRoastPhase();
     return;
   }
+
+  processing = true;
   var q = dynamicQs[currentQ];
-  await addVikram(q.question);
+  await vikramSay(q.question);
+  processing = false;
+
+  // Show MCQ options if available
   if (q.options && q.options.length > 0) {
-    var ans = await showOpts(q.options);
-    addUser(ans);
-    answers['q' + (currentQ + 1)] = ans;
-    history.push({ role: 'user', content: ans });
+    var answer = await showOptions(q.options);
+    userSay(answer);
+    answers['q' + (currentQ + 1)] = answer;
+    chatHistory.push({role:'user', content: answer});
     currentQ++;
     updateProgress();
-    await askNextQuestion();
+    await askQuestion();
   }
-  // If no options, user types freely — send() handles it
+  // If no options — user types freely, send() handles it
 }
 
 // ════════════════════════════════════
 // PHASE 4 — GENERATE ROAST
 // ════════════════════════════════════
-async function generateRoast() {
-  busy = true;
-  await addVikram('Alright. I\'ve heard enough.<br>Let me run <span class="hl">"' + ideaText.substring(0, 35) + '..."</span> through the furnace. 🔥', 200);
-  showLoader('Generating your roast and score...');
+async function runRoastPhase() {
+  processing = true;
+  inp.disabled = true;
 
+  await vikramSay('Alright. I\'ve heard enough about <span class="hl">' + ideaText.substring(0,35) + '</span>...<br>Running it through the furnace now. 🔥', 400);
+  showLoading('Generating your roast score...');
+
+  var result = null;
   try {
-    var res = await fetch(API, {
+    var response = await fetch(API, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type: 'roast', idea: ideaText, answers: answers })
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({type: 'roast', idea: ideaText, answers: answers})
     });
-    var data = await res.json();
-    var result = typeof data.result === 'string' ? JSON.parse(data.result) : data.result;
-    localStorage.setItem('roastResult', JSON.stringify(Object.assign({}, result, { idea: ideaText, answers: answers })));
-    removeLoader();
-    await addVikram(result.message || 'Your roast is ready. Brace yourself.', 300);
-    phase = 'iterate';
-    setTimeout(function() { window.location.href = 'result.html?score=' + result.score; }, 2000);
-  } catch(e) {
-    removeLoader();
-    var fb = { score: 67, message: 'The idea has fire. The plan needs fuel.', roast: 'Real problem, weak execution plan.', good: ['Problem is genuine'], bad: ['No CAC plan'], fix: ['Talk to 50 customers first'], verdict: 'Pursue — Refine The Strategy' };
-    localStorage.setItem('roastResult', JSON.stringify(Object.assign({}, fb, { idea: ideaText })));
-    await addVikram(fb.message, 300);
-    phase = 'iterate';
-    setTimeout(function() { window.location.href = 'result.html?score=67'; }, 2000);
+    if (!response.ok) throw new Error('API ' + response.status);
+    var data = await response.json();
+    result = data.result;
+    if (typeof result === 'string') result = JSON.parse(result);
+  } catch(err) {
+    console.warn('Roast API failed:', err.message);
+    result = {
+      score: 67,
+      message: 'The idea has fire. The plan needs serious fuel. Check your score.',
+      roast: 'Real problem identified but execution plan is dangerously vague.',
+      good: ['Problem is genuine and painful', 'Revenue model makes basic sense'],
+      bad: ['No clear customer acquisition plan', 'Competition analysis too shallow'],
+      fix: ['Talk to 50 real customers before writing code', 'Define your 90-day traction metric now'],
+      verdict: 'Pursue — But Refine The Strategy'
+    };
   }
-  busy = false;
+
+  localStorage.setItem('roastResult', JSON.stringify(Object.assign({}, result, {idea: ideaText, answers: answers})));
+  removeLoading();
+  inp.disabled = false;
+
+  await vikramSay(result.message || 'Your roast is ready. Brace yourself.', 200);
+  phase = 'iterate';
+  processing = false;
+
+  setTimeout(function() {
+    window.location.href = 'result.html?score=' + (result.score || 67);
+  }, 2000);
 }
 
 // ════════════════════════════════════
-// PHASE 5 — ITERATE
+// PHASE 5 — ITERATE (improvement loop)
 // ════════════════════════════════════
-async function iterateRoast(msg) {
-  busy = true;
-  history.push({ role: 'user', content: msg });
-  await addVikram('Let me reassess with this update...', 200);
+async function runIterate(msg) {
+  processing = true;
+  chatHistory.push({role:'user', content: msg});
+  await vikramSay('Let me reassess with this update...', 100);
+
   try {
-    var res = await fetch(API, {
+    var response = await fetch(API, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type: 'iterate', idea: ideaText, history: history, userMessage: msg })
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({type: 'iterate', idea: ideaText, history: chatHistory, userMessage: msg})
     });
-    var data = await res.json();
-    var result = typeof data.result === 'string' ? JSON.parse(data.result) : data.result;
-    await addVikram(result.message || 'Interesting. Check your updated score.');
-    history.push({ role: 'assistant', content: result.message });
+    var data = await response.json();
+    var result = data.result;
+    if (typeof result === 'string') result = JSON.parse(result);
+    await vikramSay(result.message || 'Interesting pivot. Check your updated score.');
+    chatHistory.push({role:'assistant', content: result.message});
     var stored = JSON.parse(localStorage.getItem('roastResult') || '{}');
     localStorage.setItem('roastResult', JSON.stringify(Object.assign({}, stored, result)));
   } catch(e) {
-    await addVikram('Interesting pivot. Head back to your results to see the updated score.');
+    await vikramSay('Interesting. Head back to your results to see the updated score.');
   }
-  busy = false;
+  processing = false;
 }
 
 // ════════════════════════════════════
-// SEND HANDLER — FIXED, NO DEPENDENCIES
+// MAIN SEND HANDLER
 // ════════════════════════════════════
 function send() {
   var text = inp.value.trim();
-  if (!text) return; // only check text, never block on busy during idea phase
-  if (busy && phase !== 'idea') return;
+  if (!text) return;
+
+  // In idea phase — always allow, ignore processing state
+  if (phase === 'idea') {
+    inp.value = '';
+    inp.style.height = 'auto';
+    userSay(text);
+    ideaText = text;
+    chatHistory.push({role:'user', content: text});
+    runQuestionPhase(text);
+    return;
+  }
+
+  // In other phases — block if processing
+  if (processing) return;
 
   inp.value = '';
   inp.style.height = 'auto';
-  var og = document.getElementById('og');
-  if (og) og.remove();
+  var optGrid = document.getElementById('optGrid');
+  if (optGrid) optGrid.remove();
 
-  addUser(text);
+  userSay(text);
 
-  if (phase === 'idea') {
-    ideaText = text;
-    history.push({ role: 'user', content: text });
-    generateQuestions(text);
-  } else if (phase === 'questions') {
-    if (busy) return;
+  if (phase === 'questions') {
     answers['q' + (currentQ + 1)] = text;
-    history.push({ role: 'user', content: text });
+    chatHistory.push({role:'user', content: text});
     currentQ++;
     updateProgress();
-    askNextQuestion();
+    askQuestion();
   } else if (phase === 'iterate') {
-    if (busy) return;
-    iterateRoast(text);
+    runIterate(text);
   }
 }
 
@@ -451,14 +582,14 @@ inp.addEventListener('keydown', function(e) {
   }
 });
 
-// ── AUTO RESIZE TEXTAREA ──
+// ── AUTO RESIZE ──
 inp.addEventListener('input', function() {
   this.style.height = 'auto';
   this.style.height = Math.min(this.scrollHeight, 100) + 'px';
 });
 
 // ── START ──
-setTimeout(startIdeaPhase, 600);
+setTimeout(startFlow, 500);
 </script>
 </body>
 </html>
