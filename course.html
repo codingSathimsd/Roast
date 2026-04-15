@@ -4,65 +4,66 @@
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Course — RoastMyIdea 🔥</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet"/>
-<script src="https://accounts.google.com/gsi/client" async defer></script>
-<script src="config.js"></script><script src="js/auth.js"></script>
+<script src="config.js"></script>
 <style>
-:root{--pf:#ff7852;--surf0:#000;--sc:#1a1919;--shh:#262626;--os:#e4e2e1;--osv:#adaaaa;--ov:rgba(255,255,255,.10);--fd:'Space Grotesk',sans-serif;--fb:'Inter',sans-serif;--fl:'Plus Jakarta Sans',sans-serif;--tr:.2s ease-out}
+:root{--pf:#ff7852;--pd:#ff734c;--surf0:#000;--sc:#1a1919;--shh:#262626;--os:#e4e2e1;--osv:#adaaaa;--ov:rgba(255,255,255,.10);--fd:'Space Grotesk',sans-serif;--fb:'Inter',sans-serif;--fl:'Plus Jakarta Sans',sans-serif;--tr:.2s ease-out}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--surf0);color:var(--os);font-family:var(--fb);padding-top:60px}
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:60px;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--ov)}
 .nlogo{font-family:var(--fd);font-weight:700;font-size:18px;color:var(--os);text-decoration:none;letter-spacing:-.02em}.nlogo span{color:var(--pf)}
 .nlinks{display:flex;gap:4px;list-style:none}.nlinks a{color:var(--osv);text-decoration:none;font-family:var(--fl);font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:6px 14px;border-radius:8px;transition:color var(--tr)}.nlinks a:hover{color:var(--os)}.nlinks a.active{color:var(--pf)}
-.btn-nav{padding:8px 20px;background:transparent;border:1px solid var(--pf);color:var(--pf);font-family:var(--fl);font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border-radius:8px;cursor:pointer;transition:all var(--tr);text-decoration:none;display:flex;align-items:center;gap:8px}.btn-nav:hover{background:var(--pf);color:#000}
-.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer}.hbg span{width:22px;height:2px;background:var(--os);border-radius:2px}
-.layout{display:grid;grid-template-columns:1fr 320px;gap:40px;padding:60px 40px 80px;max-width:1200px;margin:0 auto}
-.course-hero{background:var(--sc);border-radius:16px;padding:32px;margin-bottom:32px}
-.course-tag{font-family:var(--fl);font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--pf);margin-bottom:12px}
-.course-title{font-family:var(--fd);font-size:clamp(28px,4vw,44px);font-weight:700;line-height:1.1;letter-spacing:-.02em;margin-bottom:12px}
-.course-title span{color:var(--pf)}
-.course-desc{color:var(--osv);font-size:15px;line-height:1.7}
-.video-wrap{background:#000;border-radius:12px;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;margin:20px 0;position:relative;overflow:hidden;border:1px solid var(--ov)}
-.play-btn{width:64px;height:64px;background:var(--pf);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform var(--tr)}.play-btn:hover{transform:scale(1.1)}
-.video-meta{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:16px}
-.vm-item{background:var(--shh);border-radius:10px;padding:14px 16px}
-.vm-lbl{font-family:var(--fl);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--osv);margin-bottom:4px}
-.vm-val{font-size:14px;font-weight:600}
-.syllabus-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
-.syllabus-title{font-family:var(--fd);font-size:32px;font-weight:700;font-style:italic;letter-spacing:-.02em}
-.filter-btns{display:flex;gap:8px}
-.fbtn{padding:6px 16px;border-radius:6px;border:1px solid var(--ov);background:transparent;color:var(--osv);font-family:var(--fl);font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:all var(--tr)}.fbtn.active{background:var(--pf);color:#000;border-color:var(--pf)}
-.modules{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
-.mod{background:var(--sc);border-radius:12px;padding:24px;position:relative;transition:transform var(--tr),box-shadow var(--tr)}.mod:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,120,82,.08)}
-.mod-num{font-family:var(--fd);font-size:48px;font-weight:700;color:rgba(255,255,255,.06);position:absolute;top:16px;right:16px;line-height:1}
-.mod-status{position:absolute;top:16px;right:16px;font-size:16px}
-.mod-idx{font-family:var(--fd);font-size:32px;font-weight:700;color:var(--pf);margin-bottom:12px;line-height:1}
-.mod-title{font-family:var(--fd);font-size:17px;font-weight:700;margin-bottom:8px}
+.btn-nav{padding:8px 20px;background:#fff;color:#000;font-family:var(--fl);font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border-radius:8px;cursor:pointer;transition:all var(--tr);text-decoration:none;border:none;display:flex;align-items:center;gap:8px}
+.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}.hbg span{width:22px;height:2px;background:var(--os);border-radius:2px}
+.wrap{max-width:1100px;margin:0 auto;padding:60px 40px 80px}
+
+/* PERSONALIZED SECTION */
+.personal-banner{background:linear-gradient(135deg,rgba(255,120,82,.15),rgba(255,120,82,.05));border:1px solid rgba(255,120,82,.3);border-radius:16px;padding:28px 32px;margin-bottom:40px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.pb-left h2{font-family:var(--fd);font-size:22px;font-weight:700;margin-bottom:6px}
+.pb-left p{color:var(--osv);font-size:14px;line-height:1.6}
+.pb-idea{font-family:var(--fl);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--pf);margin-bottom:6px}
+.btn-p{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:var(--pf);color:#000;font-family:var(--fl);font-size:13px;font-weight:700;border-radius:8px;border:none;cursor:pointer;transition:all var(--tr);text-decoration:none;white-space:nowrap}
+.btn-p:hover{background:#ff9070;transform:translateY(-1px)}
+
+/* YOUTUBE RECS */
+.recs-title{font-family:var(--fd);font-size:28px;font-weight:700;letter-spacing:-.01em;margin-bottom:8px}
+.recs-sub{color:var(--osv);font-size:14px;margin-bottom:24px}
+.recs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:48px}
+.yt-card{background:var(--sc);border-radius:12px;overflow:hidden;transition:transform var(--tr),box-shadow var(--tr);cursor:pointer;text-decoration:none;display:block}
+.yt-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(255,120,82,.12)}
+.yt-thumb{width:100%;aspect-ratio:16/9;background:var(--shh);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.yt-thumb img{width:100%;height:100%;object-fit:cover}
+.yt-play{position:absolute;width:44px;height:44px;background:rgba(255,0,0,.9);border-radius:50%;display:flex;align-items:center;justify-content:center}
+.yt-play svg{margin-left:3px}
+.yt-info{padding:14px 16px}
+.yt-channel{font-family:var(--fl);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--pf);margin-bottom:5px}
+.yt-title{font-size:14px;font-weight:600;line-height:1.4;color:var(--os)}
+.yt-meta{font-size:12px;color:var(--osv);margin-top:5px}
+.yt-loading{display:flex;align-items:center;gap:10px;padding:20px;color:var(--osv);font-size:14px}
+.spin{width:16px;height:16px;border:2px solid var(--shh);border-top-color:var(--pf);border-radius:50%;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* MODULES */
+.section-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+.section-title{font-family:var(--fd);font-size:28px;font-weight:700;font-style:italic;letter-spacing:-.01em}
+.modules{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.mod{background:var(--sc);border-radius:12px;padding:24px;position:relative;transition:transform var(--tr)}.mod:hover{transform:translateY(-2px)}
+.mod.active-mod{border:1px solid rgba(255,120,82,.4)}
+.mod-num{font-family:var(--fd);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--pf);margin-bottom:8px}
+.mod-title{font-family:var(--fd);font-size:16px;font-weight:700;margin-bottom:8px}
 .mod-desc{font-size:13px;color:var(--osv);line-height:1.5;margin-bottom:16px}
-.mod-footer{display:flex;justify-content:space-between;align-items:center}
+.mod-ft{display:flex;justify-content:space-between;align-items:center}
 .mod-dur{font-family:var(--fl);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--osv)}
-.mod-prog-lbl{font-family:var(--fl);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
-.mod-prog-lbl.done{color:var(--pf)}.mod-prog-lbl.ip{color:#f59e0b}.mod-prog-lbl.locked{color:var(--osv)}
-.prog-bar-sm{height:2px;background:var(--shh);border-radius:2px;margin-top:8px}
-.prog-fill-sm{height:100%;border-radius:2px}
-/* sidebar */
-.sidebar{display:flex;flex-direction:column;gap:16px}
-.sb-card{background:var(--sc);border-radius:12px;padding:24px}
-.sb-title{font-family:var(--fd);font-size:16px;font-weight:700;margin-bottom:4px}
-.sb-sub{font-size:13px;color:var(--osv);margin-bottom:16px}
-.burn-rate{font-family:var(--fd);font-size:32px;font-weight:700;color:var(--pf);margin-bottom:8px}
-.phase-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--ov)}
-.phase-item:last-child{border-bottom:none}
-.phase-num{width:24px;height:24px;border-radius:50%;background:var(--pf);color:#000;font-family:var(--fl);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.phase-num.locked{background:var(--shh);color:var(--osv)}
-.phase-txt{font-size:13px;font-weight:500}
-.phase-status{font-family:var(--fl);font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--pf);margin-left:auto}
-.btn-p{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 28px;background:var(--pf);color:#000;font-family:var(--fl);font-size:14px;font-weight:700;border-radius:8px;border:none;cursor:pointer;transition:all var(--tr);text-decoration:none;width:100%}.btn-p:hover{background:#ff9070}
+.mod-status{font-family:var(--fl);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.done{color:var(--pf)}.inprog{color:#f59e0b}.locked{color:var(--osv)}
+.mod-bar{height:2px;background:var(--shh);border-radius:2px;margin-top:12px}
+.mod-bar-fill{height:100%;border-radius:2px}
+
 footer{background:var(--surf0);border-top:1px solid var(--ov);padding:32px 40px;text-align:center}
 .ft-logo{font-family:var(--fl);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pf);margin-bottom:16px}
-.ft-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:12px}.ft-links a{font-size:13px;color:var(--osv);text-decoration:none;transition:color var(--tr)}.ft-links a:hover{color:var(--os)}
+.ft-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:12px}.ft-links a{font-size:13px;color:var(--osv);text-decoration:none}.ft-links a:hover{color:var(--os)}
 .ft-copy{font-size:12px;color:var(--osv);opacity:.5}
-@media(max-width:1024px){.layout{grid-template-columns:1fr}.sidebar{display:none}.modules{grid-template-columns:1fr 1fr}}
-@media(max-width:768px){nav{padding:0 16px}.nlinks{display:none}.hbg{display:flex}.nlinks.open{display:flex;flex-direction:column;position:fixed;inset:60px 0 0 0;background:rgba(0,0,0,.97);padding:20px;z-index:999;gap:4px}.nlinks.open a{padding:14px;font-size:16px}.layout{padding:40px 20px 60px}.modules{grid-template-columns:1fr}footer{padding:28px 20px}}
+@media(max-width:1024px){.recs-grid{grid-template-columns:1fr 1fr}.modules{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){nav{padding:0 16px}.nlinks{display:none}.hbg{display:flex}.nlinks.open{display:flex;flex-direction:column;position:fixed;inset:60px 0 0 0;background:rgba(0,0,0,.97);padding:20px;z-index:999;gap:4px}.nlinks.open a{padding:14px;font-size:16px}.wrap{padding:40px 20px 60px}.recs-grid{grid-template-columns:1fr}.modules{grid-template-columns:1fr}footer{padding:28px 20px}}
 </style>
 </head>
 <body>
@@ -74,92 +75,74 @@ footer{background:var(--surf0);border-top:1px solid var(--ov);padding:32px 40px;
     <li><a href="course.html" class="active">Course</a></li><li><a href="prompts.html">Prompts</a></li>
   </ul>
   <div style="display:flex;align-items:center;gap:10px">
-    <a href="#" class="btn-nav" id="authBtn">Sign In with Google</a>
+    <button class="btn-nav" onclick="window.location.href='roast.html'">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" style="width:16px;height:16px"/> Sign In
+    </button>
     <div class="hbg" id="hbg"><span></span><span></span><span></span></div>
   </div>
 </nav>
 
-<div class="layout">
-  <div>
-    <div class="course-hero">
-      <div class="course-tag">Premium Accelerator Course</div>
-      <h1 class="course-title">Zero To Hero: <span>Startup Marketing</span></h1>
-      <p class="course-desc">Master the dark arts of Indian startup growth. No corporate fluff, just pure survival tactics to burn the competition.</p>
-      <div class="video-wrap">
-        <div class="play-btn">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-        </div>
-      </div>
-      <div class="video-meta">
-        <div class="vm-item"><div class="vm-lbl">Instructor</div><div class="vm-val">Aniket Sharma</div></div>
-        <div class="vm-item"><div class="vm-lbl">Active Roasters</div><div class="vm-val">4.2k+</div></div>
-        <div class="vm-item"><div class="vm-lbl">Resources</div><div class="vm-val">6 Modules</div></div>
-      </div>
-    </div>
+<div class="wrap">
 
-    <div class="syllabus-hd">
-      <h2 class="syllabus-title">The Syllabus</h2>
-      <div class="filter-btns">
-        <button class="fbtn active">All Modules</button>
-        <button class="fbtn">Completed</button>
-      </div>
+  <!-- PERSONALIZED BANNER -->
+  <div class="personal-banner" id="personalBanner" style="display:none">
+    <div class="pb-left">
+      <div class="pb-idea" id="pbIdeaTag">Your Idea</div>
+      <h2 id="pbTitle">Courses picked for your idea</h2>
+      <p id="pbDesc">Based on your roast session, here are the most relevant resources for you.</p>
     </div>
-
-    <div class="modules">
-      <div class="mod">
-        <div class="mod-status">✅</div>
-        <div class="mod-idx">01</div>
-        <div class="mod-title">Jio Strategy (Free to Paid)</div>
-        <div class="mod-desc">How to disrupt any market by burning cash efficiently and creating mass dependency.</div>
-        <div class="mod-footer"><span class="mod-dur">⏱ 45 MINS</span><span class="mod-prog-lbl done">100% Complete</span></div>
-        <div class="prog-bar-sm"><div class="prog-fill-sm" style="width:100%;background:var(--pf)"></div></div>
-      </div>
-      <div class="mod" style="border:1px solid rgba(255,120,82,.3)">
-        <div class="mod-status">▶</div>
-        <div class="mod-idx" style="color:#f59e0b">02</div>
-        <div class="mod-title">Emotional Storytelling</div>
-        <div class="mod-desc">The psychology of why Indian users buy from people, not corporations.</div>
-        <div class="mod-footer"><span class="mod-dur">⏱ 1.2 HOURS</span><span class="mod-prog-lbl ip">12% Progress</span></div>
-        <div class="prog-bar-sm"><div class="prog-fill-sm" style="width:12%;background:#f59e0b"></div></div>
-      </div>
-      <div class="mod">
-        <div class="mod-status">🔒</div>
-        <div class="mod-idx" style="color:var(--osv)">03</div>
-        <div class="mod-title">Meme Marketing</div>
-        <div class="mod-desc">Turn your product into a cultural moment. Viral engineering 101.</div>
-        <div class="mod-footer"><span class="mod-dur">⏱ 58 MINS</span><span class="mod-prog-lbl locked">Locked</span></div>
-      </div>
-      <div class="mod">
-        <div class="mod-status">🔒</div>
-        <div class="mod-idx" style="color:var(--osv)">04</div>
-        <div class="mod-title">WhatsApp Viral Loops</div>
-        <div class="mod-desc">Hacking the world's most intimate social network for exponential growth.</div>
-        <div class="mod-footer"><span class="mod-dur">⏱ 35 MINS</span><span class="mod-prog-lbl locked">Locked</span></div>
-      </div>
-      <div class="mod">
-        <div class="mod-status">🔒</div>
-        <div class="mod-idx" style="color:var(--osv)">05</div>
-        <div class="mod-title">LinkedIn Personal Brand</div>
-        <div class="mod-desc">Stop networking, start leading. Thought leadership without the cringe.</div>
-        <div class="mod-footer"><span class="mod-dur">⏱ 1.5 HOURS</span><span class="mod-prog-lbl locked">Locked</span></div>
-      </div>
-      <div class="mod">
-        <div class="mod-status">🔒</div>
-        <div class="mod-idx" style="color:var(--osv)">06</div>
-        <div class="mod-title">Zero Budget Marketing</div>
-        <div class="mod-desc">Guerrilla tactics for the bootstrapped founder. High impact, zero spend.</div>
-        <div class="mod-footer"><span class="mod-dur">⏱ 2.0 HOURS</span><span class="mod-prog-lbl locked">Locked</span></div>
-      </div>
-    </div>
+    <a href="roast.html" class="btn-p">Improve My Score →</a>
   </div>
 
-  <div class="sidebar">
-    <div class="sb-card">
-      <div class="sb-title">Your Burn Rate</div>
-      <div class="burn-rate">45%</div>
-      <div class="phase-item"><div class="phase-num">01</div><div class="phase-txt">Jio Strategy deep-dive</div><div class="phase-status">Current</div></div>
-      <div class="phase-item"><div class="phase-num locked">02</div><div class="phase-txt">Emotional Storytelling</div></div>
-      <a href="#" class="btn-p" style="margin-top:16px">Resume Learning</a>
+  <!-- YOUTUBE RECOMMENDATIONS -->
+  <div class="recs-title" id="recsTitle">📺 Recommended For You</div>
+  <p class="recs-sub" id="recsSub">Top YouTube resources to help you build and market your startup.</p>
+  <div id="recsGrid" class="recs-grid">
+    <div class="yt-loading"><div class="spin"></div> Loading recommendations...</div>
+  </div>
+
+  <!-- COURSE MODULES -->
+  <div class="section-hd">
+    <h2 class="section-title">The Syllabus</h2>
+  </div>
+  <div class="modules">
+    <div class="mod active-mod">
+      <div class="mod-num">Module 01 ✅</div>
+      <div class="mod-title">Jio Strategy (Free to Paid)</div>
+      <div class="mod-desc">How to disrupt any market by burning cash efficiently and creating mass dependency.</div>
+      <div class="mod-ft"><span class="mod-dur">⏱ 45 MINS</span><span class="mod-status done">100% Complete</span></div>
+      <div class="mod-bar"><div class="mod-bar-fill" style="width:100%;background:var(--pf)"></div></div>
+    </div>
+    <div class="mod active-mod">
+      <div class="mod-num">Module 02 ▶</div>
+      <div class="mod-title">Emotional Storytelling</div>
+      <div class="mod-desc">The psychology of why Indian users buy from people, not corporations. Fevicol method.</div>
+      <div class="mod-ft"><span class="mod-dur">⏱ 1.2 HOURS</span><span class="mod-status inprog">12% Progress</span></div>
+      <div class="mod-bar"><div class="mod-bar-fill" style="width:12%;background:#f59e0b"></div></div>
+    </div>
+    <div class="mod">
+      <div class="mod-num">Module 03 🔒</div>
+      <div class="mod-title">Meme Marketing</div>
+      <div class="mod-desc">Turn your product into a cultural moment. Viral engineering 101. Zomato method.</div>
+      <div class="mod-ft"><span class="mod-dur">⏱ 58 MINS</span><span class="mod-status locked">Locked</span></div>
+    </div>
+    <div class="mod">
+      <div class="mod-num">Module 04 🔒</div>
+      <div class="mod-title">WhatsApp Viral Loops</div>
+      <div class="mod-desc">Hacking the world's most intimate social network for exponential India growth.</div>
+      <div class="mod-ft"><span class="mod-dur">⏱ 35 MINS</span><span class="mod-status locked">Locked</span></div>
+    </div>
+    <div class="mod">
+      <div class="mod-num">Module 05 🔒</div>
+      <div class="mod-title">LinkedIn Personal Brand</div>
+      <div class="mod-desc">Stop networking, start leading. Thought leadership without the cringe.</div>
+      <div class="mod-ft"><span class="mod-dur">⏱ 1.5 HOURS</span><span class="mod-status locked">Locked</span></div>
+    </div>
+    <div class="mod">
+      <div class="mod-num">Module 06 🔒</div>
+      <div class="mod-title">Zero Budget Marketing</div>
+      <div class="mod-desc">Guerrilla tactics for the bootstrapped Indian founder. High impact, zero spend.</div>
+      <div class="mod-ft"><span class="mod-dur">⏱ 2.0 HOURS</span><span class="mod-status locked">Locked</span></div>
     </div>
   </div>
 </div>
@@ -169,6 +152,143 @@ footer{background:var(--surf0);border-top:1px solid var(--ov);padding:32px 40px;
   <div class="ft-links"><a href="privacy-policy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a><a href="cookie-policy.html">Cookie Policy</a><a href="contact.html">Contact Us</a></div>
   <p class="ft-copy">Made with 🔥 in India. © 2024 RoastMyIdea</p>
 </footer>
-<script>document.getElementById('hbg').onclick=function(){document.getElementById('nl').classList.toggle('open');};</script>
+
+<script>
+document.getElementById('hbg').addEventListener('click', function() {
+  document.getElementById('nl').classList.toggle('open');
+});
+
+// ── LOAD PERSONALIZED RECOMMENDATIONS ──
+// YouTube search links based on idea keywords (no API key needed)
+function getYouTubeSearchURL(query) {
+  return 'https://www.youtube.com/results?search_query=' + encodeURIComponent(query);
+}
+
+// Curated channels that are always relevant for Indian startup founders
+var curatedVideos = [
+  {
+    channel: 'Shark Tank India',
+    title: 'How to pitch your startup idea to investors | Shark Tank India',
+    search: 'shark tank india startup pitch tips',
+    thumb: 'https://img.youtube.com/vi/default.jpg',
+    meta: 'Pitch strategy • Must watch'
+  },
+  {
+    channel: 'Dr. Vivek Bindra',
+    title: 'How to validate your startup idea before building it',
+    search: 'vivek bindra startup idea validation hindi',
+    thumb: 'https://img.youtube.com/vi/default.jpg',
+    meta: 'Idea validation • Hindi'
+  },
+  {
+    channel: 'Think School',
+    title: 'How Indian startups go from 0 to ₹100 Crore',
+    search: 'think school indian startup success story',
+    thumb: 'https://img.youtube.com/vi/default.jpg',
+    meta: 'Growth strategy • Case study'
+  },
+  {
+    channel: 'Y Combinator',
+    title: 'How to find product market fit for your startup',
+    search: 'y combinator product market fit startup',
+    thumb: 'https://img.youtube.com/vi/default.jpg',
+    meta: 'Product fit • Global'
+  },
+  {
+    channel: 'Ankur Warikoo',
+    title: 'Building a startup in India — what nobody tells you',
+    search: 'ankur warikoo startup india building',
+    thumb: 'https://img.youtube.com/vi/default.jpg',
+    meta: 'Founder mindset • Hindi/English'
+  },
+  {
+    channel: 'First Principles',
+    title: 'Zero to One — How to build something people want',
+    search: 'startup zero to one build something people want india',
+    thumb: 'https://img.youtube.com/vi/default.jpg',
+    meta: 'Core strategy • Essential'
+  }
+];
+
+function generatePersonalizedVideos(idea) {
+  if (!idea) return curatedVideos;
+
+  // Extract keywords from idea
+  var keywords = idea.toLowerCase().split(' ').filter(function(w) {
+    return w.length > 3 && !['with','this','that','from','have','will','your','their'].includes(w);
+  }).slice(0, 3).join(' ');
+
+  // Add idea-specific video at top
+  var ideaVideos = [
+    {
+      channel: 'YouTube Search 🔍',
+      title: 'Best resources for: "' + idea.substring(0, 50) + '"',
+      search: keywords + ' startup india how to build',
+      thumb: null,
+      meta: 'Personalized for your idea • Click to search'
+    },
+    {
+      channel: 'YouTube Search 🔍',
+      title: 'Marketing strategies for ' + (keywords || 'your startup') + ' business',
+      search: keywords + ' marketing strategy india',
+      thumb: null,
+      meta: 'Marketing • Personalized'
+    }
+  ];
+
+  return ideaVideos.concat(curatedVideos.slice(0, 4));
+}
+
+function renderVideos(videos) {
+  var grid = document.getElementById('recsGrid');
+  grid.innerHTML = '';
+  videos.forEach(function(v) {
+    var card = document.createElement('a');
+    card.className = 'yt-card';
+    card.href = 'https://www.youtube.com/results?search_query=' + encodeURIComponent(v.search);
+    card.target = '_blank';
+    card.rel = 'noopener noreferrer';
+    card.innerHTML =
+      '<div class="yt-thumb" style="background:linear-gradient(135deg,#1a1a1a,#0a0805)">' +
+        '<div class="yt-play">' +
+          '<svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>' +
+        '</div>' +
+      '</div>' +
+      '<div class="yt-info">' +
+        '<div class="yt-channel">' + v.channel + '</div>' +
+        '<div class="yt-title">' + v.title + '</div>' +
+        '<div class="yt-meta">' + v.meta + '</div>' +
+      '</div>';
+    grid.appendChild(card);
+  });
+}
+
+// ── INIT PAGE ──
+document.addEventListener('DOMContentLoaded', function() {
+  var roastResult = null;
+  try { roastResult = JSON.parse(localStorage.getItem('roastResult') || 'null'); } catch(e) {}
+
+  if (roastResult && roastResult.idea) {
+    // Show personalized banner
+    var banner = document.getElementById('personalBanner');
+    banner.style.display = 'flex';
+    document.getElementById('pbIdeaTag').textContent = 'Based on your idea';
+    document.getElementById('pbTitle').textContent = 'Courses picked for your startup';
+    document.getElementById('pbDesc').textContent = '"' + roastResult.idea.substring(0, 80) + '..."';
+
+    // Update recs title
+    document.getElementById('recsTitle').textContent = '📺 Resources For Your Idea';
+    document.getElementById('recsSub').textContent = 'Hand-picked YouTube content based on what Vikram roasted.';
+
+    // Generate personalized videos
+    var videos = generatePersonalizedVideos(roastResult.idea);
+    renderVideos(videos);
+  } else {
+    // No roast — show curated
+    renderVideos(curatedVideos);
+  }
+});
+</script>
 </body>
-</html>
+  </html>
+  
