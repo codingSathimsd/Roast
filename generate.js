@@ -1,101 +1,149 @@
-// api/generate.js — Vercel Serverless Function
-// Credentials ONLY in Vercel Environment Variables — never in code
+// netlify/functions/generate.js
+// Netlify serverless function — replaces Deno Deploy main.ts
+// Add env vars in: Netlify → Site Settings → Environment Variables
 
-export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  if (req.method === 'OPTIONS') return res.status(200).end();
-  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+exports.handler = async function(event, context) {
+  // CORS headers
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Content-Type': 'application/json'
+  };
+
+  // Handle preflight
+  if (event.httpMethod === 'OPTIONS') {
+    return { statusCode: 200, headers, body: '' };
+  }
+
+  if (event.httpMethod !== 'POST') {
+    return { statusCode: 405, headers, body: JSON.stringify({ error: 'Method not allowed' }) };
+  }
+
+  const GEMINI_KEY = process.env.GEMINI_API_KEY || '';
+  const GROK_KEY = process.env.GROK_API_KEY || '';
+
+  const VIKRAM = `You are Vikram Seth, a sharp Indian startup advisor. Brutally honest, speaks English with occasional Hindi. Think like Chanakya. Respond ONLY with valid JSON. No markdown backticks.`;
 
   try {
-    const { type, answers, history, userMessage } = req.body;
-
-    const vikramSystem = `You are Vikram Seth, a sharp Indian startup advisor.
-You speak direct English with occasional Hindi. You are brutally honest but want founders to succeed.
-You think like Chanakya — strategic, always 2 steps ahead.
-Respond ONLY with valid JSON. No markdown backticks. No text outside JSON.`;
+    const body = JSON.parse(event.body || '{}');
+    const { type, idea, answers, history, userMessage } = body;
 
     let prompt = '';
+    let useGrok = false;
 
-    if (type === 'roast') {
-      prompt = `${vikramSystem}
-Analyze this startup idea:
-Problem: ${answers?.s1}
-Target Customer: ${answers?.s2}
-Revenue Model: ${answers?.s3}
-Competition: ${answers?.s4}
-Founder Edge: ${answers?.s5}
+    if (type === 'generateQuestions') {
+      prompt = `${VIKRAM}
+A founder described their startup idea as: "${idea}"
+
+Generate exactly 4 smart follow-up questions SPECIFIC to this idea.
+Each question must dig into a real weakness specific to THEIR idea.
+DO NOT ask generic questions. Make them about THIS idea.
+
+Respond ONLY with this exact JSON (no other text):
+{"questions":[
+  {"question":"question text (use <span class='hl'>key phrase</span> to highlight)","options":[{"label":"LABEL","text":"answer option"}]},
+  {"question":"...","options":[...]},
+  {"question":"...","options":[...]},
+  {"question":"...","options":[...]}
+]}`;
+
+    } else if (type === 'roast') {
+      const ans = Object.entries(answers || {}).map(([k,v]) => `${k}: ${v}`).join('\n');
+      prompt = `${VIKRAM}
+Startup idea: "${idea}"
+Founder's answers:
+${ans}
 
 Respond ONLY with this JSON:
 {"roast":"2-3 sentence brutal honest roast","score":<0-100>,"good":["strength1","strength2"],"bad":["weakness1","weakness2"],"fix":["fix1","fix2"],"verdict":"Pivot or Pursue?","message":"One personal line to founder in Vikram voice"}`;
 
     } else if (type === 'iterate') {
       const hist = (history || []).map(m => `${m.role}: ${m.content}`).join('\n');
-      prompt = `${vikramSystem}
-Previous conversation:
-${hist}
+      prompt = `${VIKRAM}
+Original idea: "${idea}"
+Conversation: ${hist}
 Founder now says: "${userMessage}"
-They are refining their idea based on your feedback.
 Respond ONLY with:
-{"score":<updated 0-100>,"improvement":<change e.g. +12>,"message":"Vikram reaction 2-3 sentences","newFocus":"What to fix next","good":["updated1"],"bad":["remaining1"],"fix":["next1"]}`;
+{"score":<0-100>,"improvement":<e.g. +12>,"message":"Vikram 2-3 sentence reaction","newFocus":"Next thing to fix","good":["updated1"],"bad":["remaining1"],"fix":["next action"]}`;
 
     } else if (type === 'shark') {
-      prompt = `${vikramSystem}
-You are playing ${answers?.sharkName} in a shark tank simulation.
+      prompt = `${VIKRAM}
+You are ${answers?.sharkName} in shark tank.
+Idea: "${idea}"
 Founder answered: "${answers?.answer}"
-Respond ONLY with:
-{"verdict":"sharp 1-2 sentence verdict","score":<0-100>}`;
+Respond ONLY with: {"verdict":"1-2 sentence verdict","score":<0-100>}`;
+
+    } else if (type === 'competitor') {
+      useGrok = true;
+      prompt = `Search web for real competitors for: "${idea}"
+Respond ONLY with JSON:
+{"competitors":[{"name":"Company","description":"What they do","weakness":"Their gap"}],"marketGap":"The opportunity","threat":"Biggest risk","advice":"Strategic recommendation"}`;
 
     } else if (type === 'suvichar') {
-      prompt = `Generate a daily business wisdom quote in English. Think Chanakya + Dhirubhai Ambani + Ratan Tata. Sharp, actionable, not generic.
-Respond ONLY with: {"quote":"The wisdom quote","attribution":"Vikram's Burn #<1-100>"}`;
+      prompt = `Generate a sharp Indian business wisdom quote. Think Chanakya + Dhirubhai + Ratan Tata. Sharp, not generic.
+Respond ONLY with: {"quote":"The quote","attribution":"Vikram's Burn #<1-100>"}`;
 
     } else if (type === 'prompts') {
-      prompt = `You are a viral marketing expert for Indian startups.
-Startup: "${answers?.idea}"
-Generate marketing content. Respond ONLY with:
-{"instagram":"Instagram caption with hashtags under 150 words","reels":{"hook":"3 second hook","action":"overlay text direction","cta":"call to action"},"linkedin":"2-3 numbered LinkedIn thread points"}`;
+      prompt = `Viral marketing expert for Indian startups.
+Startup: "${idea}"
+Respond ONLY with:
+{"instagram":"Instagram caption with hashtags under 150 words","reels":{"hook":"3 sec hook","action":"visual direction","cta":"call to action"},"linkedin":"2-3 numbered LinkedIn thread points"}`;
 
     } else {
-      return res.status(400).json({ error: 'Unknown type' });
+      return { statusCode: 400, headers, body: JSON.stringify({ error: 'Unknown type' }) };
     }
 
-    const geminiRes = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${process.env.GEMINI_API_KEY}`,
-      {
+    // Call Gemini or Grok
+    let raw = '';
+    if (useGrok && GROK_KEY) {
+      const res = await fetch('https://api.x.ai/v1/chat/completions', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: { temperature: 0.8, maxOutputTokens: 1024, responseMimeType: 'application/json' }
-        })
-      }
-    );
-
-    if (!geminiRes.ok) throw new Error(`Gemini error: ${geminiRes.status}`);
-
-    const gData = await geminiRes.json();
-    const raw = gData.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (!raw) throw new Error('Empty response');
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${GROK_KEY}` },
+        body: JSON.stringify({ model: 'grok-3-mini', messages: [{ role: 'user', content: prompt }], max_tokens: 1024 })
+      });
+      const data = await res.json();
+      raw = data.choices?.[0]?.message?.content || '';
+    } else {
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${GEMINI_KEY}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: { temperature: 0.8, maxOutputTokens: 1024, responseMimeType: 'application/json' }
+          })
+        }
+      );
+      const data = await res.json();
+      raw = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    }
 
     let result;
     try { result = JSON.parse(raw.replace(/```json|```/g, '').trim()); }
     catch { result = { message: raw, score: 65 }; }
 
-    return res.status(200).json({ result, success: true });
+    return { statusCode: 200, headers, body: JSON.stringify({ result, success: true }) };
 
   } catch (err) {
-    console.error(err.message);
-    return res.status(200).json({
-      result: {
-        score: 65, message: "Vikram is temporarily away. Your idea still needs work though.",
-        roast: "There's a real problem being solved here but the execution plan needs sharpening.",
-        good: ["Problem identification is solid", "Revenue model makes sense"],
-        bad: ["Market sizing unclear", "Competition underestimated"],
-        fix: ["Talk to 50 customers before building", "Define your 90-day metric"],
-        verdict: "Pursue — But Refine The Strategy"
-      }
-    });
+    console.error('Function error:', err.message);
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({
+        result: {
+          score: 67,
+          message: "The idea has fire. The plan needs fuel. Here is your score.",
+          roast: "Real problem identified but execution plan needs serious work.",
+          good: ["Problem is genuine", "Revenue model makes sense"],
+          bad: ["No customer acquisition plan", "Competition underestimated"],
+          fix: ["Talk to 50 customers before building", "Define your 90-day metric"],
+          verdict: "Pursue — Refine The Strategy",
+          questions: []
+        }
+      })
+    };
   }
-}
+};
+    
