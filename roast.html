@@ -5,78 +5,118 @@
 <title>The Furnace — RoastMyIdea 🔥</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet"/>
 <script src="config.js"></script>
+<script src="js/auth.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer onload="onGoogleSDKLoad()"></script>
 <style>
 :root{--pf:#ff7852;--pd:#ff734c;--surf0:#000;--sc:#1a1919;--shh:#262626;--os:#e4e2e1;--osv:#adaaaa;--ov:rgba(255,255,255,.10);--fd:'Space Grotesk',sans-serif;--fb:'Inter',sans-serif;--fl:'Plus Jakarta Sans',sans-serif;--tr:.2s ease-out}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--surf0);color:var(--os);font-family:var(--fb);height:100vh;overflow:hidden}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:60px;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--ov)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:60px;background:rgba(0,0,0,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--ov)}
 .nlogo{font-family:var(--fd);font-weight:700;font-size:18px;color:var(--os);text-decoration:none;letter-spacing:-.02em}.nlogo span{color:var(--pf)}
 .nlinks{display:flex;gap:4px;list-style:none}
 .nlinks a{color:var(--osv);text-decoration:none;font-family:var(--fl);font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:6px 14px;border-radius:8px;transition:color var(--tr)}
 .nlinks a:hover{color:var(--os)}.nlinks a.active{color:var(--pf)}
-.btn-nav{padding:8px 20px;background:transparent;border:1px solid var(--pf);color:var(--pf);font-family:var(--fl);font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border-radius:8px;cursor:pointer;transition:all var(--tr);text-decoration:none;display:flex;align-items:center;gap:8px}
-.btn-nav:hover{background:var(--pf);color:#000}
+.btn-auth{padding:8px 18px;background:#fff;color:#000;font-family:var(--fl);font-size:12px;font-weight:700;border:none;border-radius:8px;cursor:pointer;transition:all var(--tr);display:flex;align-items:center;gap:8px;white-space:nowrap}
+.btn-auth:hover{background:#f0f0f0}
 .hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
 .hbg span{width:22px;height:2px;background:var(--os);border-radius:2px}
-.layout{display:grid;grid-template-columns:240px 1fr;height:100vh;padding-top:60px}
-.sidebar{background:var(--surf0);border-right:1px solid var(--ov);padding:28px 20px;display:flex;flex-direction:column;gap:20px;overflow-y:auto}
-.vik-img{width:100%;border-radius:12px;background:linear-gradient(160deg,#1a1a1a,#0a0805);aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:72px;position:relative;border:1px solid var(--ov)}
+
+/* LAYOUT */
+.layout{display:grid;grid-template-columns:260px 1fr;height:100vh;padding-top:60px}
+
+/* SIDEBAR */
+.sidebar{background:#050505;border-right:1px solid var(--ov);padding:28px 20px;display:flex;flex-direction:column;gap:20px;overflow-y:auto}
+.vik-img{width:100%;border-radius:12px;background:linear-gradient(160deg,#1a1205,#0a0805);aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:72px;position:relative;border:1px solid rgba(255,120,82,.15)}
 .live-badge{position:absolute;bottom:10px;left:10px;background:var(--pf);color:#000;font-family:var(--fl);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:4px;display:flex;align-items:center;gap:5px}
 .live-dot{width:5px;height:5px;border-radius:50%;background:#000;animation:blink 1s ease infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-.vname{font-family:var(--fd);font-size:22px;font-weight:700}.vtitle{font-family:var(--fl);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--pf);margin-bottom:12px}
-.vquote{background:var(--sc);border-left:2px solid var(--pf);padding:14px 16px;border-radius:0 8px 8px 0;font-size:13px;font-style:italic;color:var(--osv);line-height:1.6}
-.vstats{display:flex;flex-direction:column;gap:10px}
-.vstat{display:flex;justify-content:space-between;align-items:center}
-.vstat-l{font-family:var(--fl);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--osv)}
-.vstat-v{font-family:var(--fd);font-weight:700;color:var(--pf);font-size:14px}
+.vname{font-family:var(--fd);font-size:22px;font-weight:700;letter-spacing:-.01em}
+.vtitle{font-family:var(--fl);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--pf);margin-bottom:14px}
+.vmood{background:var(--sc);border-radius:10px;padding:14px;font-size:13px;font-style:italic;color:var(--osv);line-height:1.6;border-left:2px solid var(--pf)}
+.vstats{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.vstat{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.vstat:last-child{border-bottom:none}
+.vstat-l{font-family:var(--fl);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--osv)}
+.vstat-v{font-family:var(--fd);font-weight:700;color:var(--pf);font-size:15px}
+.session-info{background:var(--sc);border-radius:10px;padding:14px}
+.si-lbl{font-family:var(--fl);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--osv);margin-bottom:8px}
+.si-val{font-size:13px;color:var(--os);line-height:1.5;font-style:italic;word-break:break-word}
+
+/* MAIN */
 .main{display:flex;flex-direction:column;overflow:hidden}
-.main-hd{padding:16px 28px;border-bottom:1px solid var(--ov);display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
-.main-hd h1{font-family:var(--fl);font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
-.step-info{font-family:var(--fd);font-size:13px;color:var(--osv)}.step-info strong{color:var(--pf)}
-.prog-bar{height:2px;background:var(--shh);flex-shrink:0}
-.prog-fill{height:100%;background:linear-gradient(90deg,var(--pd),var(--pf));transition:width .8s cubic-bezier(.4,0,.2,1);box-shadow:2px 0 8px var(--pf);width:0%}
-.chat{flex:1;overflow-y:auto;padding:28px;display:flex;flex-direction:column;gap:16px}
-.chat::-webkit-scrollbar{width:3px}.chat::-webkit-scrollbar-thumb{background:var(--shh)}
-.brow{display:flex;gap:10px;align-items:flex-start;animation:sL .4s ease}
-.brow.user{flex-direction:row-reverse;animation:sR .4s ease}
-@keyframes sL{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
-@keyframes sR{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
-.bav{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;background:var(--pf)}
-.bav.u{background:var(--shh)}
-.bubble{background:var(--shh);border-radius:16px 16px 16px 4px;padding:14px 18px;max-width:68%;font-size:15px;line-height:1.6;color:var(--os)}
-.bubble .hl{color:var(--pf);font-weight:600}
-.brow.user .bubble{background:linear-gradient(135deg,var(--pd),var(--pf));color:#000;font-weight:500;border-radius:16px 16px 4px 16px}
-.typing-bub{background:var(--shh);border-radius:16px 16px 16px 4px;padding:14px 18px;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--osv)}
-.td{width:6px;height:6px;border-radius:50%;background:var(--pf);animation:tp 1.4s ease infinite}
-.td:nth-child(2){animation-delay:.2s}.td:nth-child(3){animation-delay:.4s}
-@keyframes tp{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.7)}}
-.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:580px;animation:fU .4s ease}
-@keyframes fU{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.opt{background:var(--sc);border:1px solid var(--ov);border-radius:12px;padding:14px 18px;cursor:pointer;transition:all var(--tr);text-align:left;color:var(--os);font-family:var(--fb);width:100%}
-.opt-lbl{font-family:var(--fl);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--osv);margin-bottom:5px}
-.opt-txt{font-size:14px;line-height:1.4}
-.opt:hover{border-color:var(--pf);background:rgba(255,120,82,.08);transform:translateY(-2px)}
-.gen-loader{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--sc);border-radius:12px 12px 12px 4px;max-width:360px;border:1px solid rgba(255,120,82,.15)}
-.spin{width:16px;height:16px;border:2px solid var(--shh);border-top-color:var(--pf);border-radius:50%;animation:sp .8s linear infinite;flex-shrink:0}
+.main-hd{padding:14px 28px;border-bottom:1px solid var(--ov);display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.main-hd h1{font-family:var(--fl);font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--osv)}
+.session-badge{font-family:var(--fl);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--pf);background:rgba(255,120,82,.1);padding:4px 12px;border-radius:100px;border:1px solid rgba(255,120,82,.2)}
+
+/* CHAT */
+.chat{flex:1;overflow-y:auto;padding:32px;display:flex;flex-direction:column;gap:20px}
+.chat::-webkit-scrollbar{width:2px}.chat::-webkit-scrollbar-thumb{background:var(--shh);border-radius:2px}
+
+/* MESSAGES */
+.msg{display:flex;gap:12px;align-items:flex-start;animation:fadeIn .4s ease}
+.msg.user{flex-direction:row-reverse}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.mavatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;background:var(--pf)}
+.mavatar.u{background:var(--shh);font-size:14px}
+.mbody{max-width:72%;display:flex;flex-direction:column;gap:8px}
+.msg.user .mbody{align-items:flex-end}
+.bubble{background:var(--shh);border-radius:18px 18px 18px 4px;padding:14px 18px;font-size:15px;line-height:1.7;color:var(--os)}
+.bubble .hl{color:var(--pf);font-weight:700}
+.bubble .soft{color:var(--osv);font-style:italic}
+.msg.user .bubble{background:linear-gradient(135deg,#ff5a2d,var(--pf));color:#000;font-weight:500;border-radius:18px 18px 4px 18px}
+.bubble ul{margin:10px 0 4px 18px;display:flex;flex-direction:column;gap:4px}
+.bubble ul li{font-size:14px;color:var(--osv)}
+
+/* TYPING */
+.typing-indicator{background:var(--shh);border-radius:18px 18px 18px 4px;padding:14px 18px;display:flex;align-items:center;gap:6px}
+.tdot{width:7px;height:7px;border-radius:50%;background:var(--pf);animation:tdot 1.4s ease infinite}
+.tdot:nth-child(2){animation-delay:.2s}.tdot:nth-child(3){animation-delay:.4s}
+@keyframes tdot{0%,100%{opacity:.3;transform:scale(.7)}50%{opacity:1;transform:scale(1)}}
+
+/* OPTIONS */
+.opts-wrap{display:flex;flex-wrap:wrap;gap:10px;max-width:600px;animation:fadeIn .3s ease;margin-top:4px}
+.opt{background:var(--sc);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:12px 18px;cursor:pointer;transition:all var(--tr);text-align:left;color:var(--os);font-family:var(--fb);font-size:14px;line-height:1.4}
+.opt:hover{border-color:var(--pf);background:rgba(255,120,82,.08);transform:translateY(-1px)}
+.opt-multi{border-radius:10px}
+.opt-multi.selected{border-color:var(--pf);background:rgba(255,120,82,.12);color:var(--pf)}
+.opts-confirm{display:flex;align-items:center;gap:12px;margin-top:8px}
+.btn-confirm{padding:10px 24px;background:var(--pf);color:#000;font-family:var(--fl);font-size:13px;font-weight:700;border:none;border-radius:8px;cursor:pointer;transition:all var(--tr)}
+.btn-confirm:hover{background:#ff9070}
+.opts-hint{font-size:12px;color:var(--osv);font-style:italic}
+
+/* LOADER */
+.gen-loader{display:flex;align-items:center;gap:10px;padding:12px 18px;background:var(--sc);border-radius:18px 18px 18px 4px;max-width:320px;border:1px solid rgba(255,120,82,.1)}
+.spin{width:14px;height:14px;border:2px solid var(--shh);border-top-color:var(--pf);border-radius:50%;animation:sp .7s linear infinite;flex-shrink:0}
 @keyframes sp{to{transform:rotate(360deg)}}
 .gen-txt{font-size:13px;color:var(--osv);font-style:italic}
-.input-bar{padding:16px 28px;border-top:1px solid var(--ov);background:var(--surf0);flex-shrink:0}
+
+/* INPUT */
+.input-wrap{padding:16px 28px;border-top:1px solid var(--ov);background:#050505;flex-shrink:0}
 .input-row{display:flex;gap:10px;align-items:flex-end}
-.cinp{flex:1;background:var(--sc);border:1px solid var(--ov);border-radius:12px;padding:13px 18px;color:var(--os);font-family:var(--fb);font-size:15px;resize:none;outline:none;transition:border-color var(--tr);min-height:48px;max-height:100px}
-.cinp:focus{border-color:var(--pf)}.cinp::placeholder{color:var(--osv)}
-.sbtn{width:48px;height:48px;background:var(--pf);border:none;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--tr);flex-shrink:0}
+.cinp{flex:1;background:var(--sc);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px 20px;color:var(--os);font-family:var(--fb);font-size:15px;resize:none;outline:none;transition:border-color var(--tr);min-height:50px;max-height:140px;line-height:1.5}
+.cinp:focus{border-color:rgba(255,120,82,.5);box-shadow:0 0 0 3px rgba(255,120,82,.08)}
+.cinp::placeholder{color:rgba(255,255,255,.2)}
+.sbtn{width:50px;height:50px;background:var(--pf);border:none;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--tr);flex-shrink:0}
 .sbtn:hover{background:#ff9070;transform:scale(1.05)}
-.inp-hint{text-align:center;font-family:var(--fl);font-size:11px;color:var(--osv);opacity:.6;margin-top:8px}
-.inp-hint strong{opacity:.9}
-/* Google Sign In button styling */
-.google-btn{display:flex;align-items:center;gap:10px;padding:8px 16px;background:#fff;color:#000;font-family:var(--fl);font-size:12px;font-weight:700;border:none;border-radius:8px;cursor:pointer;transition:all var(--tr)}
-.google-btn:hover{background:#f0f0f0;box-shadow:0 2px 12px rgba(255,255,255,.2)}
-.google-btn img{width:18px;height:18px}
+.sbtn:disabled{opacity:.3;cursor:not-allowed;transform:none}
+.inp-hint{text-align:center;font-family:var(--fl);font-size:10px;color:var(--osv);opacity:.5;margin-top:8px;letter-spacing:.05em}
+
+/* RESULT CARD (at end) */
+.result-card{background:linear-gradient(135deg,rgba(255,120,82,.1),rgba(255,120,82,.04));border:1px solid rgba(255,120,82,.3);border-radius:16px;padding:24px;max-width:580px;animation:fadeIn .5s ease}
+.rc-score{font-family:var(--fd);font-size:72px;font-weight:700;color:var(--pf);line-height:1;margin-bottom:4px}
+.rc-verdict{font-family:var(--fl);font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--osv);margin-bottom:20px}
+.rc-section{margin-bottom:16px}
+.rc-lbl{font-family:var(--fl);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--pf);margin-bottom:8px}
+.rc-item{font-size:14px;color:var(--os);line-height:1.6;padding:8px 12px;background:rgba(255,255,255,.03);border-radius:8px;margin-bottom:6px;border-left:2px solid rgba(255,120,82,.3)}
+.rc-btns{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
+.btn-primary{padding:12px 24px;background:var(--pf);color:#000;font-family:var(--fl);font-size:13px;font-weight:700;border:none;border-radius:8px;cursor:pointer;transition:all var(--tr);text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn-primary:hover{background:#ff9070;transform:translateY(-1px)}
+.btn-outline{padding:12px 24px;background:transparent;color:var(--os);font-family:var(--fl);font-size:13px;font-weight:600;border:1px solid rgba(255,255,255,.15);border-radius:8px;cursor:pointer;transition:all var(--tr);text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn-outline:hover{border-color:var(--pf);color:var(--pf)}
+
 @media(max-width:768px){
   .layout{grid-template-columns:1fr}.sidebar{display:none}
-  .chat{padding:16px}.input-bar{padding:12px 16px}.main-hd{padding:12px 16px}
-  .opts{grid-template-columns:1fr}.bubble{max-width:85%}
+  .chat{padding:16px}.input-wrap{padding:12px 16px}
   nav{padding:0 16px}.nlinks{display:none}.hbg{display:flex}
   .nlinks.open{display:flex;flex-direction:column;position:fixed;inset:60px 0 0 0;background:rgba(0,0,0,.97);padding:20px;z-index:999;gap:4px}
   .nlinks.open a{padding:14px;font-size:16px}
@@ -96,501 +136,436 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
     <li><a href="prompts.html">Prompts</a></li>
   </ul>
   <div style="display:flex;align-items:center;gap:10px">
-    <button class="google-btn" id="authBtn" onclick="handleAuthClick()">
-      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G"/>
-      Sign In with Google
-    </button>
+    <button class="btn-auth" id="authBtn" onclick="handleAuthClick()">Sign In with Google</button>
     <div class="hbg" id="hbg"><span></span><span></span><span></span></div>
   </div>
 </nav>
-
-<!-- Google Sign In SDK - loads async, never blocks page -->
-<script src="https://accounts.google.com/gsi/client" async defer onload="onGoogleSDKLoad()"></script>
 
 <div class="layout">
   <aside class="sidebar">
     <div class="vik-img">
       <span>🧠</span>
-      <div class="live-badge"><div class="live-dot"></div>Live Roast</div>
+      <div class="live-badge"><div class="live-dot"></div>Live Session</div>
     </div>
     <div>
       <div class="vname">Vikram Seth</div>
       <div class="vtitle">Idea Execution Architect</div>
-      <div class="vquote">"Your idea isn't special. Your execution is what keeps me awake. Let's see if this has legs or if it's just another hallucination."</div>
+      <div class="vmood" id="vikMood">"Bring me your idea. I've seen thousands fail and I know exactly why. Let's find out if yours is different."</div>
     </div>
     <div class="vstats">
-      <div class="vstat"><span class="vstat-l">Egos Bruised</span><span class="vstat-v" id="egoCnt">0</span></div>
+      <div class="vstat"><span class="vstat-l">Ideas Roasted</span><span class="vstat-v" id="egoCnt">0</span></div>
       <div class="vstat"><span class="vstat-l">Startups Saved</span><span class="vstat-v" id="savedCnt">0</span></div>
+      <div class="vstat"><span class="vstat-l">Avg Score</span><span class="vstat-v">67/100</span></div>
+    </div>
+    <div class="session-info">
+      <div class="si-lbl">Your Idea</div>
+      <div class="si-val" id="ideaDisplay">Not submitted yet</div>
     </div>
   </aside>
 
   <div class="main">
     <div class="main-hd">
-      <h1>The Furnace</h1>
-      <div class="step-info">Step <strong id="stepNum">01</strong> / <strong id="totalSteps">05</strong></div>
+      <h1>The Furnace — Deep Session</h1>
+      <div class="session-badge" id="sessionBadge">Warming Up</div>
     </div>
-    <div class="prog-bar"><div class="prog-fill" id="pf"></div></div>
     <div class="chat" id="chat"></div>
-    <div class="input-bar">
+    <div class="input-wrap">
       <div class="input-row">
-        <textarea class="cinp" id="inp" placeholder="Describe your startup idea..." rows="1"></textarea>
+        <textarea class="cinp" id="inp" placeholder="Type your answer here..." rows="1"></textarea>
         <button class="sbtn" id="sbtn" onclick="send()">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         </button>
       </div>
-      <p class="inp-hint">Press <strong>ENTER</strong> to submit to the flames</p>
+      <p class="inp-hint">ENTER to send • SHIFT+ENTER for new line</p>
     </div>
   </div>
 </div>
 
 <script>
-// ════════════════════════════════════
-// GOOGLE AUTH — completely independent
-// ════════════════════════════════════
-var googleReady = false;
+// ════════════════════════════════════════════════════
+// VIKRAM AI — Real investor conversation engine
+// No fixed question limit. Asks until satisfied.
+// Uses Gemini to generate contextual follow-ups.
+// ════════════════════════════════════════════════════
 
-function onGoogleSDKLoad() {
-  var clientId = window.GOOGLE_CLIENT_ID || '';
-  if (!clientId || clientId.includes('YOUR_GOOGLE')) {
-    console.warn('Google Client ID not set in config.js');
-    return;
-  }
-  try {
-    google.accounts.id.initialize({
-      client_id: clientId,
-      callback: onGoogleSignIn,
-      auto_select: false,
-    });
-    googleReady = true;
-    updateAuthButton();
-  } catch(e) { console.warn('Google init failed:', e); }
-}
-
-function onGoogleSignIn(response) {
-  try {
-    var parts = response.credential.split('.');
-    var payload = JSON.parse(atob(parts[1].replace(/-/g,'+').replace(/_/g,'/')));
-    localStorage.setItem('rmi_name', payload.name);
-    localStorage.setItem('rmi_pic', payload.picture || '');
-    localStorage.setItem('rmi_id', payload.sub);
-    updateAuthButton();
-  } catch(e) { console.error('Sign in error:', e); }
-}
-
-function handleAuthClick() {
-  var name = localStorage.getItem('rmi_name');
-  if (name) {
-    // Already signed in — sign out
-    localStorage.removeItem('rmi_name');
-    localStorage.removeItem('rmi_pic');
-    localStorage.removeItem('rmi_id');
-    if (googleReady) try { google.accounts.id.disableAutoSelect(); } catch(e) {}
-    updateAuthButton();
-  } else {
-    // Sign in
-    if (googleReady) {
-      google.accounts.id.prompt();
-    } else {
-      alert('Google Sign In is loading. Please wait a moment and try again.');
-    }
-  }
-}
-
-function updateAuthButton() {
-  var btn = document.getElementById('authBtn');
-  var name = localStorage.getItem('rmi_name');
-  var pic = localStorage.getItem('rmi_pic');
-  if (!btn) return;
-  if (name) {
-    btn.innerHTML = (pic ? '<img src="' + pic + '" style="width:22px;height:22px;border-radius:50%;object-fit:cover"/>' : '👤') + ' ' + name.split(' ')[0];
-    btn.style.background = 'rgba(255,255,255,0.1)';
-    btn.style.color = '#fff';
-  } else {
-    btn.innerHTML = '<img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" style="width:18px;height:18px"/> Sign In with Google';
-    btn.style.background = '#fff';
-    btn.style.color = '#000';
-  }
-}
-
-// Init on load
-document.addEventListener('DOMContentLoaded', updateAuthButton);
-
-// ════════════════════════════════════
-// CHAT STATE
-// ════════════════════════════════════
-var phase = 'idea';
 var ideaText = '';
-var dynamicQs = [];
-var currentQ = 0;
-var answers = {};
-var chatHistory = [];
+var conversationHistory = [];
+var sessionPhase = 'idea'; // idea → deep_dive → final_open → done
 var processing = false;
-
-// API URL — uses config.js, falls back to direct Deno URL
-var API = (window.API_URL || 'https://roastmyidea.deno.dev') + '/api/generate';
+var questionCount = 0;
+var API = (window.API_URL || '') + '/api/generate';
 
 var chat = document.getElementById('chat');
 var inp = document.getElementById('inp');
+var sbtn = document.getElementById('sbtn');
 
 // ── COUNTERS ──
-function runCounter(el, target) {
-  var start = Date.now(), dur = 1500;
-  function tick() {
-    var p = Math.min((Date.now()-start)/dur, 1);
-    var ease = 1 - Math.pow(1-p, 3);
-    el.textContent = Math.floor(ease * target).toLocaleString();
-    if (p < 1) requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
+function runCnt(el, t) {
+  var s = Date.now(), d = 1600;
+  function tk() { var p=Math.min((Date.now()-s)/d,1),e=1-Math.pow(1-p,3); el.textContent=Math.floor(e*t).toLocaleString(); if(p<1)requestAnimationFrame(tk); }
+  requestAnimationFrame(tk);
 }
-setTimeout(function() {
-  runCounter(document.getElementById('egoCnt'), 1204);
-  runCounter(document.getElementById('savedCnt'), 88);
-}, 800);
+setTimeout(function(){ runCnt(document.getElementById('egoCnt'),1402); runCnt(document.getElementById('savedCnt'),88); },800);
 
 // ── HAMBURGER ──
-document.getElementById('hbg').addEventListener('click', function() {
-  document.getElementById('nl').classList.toggle('open');
-});
+document.getElementById('hbg').addEventListener('click',function(){ document.getElementById('nl').classList.toggle('open'); });
 
 // ── SCROLL ──
-function scrollBot() { chat.scrollTop = chat.scrollHeight; }
+function scrollBot(){ setTimeout(function(){ chat.scrollTop=chat.scrollHeight; },50); }
 
-// ── PROGRESS ──
-function updateProgress() {
-  var total = dynamicQs.length > 0 ? dynamicQs.length + 1 : 5;
-  var step = phase === 'idea' ? 1 : Math.min(currentQ + 2, total);
-  document.getElementById('stepNum').textContent = String(step).padStart(2,'0');
-  document.getElementById('totalSteps').textContent = String(total).padStart(2,'0');
-  document.getElementById('pf').style.width = Math.round((step/total)*100) + '%';
-}
+// ── UPDATE SESSION BADGE ──
+function setBadge(txt){ document.getElementById('sessionBadge').textContent=txt; }
 
-// ── VIKRAM MESSAGE (with typing animation) ──
-function vikramSay(html, delayMs) {
-  delayMs = delayMs || 0;
-  return new Promise(function(resolve) {
+// ── ADD VIKRAM MESSAGE ──
+function vikramSay(html, delay, skipTyping) {
+  delay = delay||0;
+  return new Promise(function(res) {
     setTimeout(function() {
-      // Show typing dots
-      var typing = document.createElement('div');
-      typing.className = 'brow';
-      typing.innerHTML = '<div class="bav">🔥</div><div class="typing-bub"><div class="td"></div><div class="td"></div><div class="td"></div><span style="margin-left:4px">Vikram is thinking...</span></div>';
-      chat.appendChild(typing);
-      scrollBot();
-
-      setTimeout(function() {
-        typing.remove();
-        var msg = document.createElement('div');
-        msg.className = 'brow';
-        msg.innerHTML = '<div class="bav">🔥</div><div class="bubble">' + html + '</div>';
-        chat.appendChild(msg);
-        scrollBot();
-        resolve();
-      }, 800);
-    }, delayMs);
+      if (!skipTyping) {
+        var t = document.createElement('div');
+        t.className='msg'; t.id='typmsg';
+        t.innerHTML='<div class="mavatar">🔥</div><div class="mbody"><div class="typing-indicator"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div></div>';
+        chat.appendChild(t); scrollBot();
+        setTimeout(function() {
+          var el=document.getElementById('typmsg'); if(el)el.remove();
+          appendVikram(html); res();
+        }, Math.min(600 + html.length*1.2, 1800));
+      } else { appendVikram(html); res(); }
+    }, delay);
   });
 }
 
-// ── USER MESSAGE ──
+function appendVikram(html) {
+  var m=document.createElement('div'); m.className='msg';
+  m.innerHTML='<div class="mavatar">🔥</div><div class="mbody"><div class="bubble">'+html+'</div></div>';
+  chat.appendChild(m); scrollBot();
+}
+
+// ── ADD USER MESSAGE ──
 function userSay(text) {
-  var msg = document.createElement('div');
-  msg.className = 'brow user';
-  msg.innerHTML = '<div class="bav u">👤</div><div class="bubble">' + text + '</div>';
-  chat.appendChild(msg);
-  scrollBot();
+  var m=document.createElement('div'); m.className='msg user';
+  m.innerHTML='<div class="mavatar u">👤</div><div class="mbody"><div class="bubble">'+text+'</div></div>';
+  chat.appendChild(m); scrollBot();
+  conversationHistory.push({role:'user', content:text});
 }
 
-// ── SHOW OPTION BUTTONS ──
-function showOptions(opts) {
+// ── SHOW OPTIONS (single or multi select) ──
+function showOptions(opts, multi) {
   return new Promise(function(resolve) {
     setTimeout(function() {
-      var grid = document.createElement('div');
-      grid.className = 'opts';
-      grid.id = 'optGrid';
-      opts.forEach(function(o) {
-        var btn = document.createElement('button');
-        btn.className = 'opt';
-        btn.innerHTML = '<div class="opt-lbl">' + (o.label||'') + '</div><div class="opt-txt">' + o.text + '</div>';
-        btn.addEventListener('click', function() {
-          grid.remove();
-          resolve(o.text);
+      var wrap = document.createElement('div');
+      wrap.className = 'msg';
+      var selected = [];
+
+      if (multi) {
+        wrap.innerHTML = '<div class="mavatar" style="opacity:0"></div><div class="mbody"><div class="opts-wrap" id="optsWrap"></div><div class="opts-confirm" id="optsConfirm"><button class="btn-confirm" onclick="confirmMulti()">Confirm Selection →</button><span class="opts-hint">Select all that apply</span></div></div>';
+        chat.appendChild(wrap); scrollBot();
+        var ow = document.getElementById('optsWrap');
+        opts.forEach(function(o,i) {
+          var b=document.createElement('button'); b.className='opt opt-multi';
+          b.textContent=o;
+          b.addEventListener('click',function(){
+            if(selected.includes(o)){selected=selected.filter(function(x){return x!==o;});b.classList.remove('selected');}
+            else{selected.push(o);b.classList.add('selected');}
+          });
+          ow.appendChild(b);
         });
-        grid.appendChild(btn);
-      });
-      chat.appendChild(grid);
-      scrollBot();
-    }, 800);
+        window.confirmMulti = function() {
+          if(selected.length===0){alert('Please select at least one option.');return;}
+          wrap.remove();
+          resolve(selected.join(', '));
+        };
+      } else {
+        wrap.innerHTML = '<div class="mavatar" style="opacity:0"></div><div class="mbody"><div class="opts-wrap" id="optsWrap"></div></div>';
+        chat.appendChild(wrap); scrollBot();
+        var ow = document.getElementById('optsWrap');
+        opts.forEach(function(o) {
+          var b=document.createElement('button'); b.className='opt';
+          b.textContent=o;
+          b.addEventListener('click',function(){ wrap.remove(); resolve(o); });
+          ow.appendChild(b);
+        });
+      }
+    }, 400);
   });
 }
 
-// ── LOADING INDICATOR ──
+// ── LOADING ──
 function showLoading(msg) {
   removeLoading();
-  var d = document.createElement('div');
-  d.className = 'brow'; d.id = 'loadingEl';
-  d.innerHTML = '<div class="bav">🔥</div><div class="gen-loader"><div class="spin"></div><span class="gen-txt">' + msg + '</span></div>';
-  chat.appendChild(d);
-  scrollBot();
+  var m=document.createElement('div'); m.className='msg'; m.id='loadMsg';
+  m.innerHTML='<div class="mavatar">🔥</div><div class="mbody"><div class="gen-loader"><div class="spin"></div><span class="gen-txt">'+(msg||'Vikram is thinking...')+'</span></div></div>';
+  chat.appendChild(m); scrollBot();
 }
-function removeLoading() {
-  var el = document.getElementById('loadingEl');
-  if (el) el.remove();
-}
+function removeLoading(){ var e=document.getElementById('loadMsg'); if(e)e.remove(); }
 
-// ════════════════════════════════════
-// FALLBACK QUESTIONS (used if API fails)
-// ════════════════════════════════════
-function getFallbackQuestions(idea) {
-  var short = idea.length > 40 ? idea.substring(0,40)+'...' : idea;
-  return [
-    {
-      question: 'Got it — <em>"' + short + '"</em><br><br>Now tell me: <span class="hl">who exactly</span> is your target customer? Be specific.',
-      options: [
-        {label:'B2C',text:'Individual consumers with this daily problem.'},
-        {label:'SMALL BIZ',text:'Small businesses losing money because of this.'},
-        {label:'ENTERPRISE',text:'Large companies with budget to solve it.'},
-        {label:'NICHE',text:'A very specific underserved group.'}
-      ]
-    },
-    {
-      question: 'How do you make <span class="hl">money?</span> No vague answers.',
-      options: [
-        {label:'SUBSCRIPTION',text:'Monthly recurring revenue per user.'},
-        {label:'MARKETPLACE',text:'Commission on each transaction.'},
-        {label:'FREEMIUM',text:'Free base, paid premium features.'},
-        {label:'B2B SAAS',text:'Annual licensing to businesses.'}
-      ]
-    },
-    {
-      question: 'Who are your <span class="hl">competitors</span> and why haven\'t they already won?',
-      options: [
-        {label:'NONE YET',text:'No direct competitor exists yet.'},
-        {label:'OFFLINE',text:'People use manual or offline methods.'},
-        {label:'BIG PLAYERS',text:'Giants exist but miss our specific niche.'},
-        {label:'CROWDED',text:'Crowded market but I have a real edge.'}
-      ]
-    },
-    {
-      question: 'Final one. <span class="hl">Why YOU</span> specifically to build this?',
-      options: [
-        {label:'EXPERT',text:'I have worked in this industry for years.'},
-        {label:'LIVED IT',text:'I personally faced and suffered this problem.'},
-        {label:'TECH',text:'I built proprietary technology for this.'},
-        {label:'TEAM',text:'We have the perfect founding team.'}
-      ]
-    }
-  ];
-}
+// ════════════════════════════════════════════════════
+// VIKRAM SYSTEM PROMPT — Real investor personality
+// ════════════════════════════════════════════════════
+var VIKRAM_SYSTEM = `You are Vikram Seth — a battle-hardened Indian startup investor and advisor who has seen 1000+ pitches. You speak like a real person, not a chatbot. Mix of English and Hindi phrases naturally.
 
-// ════════════════════════════════════
-// PHASE 1 — START: ASK FOR IDEA
-// ════════════════════════════════════
-async function startFlow() {
-  await vikramSay('Alright. No pleasantries.<br>Tell me your startup idea in <span class="hl">one clear sentence.</span><br><br>What problem are you solving, and for whom?');
-  inp.placeholder = 'e.g. An app that helps Indian freelancers find clients faster...';
-  inp.focus();
-  updateProgress();
-}
+YOUR PERSONALITY:
+- Sharp like Chanakya, warm like an elder brother, tough like a Shark Tank judge
+- You genuinely care about the founder succeeding — but you will NOT sugarcoat
+- You get excited when you see real potential, frustrated when answers are vague
+- You ask follow-up questions naturally based on what they said
+- You remember everything said in the conversation
+- You sometimes challenge their assumptions with real market data points
+- You share short anecdotes from your experience ("I've seen this before — a founder in Bangalore tried the same...")
+- You use phrases like "Yaar", "Dekho", "Suno", "Bhai", "Listen to me carefully"
+- You never ask boring generic questions. Every question comes from THEIR specific answer.
 
-// ════════════════════════════════════
-// PHASE 2 — GENERATE SMART QUESTIONS
-// ════════════════════════════════════
-async function runQuestionPhase(idea) {
-  processing = true;
-  inp.disabled = true;
-  showLoading('Vikram is analyzing your idea and preparing smart questions...');
+QUESTIONING STYLE:
+- Ask 1-3 questions at a time, never a long list
+- Sometimes ask for a NUMBER (how many customers, what price, what % margin)
+- Sometimes ask them to choose from options you provide
+- Sometimes ask for a story ("Tell me about the last time a customer said no to this")
+- Sometimes challenge them ("That sounds like what 50 other founders told me. What makes YOU different?")
+- Go deeper when answers are vague. Push back. Don't accept "many people need this"
+- Ask about their background, why them, what have they already done
+- Ask about money — how much will it cost, how will they make money, what's their burn rate plan
+- Ask about competition honestly
+- Near the end, ask if THEY have questions for you
 
-  try {
-    var response = await fetch(API, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({type: 'generateQuestions', idea: idea})
-    });
+FLOW:
+1. Start by asking thein one sentence
+2. Based on their idea, ask smart specific follow-ups (no fixed number — ask until YOU are satisfied)
+3. Dig into weak points — if they can't answer clearly, push harder
+4. Near end: give honest brutal but caring assessment
+5. Ask: "Theek hai, ab tumhara koi sawal hai mere liye?"
 
-    if (!response.ok) throw new Error('API returned ' + response.status);
+RESPONSE FORMAT (respond with JSON only, no markdown):
+For asking questions:
+{"type":"question","message":"your message to founder","input_type":"text|single_choice|multi_choice","options":[],"hint":"optional placeholder hint for text input"}
 
-    var data = await response.json();
-    var result = data.result;
-    if (typeof result === 'string') result = JSON.parse(result);
+For final assessment:
+{"type":"assessment","message":"your closing message","score":<0-100>,"roast":"2-3 sentence brutal roast","good":["strength1","strength2"],"bad":["weakness1","weakness2"],"fix":["specific fix1","specific fix2"],"verdict":"Pursue / Pivot / Kill It"}
 
-    if (result && result.questions && result.questions.length >= 3) {
-      dynamicQs = result.questions;
-    } else {
-      throw new Error('Bad questions format');
-    }
-  } catch(err) {
-    console.warn('API failed, using fallback questions:', err.message);
-    dynamicQs = getFallbackQuestions(idea);
+For open question at end:
+{"type":"open","message":"ask if they have questions"}
+
+For responding to their final question:
+{"type":"answer","message":"your honest answer"}`;
+
+// ════════════════════════════════════════════════════
+// CALL GEMINI — Drive the conversation
+// ════════════════════════════════════════════════════
+async function callVikram(userMessage, isFirst) {
+  var messages = [];
+
+  if (isFirst) {
+    messages = [{role:'user', content: VIKRAM_SYSTEM + '\n\nStart the session. Introduce yourself briefly and ask for their idea.'}];
+  } else {
+    // Build full conversation context
+    var ctx = VIKRAM_SYSTEM + '\n\nConversation so far:\n';
+    conversationHistory.forEach(function(m) { ctx += m.role.toUpperCase()+': '+m.content+'\n'; });
+    ctx += '\nBased on everything above, what do you say/ask next? Respond with JSON only.';
+    if (ideaText) ctx += '\n\nTheir idea: "'+ideaText+'"';
+    messages = [{role:'user', content: ctx}];
   }
 
-  removeLoading();
-  inp.disabled = false;
-  inp.focus();
-  phase = 'questions';
-  currentQ = 0;
-  processing = false;
-  updateProgress();
+  var res = await fetch((window.API_URL||'')+'/api/generate', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({type:'vikram_chat', messages: messages, idea: ideaText})
+  });
 
-  // Ask first question
-  await askQuestion();
+  if (!res.ok) throw new Error('API '+res.status);
+  var data = await res.json();
+  var result = data.result;
+  if (typeof result === 'string') {
+    try { result = JSON.parse(result.replace(/```json|```/g,'').trim()); }
+    catch(e) { result = {type:'question', message: result, input_type:'text'}; }
+  }
+  return result;
 }
 
-// ════════════════════════════════════
-// PHASE 3 — ASK EACH QUESTION
-// ════════════════════════════════════
-async function askQuestion() {
-  if (currentQ >= dynamicQs.length) {
-    await runRoastPhase();
+// ════════════════════════════════════════════════════
+// HANDLE VIKRAM RESPONSE
+// ════════════════════════════════════════════════════
+async function handleVikramResponse(resp) {
+  removeLoading();
+
+  if (!resp || !resp.type) {
+    // Fallback
+    await vikramSay("Interesting. Tell me more about that — specifically how does this make money?");
     return;
   }
 
-  processing = true;
-  var q = dynamicQs[currentQ];
-  await vikramSay(q.question);
-  processing = false;
+  if (resp.type === 'question') {
+    questionCount++;
+    setBadge('Question ' + questionCount);
 
-  // Show MCQ options if available
-  if (q.options && q.options.length > 0) {
-    var answer = await showOptions(q.options);
-    userSay(answer);
-    answers['q' + (currentQ + 1)] = answer;
-    chatHistory.push({role:'user', content: answer});
-    currentQ++;
-    updateProgress();
-    await askQuestion();
+    // Update Vikram mood in sidebar
+    var shortMsg = resp.message.substring(0,80)+'...';
+    document.getElementById('vikMood').textContent = '"'+shortMsg+'"';
+
+    await vikramSay(resp.message);
+
+    if (resp.input_type === 'single_choice' && resp.options && resp.options.length > 0) {
+      var answer = await showOptions(resp.options, false);
+      userSay(answer);
+      await continueConversation(answer);
+
+    } else if (resp.input_type === 'multi_choice' && resp.options && resp.options.length > 0) {
+      await vikramSay('<span class="soft">You can select multiple options below:</span>', 200);
+      var answer = await showOptions(resp.options, true);
+      userSay(answer);
+      await continueConversation(answer);
+
+    } else {
+      // Text input — update placeholder
+      inp.placeholder = resp.hint || 'Type your answer here...';
+      inp.disabled = false;
+      sbtn.disabled = false;
+      processing = false;
+    }
+
+  } else if (resp.type === 'assessment') {
+    setBadge('Final Assessment');
+    await vikramSay(resp.message);
+    showAssessment(resp);
+    sessionPhase = 'done';
+
+  } else if (resp.type === 'open') {
+    setBadge('Your Turn');
+    await vikramSay(resp.message);
+    inp.placeholder = 'Ask Vikram anything — market, funding, product, anything...';
+    inp.disabled = false;
+    sbtn.disabled = false;
+    sessionPhase = 'open';
+    processing = false;
+
+  } else if (resp.type === 'answer') {
+    await vikramSay(resp.message);
+    // Ask if more questions
+    setTimeout(async function() {
+      await vikramSay('Kuch aur poochna hai? Or shall we wrap up and see your score?', 800);
+      inp.placeholder = 'Ask another question or type "done" to see your score...';
+      processing = false;
+    }, 500);
   }
-  // If no options — user types freely, send() handles it
 }
 
-// ════════════════════════════════════
-// PHASE 4 — GENERATE ROAST
-// ════════════════════════════════════
-async function runRoastPhase() {
+// ── SHOW FINAL ASSESSMENT CARD ──
+function showAssessment(data) {
+  localStorage.setItem('roastResult', JSON.stringify({
+    score: data.score, roast: data.roast, good: data.good,
+    bad: data.bad, fix: data.fix, verdict: data.verdict, idea: ideaText
+  }));
+
+  var m = document.createElement('div'); m.className='msg';
+  var goodHTML = (data.good||[]).map(function(g){return '<div class="rc-item">✅ '+g+'</div>';}).join('');
+  var badHTML  = (data.bad||[]).map(function(b){return '<div class="rc-item">❌ '+b+'</div>';}).join('');
+  var fixHTML  = (data.fix||[]).map(function(f){return '<div class="rc-item">🔧 '+f+'</div>';}).join('');
+
+  m.innerHTML = '<div class="mavatar">🔥</div><div class="mbody"><div class="result-card">' +
+    '<div class="rc-score">'+data.score+'</div>' +
+    '<div class="rc-verdict">'+data.verdict+'</div>' +
+    '<div class="rc-section"><div class="rc-lbl">The Roast</div><div class="rc-item">'+data.roast+'</div></div>' +
+    '<div class="rc-section"><div class="rc-lbl">What Works</div>'+goodHTML+'</div>' +
+    '<div class="rc-section"><div class="rc-lbl">What Will Kill It</div>'+badHTML+'</div>' +
+    '<div class="rc-section"><div class="rc-lbl">How To Fix It</div>'+fixHTML+'</div>' +
+    '<div class="rc-btns">' +
+    '<a href="result.html?score='+data.score+'" class="btn-primary">View Full Report →</a>' +
+    '<button class="btn-outline" onclick="shareScore('+data.score+')">Share Score</button>' +
+    '</div></div></div>';
+  chat.appendChild(m); scrollBot();
+}
+
+// ── CONTINUE CONVERSATION ──
+async function continueConversation(userMsg) {
   processing = true;
   inp.disabled = true;
-
-  await vikramSay('Alright. I\'ve heard enough about <span class="hl">' + ideaText.substring(0,35) + '</span>...<br>Running it through the furnace now. 🔥', 400);
-  showLoading('Generating your roast score...');
-
-  var result = null;
+  sbtn.disabled = true;
+  showLoading();
   try {
-    var response = await fetch(API, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({type: 'roast', idea: ideaText, answers: answers})
-    });
-    if (!response.ok) throw new Error('API ' + response.status);
-    var data = await response.json();
-    result = data.result;
-    if (typeof result === 'string') result = JSON.parse(result);
-  } catch(err) {
-    console.warn('Roast API failed:', err.message);
-    result = {
-      score: 67,
-      message: 'The idea has fire. The plan needs serious fuel. Check your score.',
-      roast: 'Real problem identified but execution plan is dangerously vague.',
-      good: ['Problem is genuine and painful', 'Revenue model makes basic sense'],
-      bad: ['No clear customer acquisition plan', 'Competition analysis too shallow'],
-      fix: ['Talk to 50 real customers before writing code', 'Define your 90-day traction metric now'],
-      verdict: 'Pursue — But Refine The Strategy'
-    };
-  }
-
-  localStorage.setItem('roastResult', JSON.stringify(Object.assign({}, result, {idea: ideaText, answers: answers})));
-  removeLoading();
-  inp.disabled = false;
-
-  await vikramSay(result.message || 'Your roast is ready. Brace yourself.', 200);
-  phase = 'iterate';
-  processing = false;
-
-  setTimeout(function() {
-    window.location.href = 'result.html?score=' + (result.score || 67);
-  }, 2000);
-}
-
-// ════════════════════════════════════
-// PHASE 5 — ITERATE (improvement loop)
-// ════════════════════════════════════
-async function runIterate(msg) {
-  processing = true;
-  chatHistory.push({role:'user', content: msg});
-  await vikramSay('Let me reassess with this update...', 100);
-
-  try {
-    var response = await fetch(API, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({type: 'iterate', idea: ideaText, history: chatHistory, userMessage: msg})
-    });
-    var data = await response.json();
-    var result = data.result;
-    if (typeof result === 'string') result = JSON.parse(result);
-    await vikramSay(result.message || 'Interesting pivot. Check your updated score.');
-    chatHistory.push({role:'assistant', content: result.message});
-    var stored = JSON.parse(localStorage.getItem('roastResult') || '{}');
-    localStorage.setItem('roastResult', JSON.stringify(Object.assign({}, stored, result)));
+    var resp = await callVikram(userMsg, false);
+    await handleVikramResponse(resp);
   } catch(e) {
-    await vikramSay('Interesting. Head back to your results to see the updated score.');
+    console.error('Vikram error:', e);
+    removeLoading();
+    await vikramSay('Interesting. Ab bata — yeh idea real customers ke liye kaise solve karta hai? Give me a specific example.');
+    processing = false;
+    inp.disabled = false;
+    sbtn.disabled = false;
   }
-  processing = false;
 }
 
-// ════════════════════════════════════
-// MAIN SEND HANDLER
-// ════════════════════════════════════
-function send() {
+// ════════════════════════════════════════════════════
+// SEND HANDLER
+// ════════════════════════════════════════════════════
+async function send() {
   var text = inp.value.trim();
   if (!text) return;
 
-  // In idea phase — always allow, ignore processing state
-  if (phase === 'idea') {
-    inp.value = '';
-    inp.style.height = 'auto';
-    userSay(text);
-    ideaText = text;
-    chatHistory.push({role:'user', content: text});
-    runQuestionPhase(text);
-    return;
-  }
+  inp.value = ''; inp.style.height='auto';
 
-  // In other phases — block if processing
-  if (processing) return;
-
-  inp.value = '';
-  inp.style.height = 'auto';
-  var optGrid = document.getElementById('optGrid');
-  if (optGrid) optGrid.remove();
+  // Remove any option buttons
+  document.querySelectorAll('.opts-wrap,.opts-confirm').forEach(function(e){e.parentElement.parentElement.remove();});
 
   userSay(text);
 
-  if (phase === 'questions') {
-    answers['q' + (currentQ + 1)] = text;
-    chatHistory.push({role:'user', content: text});
-    currentQ++;
-    updateProgress();
-    askQuestion();
-  } else if (phase === 'iterate') {
-    runIterate(text);
+  // Capture idea on first message
+  if (sessionPhase === 'idea' && !ideaText) {
+    ideaText = text;
+    document.getElementById('ideaDisplay').textContent = '"'+text.substring(0,60)+(text.length>60?'...':"");
+    sessionPhase = 'deep_dive';
+    setBadge('Deep Dive');
   }
+
+  // Handle "done" in open phase
+  if (sessionPhase === 'open' && (text.toLowerCase()==='done' || text.toLowerCase()==='no' || text.toLowerCase()==='theek hai')) {
+    await vikramSay('Theek hai. Chalo result dekhte hain. Best of luck yaar — ab execution pe focus karo! 🔥');
+    setTimeout(function(){ window.location.href='result.html?score='+(localStorage.getItem('lastScore')||'70'); },2000);
+    return;
+  }
+
+  await continueConversation(text);
+}
+
+// ── SHARE ──
+function shareScore(score) {
+  var text = 'I got my startup idea roasted by Vikram at RoastMyIdea. Score: '+score+'/100. Can you beat me? → roastmyplan.netlify.app';
+  if (navigator.share) { navigator.share({title:'RoastMyIdea',text:text}); }
+  else { navigator.clipboard.writeText(text); alert('Copied to clipboard!'); }
 }
 
 // ── ENTER KEY ──
 inp.addEventListener('keydown', function(e) {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    send();
-  }
+  if (e.key==='Enter' && !e.shiftKey) { e.preventDefault(); send(); }
 });
-
-// ── AUTO RESIZE ──
 inp.addEventListener('input', function() {
-  this.style.height = 'auto';
-  this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+  this.style.height='auto';
+  this.style.height=Math.min(this.scrollHeight,140)+'px';
 });
 
-// ── START ──
-setTimeout(startFlow, 500);
+// ════════════════════════════════════════════════════
+// START SESSION
+// ════════════════════════════════════════════════════
+async function startSession() {
+  processing = true;
+  inp.disabled = true;
+  sbtn.disabled = true;
+  setBadge('Starting...');
+
+  // Fallback opening (instant, no API needed)
+  var openings = [
+    "Haan, bolo. Main Vikram hoon — maine hazaron ideas sune hain, bahut saare fail hote dekhe hain, aur kuch ko sach mein unicorn bante bhi dekha hai.<br><br>Toh batao — tumhara idea kya hai? <span class='hl'>Ek sentence mein.</span> No context, no background. Just the idea.",
+    "Theek hai, let's get straight to it. I don't have time for long intros and neither should you.<br><br>Tell me your startup idea in <span class='hl'>one clear sentence.</span> What problem are you solving, and for whom?",
+    "Welcome. I've heard a thousand pitches — most were garbage, a few were gold, and the rest were somewhere in between trying to become gold.<br><br>Let's find out where yours stands. <span class='hl'>What's the idea?</span>"
+  ];
+  var opening = openings[Math.floor(Math.random()*openings.length)];
+
+  await vikramSay(opening);
+  setBadge('Listening...');
+  processing = false;
+  inp.disabled = false;
+  sbtn.disabled = false;
+  inp.focus();
+}
+
+setTimeout(startSession, 500);
 </script>
 </body>
 </html>
-     
